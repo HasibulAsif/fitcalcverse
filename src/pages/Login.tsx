@@ -12,7 +12,6 @@ const Login = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // Add your authentication logic here
     toast({
       title: "Login Successful",
       description: "Welcome back to FitCalcVerse!",
@@ -21,9 +20,12 @@ const Login = () => {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 p-4">
-      <Card className="w-full max-w-md bg-gray-800/50 backdrop-blur-sm border-gray-700">
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-pink-500/20 via-gray-900 to-gray-900 opacity-70"></div>
+      <Card className="w-full max-w-md bg-gray-800/50 backdrop-blur-sm border-gray-700 relative z-10">
         <CardHeader>
-          <h2 className="text-2xl font-bold text-center text-white">Welcome Back</h2>
+          <h2 className="text-2xl font-bold text-center text-transparent bg-clip-text bg-gradient-to-r from-pink-400 to-pink-600">
+            Welcome Back
+          </h2>
         </CardHeader>
         <CardContent>
           <form onSubmit={handleSubmit} className="space-y-4">
@@ -34,7 +36,7 @@ const Login = () => {
                 placeholder="Enter your email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="bg-gray-700 border-gray-600 text-white"
+                className="bg-gray-700/50 border-gray-600 text-white"
                 required
               />
             </div>
@@ -45,7 +47,7 @@ const Login = () => {
                 placeholder="Enter your password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                className="bg-gray-700 border-gray-600 text-white"
+                className="bg-gray-700/50 border-gray-600 text-white"
                 required
               />
             </div>
@@ -57,7 +59,7 @@ const Login = () => {
         <CardFooter className="justify-center">
           <p className="text-sm text-gray-400">
             Don't have an account?{" "}
-            <Link to="/register" className="text-primary hover:underline">
+            <Link to="/register" className="text-primary hover:text-primary/90 hover:underline">
               Sign up
             </Link>
           </p>

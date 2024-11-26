@@ -16,7 +16,6 @@ const Register = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // Add your registration logic here
     toast({
       title: "Registration Successful",
       description: "Welcome to FitCalcVerse!",
@@ -29,9 +28,12 @@ const Register = () => {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 p-4">
-      <Card className="w-full max-w-md bg-gray-800/50 backdrop-blur-sm border-gray-700">
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-pink-500/20 via-gray-900 to-gray-900 opacity-70"></div>
+      <Card className="w-full max-w-md bg-gray-800/50 backdrop-blur-sm border-gray-700 relative z-10">
         <CardHeader>
-          <h2 className="text-2xl font-bold text-center text-white">Create Account</h2>
+          <h2 className="text-2xl font-bold text-center text-transparent bg-clip-text bg-gradient-to-r from-pink-400 to-pink-600">
+            Create Account
+          </h2>
         </CardHeader>
         <CardContent>
           <form onSubmit={handleSubmit} className="space-y-4">
@@ -43,7 +45,7 @@ const Register = () => {
                 placeholder="Enter your name"
                 value={formData.name}
                 onChange={handleChange}
-                className="bg-gray-700 border-gray-600 text-white"
+                className="bg-gray-700/50 border-gray-600 text-white"
                 required
               />
             </div>
@@ -55,7 +57,7 @@ const Register = () => {
                 placeholder="Enter your email"
                 value={formData.email}
                 onChange={handleChange}
-                className="bg-gray-700 border-gray-600 text-white"
+                className="bg-gray-700/50 border-gray-600 text-white"
                 required
               />
             </div>
@@ -67,7 +69,7 @@ const Register = () => {
                 placeholder="Create a password"
                 value={formData.password}
                 onChange={handleChange}
-                className="bg-gray-700 border-gray-600 text-white"
+                className="bg-gray-700/50 border-gray-600 text-white"
                 required
               />
             </div>
@@ -79,7 +81,7 @@ const Register = () => {
                 placeholder="Confirm your password"
                 value={formData.confirmPassword}
                 onChange={handleChange}
-                className="bg-gray-700 border-gray-600 text-white"
+                className="bg-gray-700/50 border-gray-600 text-white"
                 required
               />
             </div>
@@ -91,7 +93,7 @@ const Register = () => {
         <CardFooter className="justify-center">
           <p className="text-sm text-gray-400">
             Already have an account?{" "}
-            <Link to="/login" className="text-primary hover:underline">
+            <Link to="/login" className="text-primary hover:text-primary/90 hover:underline">
               Sign in
             </Link>
           </p>
