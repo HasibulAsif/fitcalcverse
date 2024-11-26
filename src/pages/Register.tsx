@@ -1,0 +1,104 @@
+import { useState } from "react";
+import { Link } from "react-router-dom";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Card, CardHeader, CardContent, CardFooter } from "@/components/ui/card";
+import { useToast } from "@/components/ui/use-toast";
+
+const Register = () => {
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    password: "",
+    confirmPassword: "",
+  });
+  const { toast } = useToast();
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    // Add your registration logic here
+    toast({
+      title: "Registration Successful",
+      description: "Welcome to FitCalcVerse!",
+    });
+  };
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  return (
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 p-4">
+      <Card className="w-full max-w-md bg-gray-800/50 backdrop-blur-sm border-gray-700">
+        <CardHeader>
+          <h2 className="text-2xl font-bold text-center text-white">Create Account</h2>
+        </CardHeader>
+        <CardContent>
+          <form onSubmit={handleSubmit} className="space-y-4">
+            <div className="space-y-2">
+              <label className="text-sm text-gray-300">Full Name</label>
+              <Input
+                type="text"
+                name="name"
+                placeholder="Enter your name"
+                value={formData.name}
+                onChange={handleChange}
+                className="bg-gray-700 border-gray-600 text-white"
+                required
+              />
+            </div>
+            <div className="space-y-2">
+              <label className="text-sm text-gray-300">Email</label>
+              <Input
+                type="email"
+                name="email"
+                placeholder="Enter your email"
+                value={formData.email}
+                onChange={handleChange}
+                className="bg-gray-700 border-gray-600 text-white"
+                required
+              />
+            </div>
+            <div className="space-y-2">
+              <label className="text-sm text-gray-300">Password</label>
+              <Input
+                type="password"
+                name="password"
+                placeholder="Create a password"
+                value={formData.password}
+                onChange={handleChange}
+                className="bg-gray-700 border-gray-600 text-white"
+                required
+              />
+            </div>
+            <div className="space-y-2">
+              <label className="text-sm text-gray-300">Confirm Password</label>
+              <Input
+                type="password"
+                name="confirmPassword"
+                placeholder="Confirm your password"
+                value={formData.confirmPassword}
+                onChange={handleChange}
+                className="bg-gray-700 border-gray-600 text-white"
+                required
+              />
+            </div>
+            <Button type="submit" className="w-full bg-primary hover:bg-primary/90">
+              Sign Up
+            </Button>
+          </form>
+        </CardContent>
+        <CardFooter className="justify-center">
+          <p className="text-sm text-gray-400">
+            Already have an account?{" "}
+            <Link to="/login" className="text-primary hover:underline">
+              Sign in
+            </Link>
+          </p>
+        </CardFooter>
+      </Card>
+    </div>
+  );
+};
+
+export default Register;
