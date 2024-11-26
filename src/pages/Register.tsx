@@ -42,7 +42,7 @@ const Register = () => {
 
       toast({
         title: "Registration Successful",
-        description: "Welcome to FitCalcVerse!",
+        description: "Welcome to HT Workout!",
       });
     } catch (error) {
       toast({

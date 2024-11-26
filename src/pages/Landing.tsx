@@ -15,7 +15,7 @@ const Landing = () => {
           <div className="space-y-8 animate-fade-in backdrop-blur-lg bg-gray-900/30 p-8 rounded-2xl border border-gray-800/50 shadow-2xl">
             <h1 className="text-5xl md:text-7xl font-bold">
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-pink-400 to-pink-600">
-                FitCalcVerse
+                HT Workout
               </span>
             </h1>
             <p className="text-xl md:text-2xl text-gray-300 max-w-2xl">

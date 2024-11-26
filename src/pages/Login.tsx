@@ -24,7 +24,7 @@ const Login = () => {
 
       toast({
         title: "Login Successful",
-        description: "Welcome back to FitCalcVerse!",
+        description: "Welcome back to HT Workout!",
       });
 
       // Redirect to dashboard after successful login

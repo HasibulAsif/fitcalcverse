@@ -58,7 +58,7 @@ const Sidebar = () => {
     >
       <div className="p-4 flex justify-between items-center">
         <h1 className={cn("font-bold text-xl", collapsed && "hidden")}>
-          FitCalcVerse
+          HT Workout
         </h1>
         <Button
           variant="ghost"
