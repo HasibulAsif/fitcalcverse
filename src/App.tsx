@@ -2,7 +2,7 @@ import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import Layout from "./components/layout/Layout";
 import Landing from "./pages/Landing";
 import Login from "./pages/Login";
@@ -22,10 +22,11 @@ const App = () => (
     <TooltipProvider>
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<Landing />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
           <Route element={<Layout />}>
+            <Route path="/" element={<Landing />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/register" element={<Register />} />
+            {/* Protected Routes */}
             <Route path="/dashboard" element={<Index />} />
             <Route path="/bmi-calculator" element={<BMICalculator />} />
             <Route path="/body-fat-calculator" element={<BodyFatCalculator />} />
@@ -33,6 +34,8 @@ const App = () => (
             <Route path="/calories-burned-calculator" element={<CaloriesBurnedCalculator />} />
             <Route path="/macronutrient-calculator" element={<MacronutrientCalculator />} />
             <Route path="/lean-body-mass-calculator" element={<LeanBodyMassCalculator />} />
+            {/* Catch all undefined routes */}
+            <Route path="*" element={<Navigate to="/" replace />} />
           </Route>
         </Routes>
         <Toaster />
