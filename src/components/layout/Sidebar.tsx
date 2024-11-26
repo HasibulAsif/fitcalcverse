@@ -22,22 +22,30 @@ const Sidebar = () => {
     {
       title: 'Body Composition',
       icon: <Scale className="w-4 h-4" />,
-      items: ['BMI Calculator', 'Body Fat Calculator', 'Lean Mass Calculator']
+      items: [
+        'BMI Calculator',
+        'Body Fat Calculator',
+        'Lean Body Mass Calculator',
+        'Ideal Body Weight Calculator',
+        'Waist-to-Hip Ratio Calculator'
+      ]
     },
     {
       title: 'Energy & Metabolism',
       icon: <Activity className="w-4 h-4" />,
-      items: ['BMR Calculator', 'TDEE Calculator', 'Calories Burned']
+      items: [
+        'Calorie Calculator',
+        'Calories Burned Calculator',
+        'Weight Loss Calculator'
+      ]
     },
     {
       title: 'Nutrition',
       icon: <BarChart3 className="w-4 h-4" />,
-      items: ['Macronutrient Calculator', 'Water Intake', 'Meal Planner']
-    },
-    {
-      title: 'Performance',
-      icon: <Dumbbell className="w-4 h-4" />,
-      items: ['1RM Calculator', 'Heart Rate Zones', 'Training Volume']
+      items: [
+        'Macronutrient Calculator',
+        'Water Intake Calculator'
+      ]
     }
   ];
 
