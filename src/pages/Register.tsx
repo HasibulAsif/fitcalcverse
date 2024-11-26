@@ -1,9 +1,10 @@
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardHeader, CardContent, CardFooter } from "@/components/ui/card";
 import { useToast } from "@/hooks/use-toast";
+import { useAuth } from "@/contexts/AuthContext";
 
 const Register = () => {
   const [formData, setFormData] = useState({
@@ -12,8 +13,9 @@ const Register = () => {
     password: "",
     confirmPassword: "",
   });
+  
   const { toast } = useToast();
-  const navigate = useNavigate();
+  const { login } = useAuth();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -30,19 +32,18 @@ const Register = () => {
     try {
       // Here you would typically make an API call to register the user
       // For now, we'll simulate a successful registration
-      localStorage.setItem('user', JSON.stringify({
+      const userData = {
         name: formData.name,
         email: formData.email,
-        isAuthenticated: true
-      }));
+      };
+
+      // Use the login function from AuthContext
+      login(userData);
 
       toast({
         title: "Registration Successful",
         description: "Welcome to FitCalcVerse!",
       });
-
-      // Redirect to dashboard after successful registration
-      navigate("/dashboard");
     } catch (error) {
       toast({
         variant: "destructive",
