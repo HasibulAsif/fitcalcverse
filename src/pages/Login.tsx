@@ -1,21 +1,41 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardHeader, CardContent, CardFooter } from "@/components/ui/card";
-import { useToast } from "@/components/ui/use-toast";
+import { useToast } from "@/hooks/use-toast";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const { toast } = useToast();
+  const navigate = useNavigate();
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    toast({
-      title: "Login Successful",
-      description: "Welcome back to FitCalcVerse!",
-    });
+    
+    try {
+      // Here you would typically make an API call to authenticate the user
+      // For now, we'll simulate a successful login
+      localStorage.setItem('user', JSON.stringify({
+        email: email,
+        isAuthenticated: true
+      }));
+
+      toast({
+        title: "Login Successful",
+        description: "Welcome back to FitCalcVerse!",
+      });
+
+      // Redirect to dashboard after successful login
+      navigate("/dashboard");
+    } catch (error) {
+      toast({
+        variant: "destructive",
+        title: "Login failed",
+        description: "Invalid credentials",
+      });
+    }
   };
 
   return (

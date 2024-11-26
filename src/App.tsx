@@ -3,6 +3,7 @@ import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { AuthProvider, useAuth } from "./contexts/AuthContext";
 import Layout from "./components/layout/Layout";
 import Landing from "./pages/Landing";
 import Login from "./pages/Login";
@@ -17,31 +18,78 @@ import LeanBodyMassCalculator from "./components/calculators/LeanBodyMassCalcula
 
 const queryClient = new QueryClient();
 
+// Protected Route wrapper component
+const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
+  const { isAuthenticated } = useAuth();
+  
+  if (!isAuthenticated) {
+    return <Navigate to="/login" replace />;
+  }
+
+  return <>{children}</>;
+};
+
+const AppRoutes = () => (
+  <Routes>
+    <Route element={<Layout />}>
+      <Route path="/" element={<Landing />} />
+      <Route path="/login" element={<Login />} />
+      <Route path="/register" element={<Register />} />
+      
+      {/* Protected Routes */}
+      <Route path="/dashboard" element={
+        <ProtectedRoute>
+          <Index />
+        </ProtectedRoute>
+      } />
+      <Route path="/bmi-calculator" element={
+        <ProtectedRoute>
+          <BMICalculator />
+        </ProtectedRoute>
+      } />
+      <Route path="/body-fat-calculator" element={
+        <ProtectedRoute>
+          <BodyFatCalculator />
+        </ProtectedRoute>
+      } />
+      <Route path="/calorie-calculator" element={
+        <ProtectedRoute>
+          <CalorieCalculator />
+        </ProtectedRoute>
+      } />
+      <Route path="/calories-burned-calculator" element={
+        <ProtectedRoute>
+          <CaloriesBurnedCalculator />
+        </ProtectedRoute>
+      } />
+      <Route path="/macronutrient-calculator" element={
+        <ProtectedRoute>
+          <MacronutrientCalculator />
+        </ProtectedRoute>
+      } />
+      <Route path="/lean-body-mass-calculator" element={
+        <ProtectedRoute>
+          <LeanBodyMassCalculator />
+        </ProtectedRoute>
+      } />
+      
+      {/* Catch all undefined routes */}
+      <Route path="*" element={<Navigate to="/" replace />} />
+    </Route>
+  </Routes>
+);
+
 const App = () => (
   <QueryClientProvider client={queryClient}>
-    <TooltipProvider>
-      <BrowserRouter>
-        <Routes>
-          <Route element={<Layout />}>
-            <Route path="/" element={<Landing />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/register" element={<Register />} />
-            {/* Protected Routes */}
-            <Route path="/dashboard" element={<Index />} />
-            <Route path="/bmi-calculator" element={<BMICalculator />} />
-            <Route path="/body-fat-calculator" element={<BodyFatCalculator />} />
-            <Route path="/calorie-calculator" element={<CalorieCalculator />} />
-            <Route path="/calories-burned-calculator" element={<CaloriesBurnedCalculator />} />
-            <Route path="/macronutrient-calculator" element={<MacronutrientCalculator />} />
-            <Route path="/lean-body-mass-calculator" element={<LeanBodyMassCalculator />} />
-            {/* Catch all undefined routes */}
-            <Route path="*" element={<Navigate to="/" replace />} />
-          </Route>
-        </Routes>
-        <Toaster />
-        <Sonner />
-      </BrowserRouter>
-    </TooltipProvider>
+    <AuthProvider>
+      <TooltipProvider>
+        <BrowserRouter>
+          <AppRoutes />
+          <Toaster />
+          <Sonner />
+        </BrowserRouter>
+      </TooltipProvider>
+    </AuthProvider>
   </QueryClientProvider>
 );
 
