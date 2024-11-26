@@ -4,12 +4,14 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardHeader, CardContent, CardFooter } from "@/components/ui/card";
 import { useToast } from "@/hooks/use-toast";
+import { useAuth } from "@/contexts/AuthContext";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const { toast } = useToast();
   const navigate = useNavigate();
+  const { login } = useAuth();
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -17,10 +19,10 @@ const Login = () => {
     try {
       // Here you would typically make an API call to authenticate the user
       // For now, we'll simulate a successful login
-      localStorage.setItem('user', JSON.stringify({
+      login({
         email: email,
-        isAuthenticated: true
-      }));
+        name: "User",
+      });
 
       toast({
         title: "Login Successful",
