@@ -4,6 +4,7 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { toast } from "sonner";
+import GuidelinesTable from './GuidelinesTable';
 
 const WaterIntakeCalculator = () => {
   const [weight, setWeight] = useState('');
@@ -39,8 +40,32 @@ const WaterIntakeCalculator = () => {
     toast.success("Water intake calculated successfully!");
   };
 
+  const waterIntakeGuidelines = [
+    {
+      category: "Adult Men",
+      value: "3.7 liters (15.5 cups) per day",
+      source: "National Academy of Medicine"
+    },
+    {
+      category: "Adult Women",
+      value: "2.7 liters (11.5 cups) per day",
+      source: "National Academy of Medicine"
+    },
+    {
+      category: "Athletes",
+      value: "Additional 400-800ml per hour of exercise",
+      source: "American College of Sports Medicine"
+    },
+    {
+      category: "Hot Climate",
+      value: "Additional 0.5-1.0 liters per day",
+      source: "World Health Organization"
+    }
+  ];
+
   return (
-    <Card className="p-6 w-full max-w-md mx-auto">
+    <div className="space-y-8">
+      <Card className="p-6 w-full max-w-md mx-auto">
       <h2 className="text-2xl font-bold mb-4 text-center">Water Intake Calculator</h2>
       <div className="space-y-4">
         <div>
@@ -100,7 +125,13 @@ const WaterIntakeCalculator = () => {
           </div>
         )}
       </div>
-    </Card>
+      </Card>
+
+      <GuidelinesTable 
+        title="Daily Water Intake Guidelines"
+        guidelines={waterIntakeGuidelines}
+      />
+    </div>
   );
 };
 

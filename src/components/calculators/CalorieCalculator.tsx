@@ -4,6 +4,7 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { toast } from "sonner";
+import GuidelinesTable from './GuidelinesTable';
 
 const CalorieCalculator = () => {
   const [age, setAge] = useState('');
@@ -39,8 +40,37 @@ const CalorieCalculator = () => {
     toast.success("Daily caloric needs calculated successfully!");
   };
 
+  const calorieGuidelines = [
+    {
+      category: "Sedentary Adults",
+      value: "1,600-2,000 calories (women) / 2,000-2,600 calories (men)",
+      source: "U.S. Department of Health"
+    },
+    {
+      category: "Moderately Active Adults",
+      value: "1,800-2,200 calories (women) / 2,200-2,800 calories (men)",
+      source: "U.S. Department of Health"
+    },
+    {
+      category: "Active Adults",
+      value: "2,000-2,400 calories (women) / 2,400-3,000 calories (men)",
+      source: "U.S. Department of Health"
+    },
+    {
+      category: "Weight Loss",
+      value: "500-750 calories deficit from maintenance",
+      source: "American College of Sports Medicine"
+    },
+    {
+      category: "Weight Gain",
+      value: "300-500 calories surplus from maintenance",
+      source: "International Sports Sciences Association"
+    }
+  ];
+
   return (
-    <Card className="p-6 w-full max-w-md mx-auto">
+    <div className="space-y-8">
+      <Card className="p-6 w-full max-w-md mx-auto">
       <h2 className="text-2xl font-bold mb-4 text-center">Calorie Calculator</h2>
       <div className="space-y-4">
         <div>
@@ -119,7 +149,13 @@ const CalorieCalculator = () => {
           </div>
         )}
       </div>
-    </Card>
+      </Card>
+
+      <GuidelinesTable 
+        title="Daily Caloric Needs Guidelines"
+        guidelines={calorieGuidelines}
+      />
+    </div>
   );
 };
 

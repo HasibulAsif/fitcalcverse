@@ -4,6 +4,7 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { toast } from "sonner";
+import GuidelinesTable from './GuidelinesTable';
 
 const MealCalorieCalculator = () => {
   const [totalCalories, setTotalCalories] = useState('');
@@ -57,8 +58,32 @@ const MealCalorieCalculator = () => {
     toast.success("Meal calories calculated successfully!");
   };
 
+  const mealDistributionGuidelines = [
+    {
+      category: "3 Meals Distribution",
+      value: "Breakfast 30%, Lunch 40%, Dinner 30%",
+      source: "American Dietetic Association"
+    },
+    {
+      category: "4 Meals Distribution",
+      value: "Breakfast 25%, Lunch 35%, Snack 15%, Dinner 25%",
+      source: "American Dietetic Association"
+    },
+    {
+      category: "5 Meals Distribution",
+      value: "Breakfast 25%, AM Snack 10%, Lunch 30%, PM Snack 10%, Dinner 25%",
+      source: "American Dietetic Association"
+    },
+    {
+      category: "Meal Timing",
+      value: "Eat every 3-4 hours during waking hours",
+      source: "Academy of Nutrition and Dietetics"
+    }
+  ];
+
   return (
-    <Card className="p-6 w-full max-w-md mx-auto">
+    <div className="space-y-8">
+      <Card className="p-6 w-full max-w-md mx-auto">
       <h2 className="text-2xl font-bold mb-4 text-center">Meal Calorie Calculator</h2>
       <div className="space-y-4">
         <div>
@@ -107,7 +132,13 @@ const MealCalorieCalculator = () => {
           </div>
         )}
       </div>
-    </Card>
+      </Card>
+
+      <GuidelinesTable 
+        title="Meal Distribution Guidelines"
+        guidelines={mealDistributionGuidelines}
+      />
+    </div>
   );
 };
 

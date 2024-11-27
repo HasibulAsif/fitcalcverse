@@ -3,6 +3,7 @@ import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
+import GuidelinesTable from './GuidelinesTable';
 
 const OneRepMaxCalculator = () => {
   const [weight, setWeight] = useState('');
@@ -24,8 +25,32 @@ const OneRepMaxCalculator = () => {
     toast.success("One rep max calculated successfully!");
   };
 
+  const strengthGuidelines = [
+    {
+      category: "Beginner",
+      value: "< 1.5x bodyweight (major lifts)",
+      source: "National Strength and Conditioning Association"
+    },
+    {
+      category: "Intermediate",
+      value: "1.5-2x bodyweight (major lifts)",
+      source: "National Strength and Conditioning Association"
+    },
+    {
+      category: "Advanced",
+      value: "2-2.5x bodyweight (major lifts)",
+      source: "National Strength and Conditioning Association"
+    },
+    {
+      category: "Elite",
+      value: "> 2.5x bodyweight (major lifts)",
+      source: "National Strength and Conditioning Association"
+    }
+  ];
+
   return (
-    <Card className="p-6 w-full max-w-md mx-auto">
+    <div className="space-y-8">
+      <Card className="p-6 w-full max-w-md mx-auto">
       <h2 className="text-2xl font-bold mb-4 text-center">One Rep Max (1RM) Calculator</h2>
       <div className="space-y-4">
         <div>
@@ -71,7 +96,13 @@ const OneRepMaxCalculator = () => {
           </div>
         )}
       </div>
-    </Card>
+      </Card>
+
+      <GuidelinesTable 
+        title="Strength Standards"
+        guidelines={strengthGuidelines}
+      />
+    </div>
   );
 };
 

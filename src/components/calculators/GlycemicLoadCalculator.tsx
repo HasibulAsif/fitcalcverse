@@ -3,6 +3,7 @@ import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
+import GuidelinesTable from './GuidelinesTable';
 
 const GlycemicLoadCalculator = () => {
   const [foodItem, setFoodItem] = useState('');
@@ -24,8 +25,32 @@ const GlycemicLoadCalculator = () => {
     toast.success("Glycemic load calculated successfully!");
   };
 
+  const glycemicGuidelines = [
+    {
+      category: "Low Glycemic Load",
+      value: "≤ 10",
+      source: "Harvard Medical School"
+    },
+    {
+      category: "Medium Glycemic Load",
+      value: "11-19",
+      source: "Harvard Medical School"
+    },
+    {
+      category: "High Glycemic Load",
+      value: "≥ 20",
+      source: "Harvard Medical School"
+    },
+    {
+      category: "Daily GL Target",
+      value: "< 100",
+      source: "International Tables of Glycemic Index"
+    }
+  ];
+
   return (
-    <Card className="p-6 w-full max-w-md mx-auto">
+    <div className="space-y-8">
+      <Card className="p-6 w-full max-w-md mx-auto">
       <h2 className="text-2xl font-bold mb-4 text-center">Glycemic Load Calculator</h2>
       <div className="space-y-4">
         <div>
@@ -76,7 +101,13 @@ const GlycemicLoadCalculator = () => {
           </div>
         )}
       </div>
-    </Card>
+      </Card>
+
+      <GuidelinesTable 
+        title="Glycemic Load Guidelines"
+        guidelines={glycemicGuidelines}
+      />
+    </div>
   );
 };
 

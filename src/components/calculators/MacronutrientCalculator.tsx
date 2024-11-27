@@ -4,6 +4,7 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { toast } from "sonner";
+import GuidelinesTable from './GuidelinesTable';
 
 const MacronutrientCalculator = () => {
   const [calories, setCalories] = useState('');
@@ -47,8 +48,32 @@ const MacronutrientCalculator = () => {
     toast.success("Macronutrients calculated successfully!");
   };
 
+  const macroGuidelines = [
+    {
+      category: "Protein RDA",
+      value: "0.8g per kg of body weight",
+      source: "Institute of Medicine"
+    },
+    {
+      category: "Athletes Protein Needs",
+      value: "1.2-2.0g per kg of body weight",
+      source: "International Society of Sports Nutrition"
+    },
+    {
+      category: "Carbohydrates",
+      value: "45-65% of total calories",
+      source: "Dietary Guidelines for Americans"
+    },
+    {
+      category: "Fats",
+      value: "20-35% of total calories",
+      source: "Dietary Guidelines for Americans"
+    }
+  ];
+
   return (
-    <Card className="p-6 w-full max-w-md mx-auto">
+    <div className="space-y-8">
+      <Card className="p-6 w-full max-w-md mx-auto">
       <h2 className="text-2xl font-bold mb-4 text-center">Macronutrient Calculator</h2>
       <div className="space-y-4">
         <div>
@@ -91,7 +116,13 @@ const MacronutrientCalculator = () => {
           </div>
         )}
       </div>
-    </Card>
+      </Card>
+
+      <GuidelinesTable 
+        title="Macronutrient Guidelines"
+        guidelines={macroGuidelines}
+      />
+    </div>
   );
 };
 
