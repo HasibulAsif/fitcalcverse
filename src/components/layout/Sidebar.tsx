@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { 
   Scale,
   Activity,
@@ -11,13 +11,19 @@ import {
   Brain,
   Timer,
   Menu,
-  Settings
+  Settings,
+  User,
+  Mail
 } from 'lucide-react';
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
+import { useAuth } from "@/contexts/AuthContext";
+import { ScrollArea } from "@/components/ui/scroll-area";
 
 const Sidebar = () => {
   const [collapsed, setCollapsed] = React.useState(false);
+  const { user } = useAuth();
+  const navigate = useNavigate();
 
   const menuItems = [
     {
@@ -63,11 +69,11 @@ const Sidebar = () => {
   return (
     <div 
       className={cn(
-        "h-screen bg-gradient-to-b from-gray-900 to-gray-800 text-white transition-all duration-300",
+        "relative h-screen flex flex-col bg-gradient-to-b from-gray-900 to-gray-800 text-white transition-all duration-300",
         collapsed ? "w-20" : "w-64"
       )}
     >
-      <div className="p-4 flex justify-between items-center">
+      <div className="p-4 flex justify-between items-center border-b border-gray-700">
         <h1 className={cn("font-bold text-xl", collapsed && "hidden")}>
           HT Workout
         </h1>
@@ -81,39 +87,55 @@ const Sidebar = () => {
         </Button>
       </div>
 
-      <nav className="mt-6">
-        {menuItems.map((section, idx) => (
-          <div key={idx} className="px-4 py-2">
-            <div className="flex items-center gap-2 text-gray-400 text-sm mb-2">
-              {section.icon}
-              {!collapsed && <span>{section.title}</span>}
-            </div>
-            {!collapsed && (
-              <div className="space-y-1">
-                {section.items.map((item, itemIdx) => (
-                  <Link
-                    key={itemIdx}
-                    to={`/${item.toLowerCase().replace(/\s+/g, '-')}`}
-                    className="block px-4 py-2 text-sm hover:bg-gray-700 rounded-md transition-colors"
-                  >
-                    {item}
-                  </Link>
-                ))}
-              </div>
-            )}
+      {!collapsed && (
+        <div className="p-4 border-b border-gray-700">
+          <div className="flex items-center gap-3 mb-2">
+            <User className="w-4 h-4 text-gray-400" />
+            <span className="text-sm text-gray-300">{user?.name || 'User'}</span>
           </div>
-        ))}
-        
-        <div className="px-4 py-2 mt-auto">
-          <Link
-            to="/settings"
-            className="flex items-center gap-2 px-4 py-2 text-sm hover:bg-gray-700 rounded-md transition-colors"
-          >
-            <Settings className="w-4 h-4" />
-            {!collapsed && <span>Settings</span>}
-          </Link>
+          <div className="flex items-center gap-3">
+            <Mail className="w-4 h-4 text-gray-400" />
+            <span className="text-sm text-gray-300 truncate">{user?.email || 'email@example.com'}</span>
+          </div>
         </div>
-      </nav>
+      )}
+
+      <ScrollArea className="flex-1 px-4">
+        <nav className="mt-6 space-y-6">
+          {menuItems.map((section, idx) => (
+            <div key={idx}>
+              <div className="flex items-center gap-2 text-gray-400 text-sm mb-2">
+                {section.icon}
+                {!collapsed && <span>{section.title}</span>}
+              </div>
+              {!collapsed && (
+                <div className="space-y-1">
+                  {section.items.map((item, itemIdx) => (
+                    <Link
+                      key={itemIdx}
+                      to={`/${item.toLowerCase().replace(/\s+/g, '-')}`}
+                      className="block px-4 py-2 text-sm hover:bg-gray-700 rounded-md transition-colors"
+                    >
+                      {item}
+                    </Link>
+                  ))}
+                </div>
+              )}
+            </div>
+          ))}
+        </nav>
+      </ScrollArea>
+
+      <div className="absolute bottom-0 left-0 right-0 p-4 border-t border-gray-700">
+        <Button
+          variant="ghost"
+          className="w-full flex items-center gap-2 hover:bg-gray-700"
+          onClick={() => navigate('/settings')}
+        >
+          <Settings className="w-4 h-4" />
+          {!collapsed && <span>Settings</span>}
+        </Button>
+      </div>
     </div>
   );
 };

@@ -10,7 +10,7 @@ const Layout = () => {
   return (
     <div className="flex min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900">
       {!isLandingPage && <Sidebar />}
-      <main className={`flex-1 p-8 overflow-auto ${isLandingPage ? 'w-full' : ''}`}>
+      <main className={`flex-1 p-8 overflow-auto h-screen ${isLandingPage ? 'w-full' : ''}`}>
         <div className="max-w-7xl mx-auto">
           <Outlet />
         </div>
