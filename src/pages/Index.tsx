@@ -65,6 +65,18 @@ const Index = () => {
       description: 'Find your optimal training zones',
       path: '/heart-rate-zone-calculator',
       icon: '❤️'
+    },
+    {
+      title: 'Glycemic Load Calculator',
+      description: 'Calculate the glycemic load of foods',
+      path: '/glycemic-load-calculator',
+      icon: '🍎'
+    },
+    {
+      title: 'Meal Calorie Calculator',
+      description: 'Distribute daily calories into meals',
+      path: '/meal-calorie-calculator',
+      icon: '🍽️'
     }
   ];
 

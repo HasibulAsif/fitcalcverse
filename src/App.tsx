@@ -19,6 +19,8 @@ import WeightGoalCalculator from "./components/calculators/WeightGoalCalculator"
 import WaterIntakeCalculator from "./components/calculators/WaterIntakeCalculator";
 import OneRepMaxCalculator from "./components/calculators/OneRepMaxCalculator";
 import HeartRateZoneCalculator from "./components/calculators/HeartRateZoneCalculator";
+import GlycemicLoadCalculator from "./components/calculators/GlycemicLoadCalculator";
+import MealCalorieCalculator from "./components/calculators/MealCalorieCalculator";
 
 const queryClient = new QueryClient();
 
@@ -94,6 +96,16 @@ const AppRoutes = () => (
       <Route path="/heart-rate-zone-calculator" element={
         <ProtectedRoute>
           <HeartRateZoneCalculator />
+        </ProtectedRoute>
+      } />
+      <Route path="/glycemic-load-calculator" element={
+        <ProtectedRoute>
+          <GlycemicLoadCalculator />
+        </ProtectedRoute>
+      } />
+      <Route path="/meal-calorie-calculator" element={
+        <ProtectedRoute>
+          <MealCalorieCalculator />
         </ProtectedRoute>
       } />
       
