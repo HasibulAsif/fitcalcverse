@@ -4,6 +4,7 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { toast } from "sonner";
+import GuidelinesTable from './GuidelinesTable';
 
 const BodyFatCalculator = () => {
   const [gender, setGender] = useState('');
@@ -40,79 +41,129 @@ const BodyFatCalculator = () => {
     toast.success("Body fat percentage calculated successfully!");
   };
 
+  const bodyFatGuidelines = [
+    {
+      category: "Essential Fat (Men)",
+      value: "2-5%",
+      source: "American Council on Exercise (ACE)"
+    },
+    {
+      category: "Essential Fat (Women)",
+      value: "10-13%",
+      source: "American Council on Exercise (ACE)"
+    },
+    {
+      category: "Athletes (Men)",
+      value: "6-13%",
+      source: "American Council on Exercise (ACE)"
+    },
+    {
+      category: "Athletes (Women)",
+      value: "14-20%",
+      source: "American Council on Exercise (ACE)"
+    },
+    {
+      category: "Fitness (Men)",
+      value: "14-17%",
+      source: "American Council on Exercise (ACE)"
+    },
+    {
+      category: "Fitness (Women)",
+      value: "21-24%",
+      source: "American Council on Exercise (ACE)"
+    },
+    {
+      category: "Average (Men)",
+      value: "18-24%",
+      source: "American Council on Exercise (ACE)"
+    },
+    {
+      category: "Average (Women)",
+      value: "25-31%",
+      source: "American Council on Exercise (ACE)"
+    }
+  ];
+
   return (
-    <Card className="p-6 w-full max-w-md mx-auto">
-      <h2 className="text-2xl font-bold mb-4 text-center">Body Fat Calculator</h2>
-      <div className="space-y-4">
-        <div>
-          <label className="block text-sm font-medium mb-1">Gender</label>
-          <Select onValueChange={setGender}>
-            <SelectTrigger>
-              <SelectValue placeholder="Select gender" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="male">Male</SelectItem>
-              <SelectItem value="female">Female</SelectItem>
-            </SelectContent>
-          </Select>
-        </div>
-        
-        <div>
-          <label className="block text-sm font-medium mb-1">Height (cm)</label>
-          <Input
-            type="number"
-            value={height}
-            onChange={(e) => setHeight(e.target.value)}
-            placeholder="Enter height in cm"
-          />
-        </div>
-        
-        <div>
-          <label className="block text-sm font-medium mb-1">Neck (cm)</label>
-          <Input
-            type="number"
-            value={neck}
-            onChange={(e) => setNeck(e.target.value)}
-            placeholder="Enter neck circumference"
-          />
-        </div>
-        
-        <div>
-          <label className="block text-sm font-medium mb-1">Waist (cm)</label>
-          <Input
-            type="number"
-            value={waist}
-            onChange={(e) => setWaist(e.target.value)}
-            placeholder="Enter waist circumference"
-          />
-        </div>
-        
-        {gender === 'female' && (
+    <div className="space-y-8">
+      <Card className="p-6 w-full max-w-md mx-auto">
+        <h2 className="text-2xl font-bold mb-4 text-center">Body Fat Calculator</h2>
+        <div className="space-y-4">
           <div>
-            <label className="block text-sm font-medium mb-1">Hip (cm)</label>
+            <label className="block text-sm font-medium mb-1">Gender</label>
+            <Select onValueChange={setGender}>
+              <SelectTrigger>
+                <SelectValue placeholder="Select gender" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="male">Male</SelectItem>
+                <SelectItem value="female">Female</SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
+          
+          <div>
+            <label className="block text-sm font-medium mb-1">Height (cm)</label>
             <Input
               type="number"
-              value={hip}
-              onChange={(e) => setHip(e.target.value)}
-              placeholder="Enter hip circumference"
+              value={height}
+              onChange={(e) => setHeight(e.target.value)}
+              placeholder="Enter height in cm"
             />
           </div>
-        )}
-        
-        <Button 
-          onClick={calculateBodyFat}
-          className="w-full bg-primary hover:bg-primary/90"
-        >
-          Calculate Body Fat
-        </Button>
-        
-        {bodyFat !== null && (
-          <div className="mt-4 p-4 bg-secondary rounded-lg">
-            <p className="text-center font-semibold">Body Fat: {bodyFat}%</p>
+          
+          <div>
+            <label className="block text-sm font-medium mb-1">Neck (cm)</label>
+            <Input
+              type="number"
+              value={neck}
+              onChange={(e) => setNeck(e.target.value)}
+              placeholder="Enter neck circumference"
+            />
           </div>
-        )}
-      </div>
-    </Card>
+          
+          <div>
+            <label className="block text-sm font-medium mb-1">Waist (cm)</label>
+            <Input
+              type="number"
+              value={waist}
+              onChange={(e) => setWaist(e.target.value)}
+              placeholder="Enter waist circumference"
+            />
+          </div>
+          
+          {gender === 'female' && (
+            <div>
+              <label className="block text-sm font-medium mb-1">Hip (cm)</label>
+              <Input
+                type="number"
+                value={hip}
+                onChange={(e) => setHip(e.target.value)}
+                placeholder="Enter hip circumference"
+              />
+            </div>
+          )}
+          
+          <Button 
+            onClick={calculateBodyFat}
+            className="w-full bg-primary hover:bg-primary/90"
+          >
+            Calculate Body Fat
+          </Button>
+          
+          {bodyFat !== null && (
+            <div className="mt-4 p-4 bg-secondary rounded-lg">
+              <p className="text-center font-semibold">Body Fat: {bodyFat}%</p>
+            </div>
+          )}
+        </div>
+      </Card>
+
+      <GuidelinesTable 
+        title="Body Fat Percentage Guidelines"
+        guidelines={bodyFatGuidelines}
+      />
+    </div>
   );
 };
 
