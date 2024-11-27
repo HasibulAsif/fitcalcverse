@@ -9,6 +9,7 @@ import Landing from "./pages/Landing";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Index from "./pages/Index";
+import Settings from "./pages/Settings";
 import BMICalculator from "./components/calculators/BMICalculator";
 import BodyFatCalculator from "./components/calculators/BodyFatCalculator";
 import CalorieCalculator from "./components/calculators/CalorieCalculator";
@@ -24,7 +25,6 @@ import MealCalorieCalculator from "./components/calculators/MealCalorieCalculato
 
 const queryClient = new QueryClient();
 
-// Protected Route wrapper component
 const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
   const { isAuthenticated } = useAuth();
   
@@ -46,6 +46,11 @@ const AppRoutes = () => (
       <Route path="/dashboard" element={
         <ProtectedRoute>
           <Index />
+        </ProtectedRoute>
+      } />
+      <Route path="/settings" element={
+        <ProtectedRoute>
+          <Settings />
         </ProtectedRoute>
       } />
       <Route path="/bmi-calculator" element={

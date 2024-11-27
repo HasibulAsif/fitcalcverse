@@ -10,7 +10,8 @@ import {
   Droplets,
   Brain,
   Timer,
-  Menu
+  Menu,
+  Settings
 } from 'lucide-react';
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
@@ -92,6 +93,16 @@ const Sidebar = () => {
             )}
           </div>
         ))}
+        
+        <div className="px-4 py-2 mt-auto">
+          <Link
+            to="/settings"
+            className="flex items-center gap-2 px-4 py-2 text-sm hover:bg-gray-700 rounded-md transition-colors"
+          >
+            <Settings className="w-4 h-4" />
+            {!collapsed && <span>Settings</span>}
+          </Link>
+        </div>
       </nav>
     </div>
   );
