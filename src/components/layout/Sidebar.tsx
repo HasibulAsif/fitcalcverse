@@ -28,7 +28,7 @@ const Sidebar = () => {
         'Body Fat Calculator',
         'Lean Body Mass Calculator',
         'Ideal Body Weight Calculator',
-        'Waist-to-Hip Ratio Calculator'
+        'Waist-to-Hip Calculator'
       ]
     },
     {
@@ -37,7 +37,7 @@ const Sidebar = () => {
       items: [
         'Calorie Calculator',
         'Calories Burned Calculator',
-        'Weight Loss Calculator'
+        'Weight Goal Calculator'
       ]
     },
     {
@@ -45,7 +45,17 @@ const Sidebar = () => {
       icon: <BarChart3 className="w-4 h-4" />,
       items: [
         'Macronutrient Calculator',
-        'Water Intake Calculator'
+        'Water Intake Calculator',
+        'Glycemic Load Calculator',
+        'Meal Calorie Calculator'
+      ]
+    },
+    {
+      title: 'Fitness',
+      icon: <Dumbbell className="w-4 h-4" />,
+      items: [
+        'One Rep Max Calculator',
+        'Heart Rate Zone Calculator'
       ]
     }
   ];
