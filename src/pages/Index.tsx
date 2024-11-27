@@ -41,6 +41,30 @@ const Index = () => {
       description: 'Calculate your lean body mass',
       path: '/lean-body-mass-calculator',
       icon: '💪'
+    },
+    {
+      title: 'Weight Goal Calculator',
+      description: 'Plan your weight loss or gain journey',
+      path: '/weight-goal-calculator',
+      icon: '⚡'
+    },
+    {
+      title: 'Water Intake Calculator',
+      description: 'Calculate your daily water needs',
+      path: '/water-intake-calculator',
+      icon: '💧'
+    },
+    {
+      title: 'One Rep Max Calculator',
+      description: 'Calculate your maximum lifting capacity',
+      path: '/one-rep-max-calculator',
+      icon: '🏋️'
+    },
+    {
+      title: 'Heart Rate Zone Calculator',
+      description: 'Find your optimal training zones',
+      path: '/heart-rate-zone-calculator',
+      icon: '❤️'
     }
   ];
 

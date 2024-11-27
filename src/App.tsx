@@ -15,6 +15,10 @@ import CalorieCalculator from "./components/calculators/CalorieCalculator";
 import CaloriesBurnedCalculator from "./components/calculators/CaloriesBurnedCalculator";
 import MacronutrientCalculator from "./components/calculators/MacronutrientCalculator";
 import LeanBodyMassCalculator from "./components/calculators/LeanBodyMassCalculator";
+import WeightGoalCalculator from "./components/calculators/WeightGoalCalculator";
+import WaterIntakeCalculator from "./components/calculators/WaterIntakeCalculator";
+import OneRepMaxCalculator from "./components/calculators/OneRepMaxCalculator";
+import HeartRateZoneCalculator from "./components/calculators/HeartRateZoneCalculator";
 
 const queryClient = new QueryClient();
 
@@ -70,6 +74,26 @@ const AppRoutes = () => (
       <Route path="/lean-body-mass-calculator" element={
         <ProtectedRoute>
           <LeanBodyMassCalculator />
+        </ProtectedRoute>
+      } />
+      <Route path="/weight-goal-calculator" element={
+        <ProtectedRoute>
+          <WeightGoalCalculator />
+        </ProtectedRoute>
+      } />
+      <Route path="/water-intake-calculator" element={
+        <ProtectedRoute>
+          <WaterIntakeCalculator />
+        </ProtectedRoute>
+      } />
+      <Route path="/one-rep-max-calculator" element={
+        <ProtectedRoute>
+          <OneRepMaxCalculator />
+        </ProtectedRoute>
+      } />
+      <Route path="/heart-rate-zone-calculator" element={
+        <ProtectedRoute>
+          <HeartRateZoneCalculator />
         </ProtectedRoute>
       } />
       
