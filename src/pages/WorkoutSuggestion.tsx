@@ -1,7 +1,6 @@
-import React from 'react';
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Rocket, Sparkles, Target, Trophy, Pulse } from "lucide-react";
+import { Rocket, Sparkles, Target, Trophy, Activity } from "lucide-react";
 
 const WorkoutSuggestion = () => {
   // This will be replaced with actual data from calculators once database is integrated
@@ -53,7 +52,7 @@ const WorkoutSuggestion = () => {
           <div className="space-y-4">
             <div className="p-4 bg-white/5 rounded-lg hover:bg-white/10 transition-colors">
               <h3 className="font-semibold flex items-center gap-2">
-                <Pulse className="h-5 w-5 text-primary" />
+                <Activity className="h-5 w-5 text-primary" />
                 Cardio Training
               </h3>
               <p className="text-sm text-gray-300 mt-2">30 minutes of moderate-intensity cardio, 3-4 times per week</p>
