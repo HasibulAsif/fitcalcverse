@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { 
   Scale,
   Activity,
@@ -11,19 +11,13 @@ import {
   Brain,
   Timer,
   Menu,
-  Settings,
-  User,
-  Mail
 } from 'lucide-react';
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
-import { useAuth } from "@/contexts/AuthContext";
 import { ScrollArea } from "@/components/ui/scroll-area";
 
 const Sidebar = () => {
   const [collapsed, setCollapsed] = React.useState(false);
-  const { user } = useAuth();
-  const navigate = useNavigate();
 
   const menuItems = [
     {
@@ -87,19 +81,6 @@ const Sidebar = () => {
         </Button>
       </div>
 
-      {!collapsed && (
-        <div className="p-4 border-b border-gray-700">
-          <div className="flex items-center gap-3 mb-2">
-            <User className="w-4 h-4 text-gray-400" />
-            <span className="text-sm text-gray-300">{user?.name || 'User'}</span>
-          </div>
-          <div className="flex items-center gap-3">
-            <Mail className="w-4 h-4 text-gray-400" />
-            <span className="text-sm text-gray-300 truncate">{user?.email || 'email@example.com'}</span>
-          </div>
-        </div>
-      )}
-
       <ScrollArea className="flex-1 px-4">
         <nav className="mt-6 space-y-6">
           {menuItems.map((section, idx) => (
@@ -124,18 +105,8 @@ const Sidebar = () => {
             </div>
           ))}
         </nav>
+        <div className="h-24" /> {/* Added space at the bottom */}
       </ScrollArea>
-
-      <div className="absolute bottom-0 left-0 right-0 p-4 border-t border-gray-700">
-        <Button
-          variant="ghost"
-          className="w-full flex items-center gap-2 hover:bg-gray-700"
-          onClick={() => navigate('/settings')}
-        >
-          <Settings className="w-4 h-4" />
-          {!collapsed && <span>Settings</span>}
-        </Button>
-      </div>
     </div>
   );
 };
