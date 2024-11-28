@@ -62,6 +62,11 @@
   background-size: 300% 300%;
 }
 
+/* Glass morphism effects */
+.glass-morphism {
+  @apply backdrop-blur-xl bg-white/10 border-white/20;
+}
+
 /* Enhance fade-in animation */
 @keyframes fade-in {
   0% {

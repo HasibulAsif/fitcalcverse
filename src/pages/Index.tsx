@@ -81,26 +81,52 @@ const Index = () => {
   ];
 
   return (
-    <div className="space-y-6 animate-fade-in">
-      <div className="text-center mb-8">
-        <h1 className="text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-pink-400 to-pink-600">
-          Welcome to FitCalcVerse
-        </h1>
-        <p className="text-gray-400 mt-2">Choose a calculator to get started</p>
-      </div>
+    <div className="space-y-8 animate-fade-in">
+      {/* Overview Section */}
+      <section className="mb-12">
+        {/* Animated Banner */}
+        <div className="relative overflow-hidden rounded-3xl bg-gradient-to-r from-primary via-accent to-primary bg-[length:200%_100%] animate-gradient h-48 mb-8">
+          <div className="absolute inset-0 bg-black/10" />
+          <div className="relative h-full flex items-center justify-center p-8">
+            <div className="text-center">
+              <h1 className="text-4xl font-bold text-white mb-2">Welcome to FitCalcVerse</h1>
+              <p className="text-white/90">Your personal fitness calculation companion</p>
+            </div>
+          </div>
+        </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {calculators.map((calculator) => (
-          <Card 
-            key={calculator.path}
-            className="p-6 cursor-pointer hover:scale-105 transition-transform duration-300 bg-gray-800/50 border-gray-700 hover:border-pink-500"
-            onClick={() => navigate(calculator.path)}
-          >
-            <div className="text-4xl mb-4">{calculator.icon}</div>
-            <h3 className="text-xl font-semibold mb-2">{calculator.title}</h3>
-            <p className="text-gray-400 text-sm">{calculator.description}</p>
-          </Card>
-        ))}
+        {/* Workout Suggestion Card */}
+        <Card 
+          className="relative overflow-hidden backdrop-blur-xl bg-white/10 border-white/20 hover:bg-white/20 transition-all duration-300 cursor-pointer p-6"
+          onClick={() => navigate('/workout-suggestion')}
+        >
+          <div className="absolute inset-0 bg-gradient-to-r from-primary/20 to-accent/20 opacity-50" />
+          <div className="relative">
+            <h3 className="text-2xl font-semibold mb-2">Personalized Workout Suggestions</h3>
+            <p className="text-gray-200">Get customized workout plans based on your fitness goals</p>
+          </div>
+        </Card>
+      </section>
+
+      {/* Calculators Grid */}
+      <div>
+        <h2 className="text-2xl font-bold mb-6">Fitness Calculators</h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {calculators.map((calculator) => (
+            <Card 
+              key={calculator.path}
+              className="relative overflow-hidden backdrop-blur-xl bg-white/10 border-white/20 hover:bg-white/20 transition-all duration-300 cursor-pointer p-6"
+              onClick={() => navigate(calculator.path)}
+            >
+              <div className="absolute inset-0 bg-gradient-to-r from-primary/10 to-accent/10 opacity-50" />
+              <div className="relative">
+                <div className="text-4xl mb-4">{calculator.icon}</div>
+                <h3 className="text-xl font-semibold mb-2">{calculator.title}</h3>
+                <p className="text-gray-200 text-sm">{calculator.description}</p>
+              </div>
+            </Card>
+          ))}
+        </div>
       </div>
     </div>
   );
