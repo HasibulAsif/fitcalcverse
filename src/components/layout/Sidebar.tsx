@@ -8,9 +8,8 @@ import {
   Calculator,
   BarChart3,
   Droplets,
-  Brain,
-  Timer,
   Menu,
+  LayoutDashboard,
 } from 'lucide-react';
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
@@ -83,6 +82,16 @@ const Sidebar = () => {
 
       <ScrollArea className="flex-1 px-4">
         <nav className="mt-6 space-y-6">
+          {/* Dashboard Link */}
+          <Link
+            to="/dashboard"
+            className="flex items-center gap-2 px-4 py-2 text-sm hover:bg-gray-700 rounded-md transition-colors"
+          >
+            <LayoutDashboard className="w-4 h-4" />
+            {!collapsed && <span>Dashboard</span>}
+          </Link>
+
+          {/* Existing menu items */}
           {menuItems.map((section, idx) => (
             <div key={idx}>
               <div className="flex items-center gap-2 text-gray-400 text-sm mb-2">

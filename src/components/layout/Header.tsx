@@ -9,7 +9,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { Settings, LogOut, User } from "lucide-react";
+import { LogOut } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
 const Header = ({ isLanding = false }: { isLanding?: boolean }) => {
@@ -18,15 +18,19 @@ const Header = ({ isLanding = false }: { isLanding?: boolean }) => {
 
   if (isLanding) {
     return (
-      <header className="fixed top-0 left-0 right-0 z-50 px-6 py-4">
-        <div className="max-w-7xl mx-auto flex justify-between items-center">
-          <h1 className="text-2xl font-bold text-white">HT Workout</h1>
-          <Button 
-            onClick={() => navigate('/login')}
-            className="bg-gradient-to-r from-primary via-accent to-[#9333EA] hover:opacity-90 transition-opacity"
-          >
-            Login
-          </Button>
+      <header className="fixed top-0 left-0 right-0 z-50">
+        <div className="max-w-7xl mx-auto">
+          <div className="m-4 p-4 rounded-lg glass-morphism backdrop-blur-md bg-white/10">
+            <div className="flex justify-between items-center">
+              <h1 className="text-2xl font-bold text-white">HT Workout</h1>
+              <Button 
+                onClick={() => navigate('/login')}
+                className="bg-gradient-to-r from-primary via-accent to-[#9333EA] hover:opacity-90 transition-all duration-300 transform hover:scale-105 hover:shadow-lg hover:shadow-primary/20"
+              >
+                Login
+              </Button>
+            </div>
+          </div>
         </div>
       </header>
     );
