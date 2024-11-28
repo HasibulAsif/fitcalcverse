@@ -1,6 +1,8 @@
 import React from 'react';
 import { Card } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
 import { useNavigate } from 'react-router-dom';
+import { Rocket } from "lucide-react";
 
 const Index = () => {
   const navigate = useNavigate();
@@ -97,13 +99,21 @@ const Index = () => {
 
         {/* Workout Suggestion Card */}
         <Card 
-          className="relative overflow-hidden backdrop-blur-xl bg-white/10 border-white/20 hover:bg-white/20 transition-all duration-300 cursor-pointer p-6"
-          onClick={() => navigate('/workout-suggestion')}
+          className="relative overflow-hidden backdrop-blur-xl bg-white/10 border-white/20 hover:bg-white/20 transition-all duration-300 p-6"
         >
           <div className="absolute inset-0 bg-gradient-to-r from-primary/20 to-accent/20 opacity-50" />
-          <div className="relative">
-            <h3 className="text-2xl font-semibold mb-2">Personalized Workout Suggestions</h3>
-            <p className="text-gray-200">Get customized workout plans based on your fitness goals</p>
+          <div className="relative flex justify-between items-center">
+            <div>
+              <h3 className="text-2xl font-semibold mb-2">Personalized Workout Suggestions</h3>
+              <p className="text-gray-200">Get customized workout plans based on your fitness goals</p>
+            </div>
+            <Button 
+              onClick={() => navigate('/workout-suggestion')}
+              className="bg-gradient-to-r from-primary to-accent hover:opacity-90 transition-opacity flex items-center gap-2"
+            >
+              <Rocket className="h-4 w-4 animate-bounce" />
+              Get Your Plan
+            </Button>
           </div>
         </Card>
       </section>
