@@ -91,7 +91,7 @@ const Index = () => {
           <div className="absolute inset-0 bg-black/10" />
           <div className="relative h-full flex items-center justify-center p-8">
             <div className="text-center">
-              <h1 className="text-4xl font-bold text-white mb-2">Welcome to FitCalcVerse</h1>
+              <h1 className="text-4xl font-bold text-white mb-2">Welcome to HT Workout</h1>
               <p className="text-white/90">Your personal fitness calculation companion</p>
             </div>
           </div>
