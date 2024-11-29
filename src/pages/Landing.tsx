@@ -4,9 +4,9 @@ import { ArrowRight, Activity, Calculator, Brain, Dumbbell, Heart, Scale } from 
 
 const Landing = () => {
   return (
-    <div className="min-h-screen bg-black relative overflow-hidden">
+    <div className="min-h-screen bg-black relative overflow-hidden w-full">
       {/* Hero Section */}
-      <div className="relative min-h-screen">
+      <div className="relative min-h-screen w-full">
         {/* Mesh Gradient Background */}
         <div className="absolute inset-0 bg-gradient-to-br from-black via-gray-900 to-black">
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,_#FF4D8D33_0%,_transparent_50%)]"></div>
@@ -15,7 +15,7 @@ const Landing = () => {
         </div>
 
         {/* Content */}
-        <div className="relative z-10 flex flex-col items-center justify-center min-h-screen text-center px-4 sm:px-6 lg:px-8">
+        <div className="relative z-10 flex flex-col items-center justify-center min-h-screen text-center px-4 sm:px-6 lg:px-8 w-full">
           {/* Animated Logo/Icon */}
           <div className="mb-8 animate-bounce">
             <Dumbbell className="w-16 h-16 text-primary" />
@@ -72,9 +72,9 @@ const Landing = () => {
         </div>
       </div>
 
-      {/* Keep existing features section */}
-      <div className="bg-black relative z-10 py-24 px-4">
-        <div className="max-w-7xl mx-auto">
+      {/* Features section */}
+      <div className="bg-black relative z-10 py-24 w-full">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-primary to-pink-500 mb-4">
               Professional Fitness Tools
@@ -102,10 +102,9 @@ const Landing = () => {
         </div>
       </div>
 
-      {/* Keep existing CTA section */}
       {/* Call to Action */}
-      <div className="relative z-10 py-24 px-4">
-        <div className="max-w-4xl mx-auto text-center space-y-8 animate-fade-in">
+      <div className="relative z-10 py-24 w-full">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-3xl md:text-4xl font-bold">
             Ready to Transform Your
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-pink-500"> Fitness Journey?</span>
@@ -124,7 +123,7 @@ const Landing = () => {
   );
 };
 
-// Keep existing features array
+// Features array
 const features = [
   {
     title: "Body Composition",

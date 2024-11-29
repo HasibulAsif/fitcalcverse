@@ -15,8 +15,8 @@ const Layout = () => {
       {!isLandingPage && <Sidebar />}
       <div className="flex flex-col flex-1">
         <Header isLanding={isLandingPage} />
-        <main className={`flex-1 p-8 overflow-auto ${isLandingPage ? 'w-full' : ''} mt-16`}>
-          <div className="max-w-7xl mx-auto">
+        <main className={`flex-1 overflow-auto ${isLandingPage ? 'w-full' : ''} mt-16`}>
+          <div className={`${isLandingPage ? 'w-full' : 'max-w-7xl mx-auto px-8'}`}>
             <Outlet />
           </div>
         </main>
