@@ -80,22 +80,28 @@ const Sidebar = () => {
         </Button>
       </div>
 
-      <ScrollArea className="flex-1 px-4">
-        <nav className="mt-6 space-y-6">
+      <ScrollArea className="flex-1">
+        <nav className="mt-6 space-y-6 px-2">
           {/* Dashboard Link */}
           <Link
             to="/dashboard"
-            className="flex items-center gap-2 px-4 py-2 text-sm hover:bg-gray-700 rounded-md transition-colors"
+            className={cn(
+              "flex items-center gap-2 px-4 py-2 text-sm hover:bg-gray-700 rounded-md transition-colors",
+              collapsed && "justify-center"
+            )}
           >
-            <LayoutDashboard className="w-4 h-4" />
+            <LayoutDashboard className="w-4 h-4 min-w-[1rem]" />
             {!collapsed && <span>Dashboard</span>}
           </Link>
 
-          {/* Existing menu items */}
+          {/* Menu sections */}
           {menuItems.map((section, idx) => (
-            <div key={idx}>
-              <div className="flex items-center gap-2 text-gray-400 text-sm mb-2">
-                {section.icon}
+            <div key={idx} className={cn("space-y-1", collapsed && "flex flex-col items-center")}>
+              <div className={cn(
+                "flex items-center gap-2 text-gray-400 text-sm mb-2 px-4",
+                collapsed && "justify-center"
+              )}>
+                <div className="min-w-[1rem]">{section.icon}</div>
                 {!collapsed && <span>{section.title}</span>}
               </div>
               {!collapsed && (
@@ -114,7 +120,7 @@ const Sidebar = () => {
             </div>
           ))}
         </nav>
-        <div className="h-24" /> {/* Added space at the bottom */}
+        <div className="h-24" /> {/* Bottom spacing */}
       </ScrollArea>
     </div>
   );
