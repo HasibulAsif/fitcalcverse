@@ -1,20 +1,54 @@
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Rocket, Sparkles, Target, Trophy, Activity } from "lucide-react";
+import { generateWorkoutPDF } from "@/utils/workoutUtils";
+import { useQuery } from "@tanstack/react-query";
 
 const WorkoutSuggestion = () => {
-  // This will be replaced with actual data from calculators once database is integrated
-  const mockMetrics = {
-    bmi: 23.5,
-    bodyFat: 18,
-    calorieNeeds: 2500,
-    fitnessLevel: "Intermediate"
-  };
+  // Fetch user's metrics from the calculators
+  const { data: metrics } = useQuery({
+    queryKey: ['userMetrics'],
+    queryFn: async () => {
+      // This would normally fetch from your backend
+      // For now, we'll use mock data
+      return {
+        bmi: 23.5,
+        bodyFat: 18,
+        calorieNeeds: 2500,
+        fitnessLevel: "Intermediate"
+      };
+    }
+  });
+
+  const routines = [
+    {
+      name: "Cardio Training",
+      description: "30 minutes of moderate-intensity cardio, 3-4 times per week",
+      icon: Activity
+    },
+    {
+      name: "Strength Training",
+      description: "Full-body workout with progressive overload, 3 times per week",
+      icon: Trophy
+    }
+  ];
+
+  const schedule = [
+    { name: "Monday", workout: "Strength Training + 20min Cardio" },
+    { name: "Tuesday", workout: "30min Cardio + Flexibility Work" },
+    { name: "Wednesday", workout: "Strength Training + 20min Cardio" },
+    { name: "Thursday", workout: "30min Cardio + Flexibility Work" },
+    { name: "Friday", workout: "Strength Training + 20min Cardio" }
+  ];
 
   const downloadPlan = () => {
-    // To be implemented with actual PDF generation
-    console.log("Downloading plan...");
+    if (!metrics) return;
+    generateWorkoutPDF(metrics, routines, schedule);
   };
+
+  if (!metrics) {
+    return <div className="text-center p-8">Loading your personalized plan...</div>;
+  }
 
   return (
     <div className="space-y-8 animate-fade-in">
@@ -31,7 +65,7 @@ const WorkoutSuggestion = () => {
 
       {/* Metrics Overview */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-        {Object.entries(mockMetrics).map(([key, value]) => (
+        {Object.entries(metrics).map(([key, value]) => (
           <Card key={key} className="p-6 glass-morphism hover:scale-105 transition-all duration-300">
             <div className="text-center">
               <h3 className="text-lg font-semibold capitalize mb-2">{key.replace(/([A-Z])/g, ' $1')}</h3>
@@ -50,20 +84,15 @@ const WorkoutSuggestion = () => {
             <h2 className="text-2xl font-bold">Recommended Routines</h2>
           </div>
           <div className="space-y-4">
-            <div className="p-4 bg-white/5 rounded-lg hover:bg-white/10 transition-colors">
-              <h3 className="font-semibold flex items-center gap-2">
-                <Activity className="h-5 w-5 text-primary" />
-                Cardio Training
-              </h3>
-              <p className="text-sm text-gray-300 mt-2">30 minutes of moderate-intensity cardio, 3-4 times per week</p>
-            </div>
-            <div className="p-4 bg-white/5 rounded-lg hover:bg-white/10 transition-colors">
-              <h3 className="font-semibold flex items-center gap-2">
-                <Trophy className="h-5 w-5 text-primary" />
-                Strength Training
-              </h3>
-              <p className="text-sm text-gray-300 mt-2">Full-body workout with progressive overload, 3 times per week</p>
-            </div>
+            {routines.map((routine, index) => (
+              <div key={index} className="p-4 bg-white/5 rounded-lg hover:bg-white/10 transition-colors">
+                <h3 className="font-semibold flex items-center gap-2">
+                  <routine.icon className="h-5 w-5 text-primary" />
+                  {routine.name}
+                </h3>
+                <p className="text-sm text-gray-300 mt-2">{routine.description}</p>
+              </div>
+            ))}
           </div>
         </Card>
 
@@ -74,16 +103,10 @@ const WorkoutSuggestion = () => {
             <h2 className="text-2xl font-bold">Weekly Schedule</h2>
           </div>
           <div className="space-y-3">
-            {['Monday', 'Wednesday', 'Friday'].map((day) => (
-              <div key={day} className="p-3 bg-white/5 rounded-lg">
-                <h3 className="font-semibold">{day}</h3>
-                <p className="text-sm text-gray-300">Strength Training + 20min Cardio</p>
-              </div>
-            ))}
-            {['Tuesday', 'Thursday'].map((day) => (
-              <div key={day} className="p-3 bg-white/5 rounded-lg">
-                <h3 className="font-semibold">{day}</h3>
-                <p className="text-sm text-gray-300">30min Cardio + Flexibility Work</p>
+            {schedule.map((day) => (
+              <div key={day.name} className="p-3 bg-white/5 rounded-lg">
+                <h3 className="font-semibold">{day.name}</h3>
+                <p className="text-sm text-gray-300">{day.workout}</p>
               </div>
             ))}
           </div>
