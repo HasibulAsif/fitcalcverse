@@ -20,7 +20,7 @@ const Layout = () => {
             <Outlet />
           </div>
         </main>
-        <Footer />
+        {isLandingPage && <Footer />}
       </div>
       <HireTrainerButton />
       {!isLandingPage && <AIAssistant />}
