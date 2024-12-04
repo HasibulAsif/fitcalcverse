@@ -13,7 +13,7 @@ import { LogOut, Settings } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
 const Header = ({ isLanding = false }: { isLanding?: boolean }) => {
-  const { user, logout } = useAuth();
+  const { user, signOut } = useAuth();
   const navigate = useNavigate();
 
   if (isLanding) {
@@ -60,7 +60,7 @@ const Header = ({ isLanding = false }: { isLanding?: boolean }) => {
             <Settings className="mr-2 h-4 w-4" />
             <span>Settings</span>
           </DropdownMenuItem>
-          <DropdownMenuItem onClick={logout} className="text-red-400 hover:bg-white/10">
+          <DropdownMenuItem onClick={signOut} className="text-red-400 hover:bg-white/10">
             <LogOut className="mr-2 h-4 w-4" />
             <span>Log out</span>
           </DropdownMenuItem>

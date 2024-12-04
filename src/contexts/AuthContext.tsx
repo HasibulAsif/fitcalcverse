@@ -11,6 +11,8 @@ const supabase = createClient(
 interface User {
   id: string;
   email?: string;
+  name?: string;
+  image?: string;
 }
 
 interface AuthContextType {
@@ -35,6 +37,8 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
         setUser({
           id: session.user.id,
           email: session.user.email,
+          name: session.user.user_metadata?.name || 'User',
+          image: session.user.user_metadata?.avatar_url,
         });
         setIsAuthenticated(true);
       }
@@ -48,6 +52,8 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
         setUser({
           id: session.user.id,
           email: session.user.email,
+          name: session.user.user_metadata?.name || 'User',
+          image: session.user.user_metadata?.avatar_url,
         });
         setIsAuthenticated(true);
       } else {

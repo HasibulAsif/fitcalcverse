@@ -11,32 +11,20 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const { toast } = useToast();
   const navigate = useNavigate();
-  const { login } = useAuth();
+  const { signIn } = useAuth();
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
     try {
-      // Here you would typically make an API call to authenticate the user
-      // For now, we'll simulate a successful login
-      login({
-        email: email,
-        name: "User",
-      });
-
+      await signIn(email, password);
       toast({
         title: "Login Successful",
         description: "Welcome back to HT Workout!",
       });
-
-      // Redirect to dashboard after successful login
       navigate("/dashboard");
     } catch (error) {
-      toast({
-        variant: "destructive",
-        title: "Login failed",
-        description: "Invalid credentials",
-      });
+      // Error is already handled in the signIn function
     }
   };
 

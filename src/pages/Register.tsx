@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardHeader, CardContent, CardFooter } from "@/components/ui/card";
@@ -15,7 +15,8 @@ const Register = () => {
   });
   
   const { toast } = useToast();
-  const { login } = useAuth();
+  const navigate = useNavigate();
+  const { signUp } = useAuth();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -30,26 +31,10 @@ const Register = () => {
     }
 
     try {
-      // Here you would typically make an API call to register the user
-      // For now, we'll simulate a successful registration
-      const userData = {
-        name: formData.name,
-        email: formData.email,
-      };
-
-      // Use the login function from AuthContext
-      login(userData);
-
-      toast({
-        title: "Registration Successful",
-        description: "Welcome to HT Workout!",
-      });
+      await signUp(formData.email, formData.password);
+      navigate("/login");
     } catch (error) {
-      toast({
-        variant: "destructive",
-        title: "Registration failed",
-        description: "Please try again later",
-      });
+      // Error is already handled in the signUp function
     }
   };
 
