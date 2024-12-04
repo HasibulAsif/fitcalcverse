@@ -23,39 +23,39 @@ const Sidebar = () => {
       title: 'Body Composition',
       icon: <Scale className="w-4 h-4" />,
       items: [
-        'BMI Calculator',
-        'Body Fat Calculator',
-        'Lean Body Mass Calculator',
-        'Ideal Body Weight Calculator',
-        'Waist-to-Hip Calculator'
+        { name: 'BMI Calculator', path: '/bmi-calculator' },
+        { name: 'Body Fat Calculator', path: '/body-fat-calculator' },
+        { name: 'Lean Body Mass Calculator', path: '/lean-body-mass-calculator' },
+        { name: 'Ideal Body Weight Calculator', path: '/ideal-body-weight-calculator' },
+        { name: 'Waist-to-Hip Calculator', path: '/waist-to-hip-calculator' }
       ]
     },
     {
       title: 'Energy & Metabolism',
       icon: <Activity className="w-4 h-4" />,
       items: [
-        'Calorie Calculator',
-        'Calories Burned Calculator',
-        'Weight Goal Calculator'
+        { name: 'Calorie Calculator', path: '/calorie-calculator' },
+        { name: 'Calories Burned Calculator', path: '/calories-burned-calculator' },
+        { name: 'Weight Goal Calculator', path: '/weight-goal-calculator' }
       ]
     },
     {
       title: 'Nutrition',
       icon: <BarChart3 className="w-4 h-4" />,
       items: [
-        'Macronutrient Calculator',
-        'Water Intake Calculator',
-        'Glycemic Load Calculator',
-        'Meal Calorie Calculator'
+        { name: 'Macronutrient Calculator', path: '/macronutrient-calculator' },
+        { name: 'Water Intake Calculator', path: '/water-intake-calculator' },
+        { name: 'Glycemic Load Calculator', path: '/glycemic-load-calculator' },
+        { name: 'Meal Calorie Calculator', path: '/meal-calorie-calculator' }
       ]
     },
     {
       title: 'Fitness',
       icon: <Dumbbell className="w-4 h-4" />,
       items: [
-        'One Rep Max Calculator',
-        'Heart Rate Zone Calculator',
-        'TotalFit Calculator'
+        { name: 'One Rep Max Calculator', path: '/one-rep-max-calculator' },
+        { name: 'Heart Rate Zone Calculator', path: '/heart-rate-zone-calculator' },
+        { name: 'TotalFit Calculator', path: '/total-fit-calculator' }
       ]
     }
   ];
@@ -110,10 +110,10 @@ const Sidebar = () => {
                   {section.items.map((item, itemIdx) => (
                     <Link
                       key={itemIdx}
-                      to={`/${item.toLowerCase().replace(/\s+/g, '-')}`}
+                      to={item.path}
                       className="block px-4 py-2 text-sm hover:bg-gray-700 rounded-md transition-colors"
                     >
-                      {item}
+                      {item.name}
                     </Link>
                   ))}
                 </div>
