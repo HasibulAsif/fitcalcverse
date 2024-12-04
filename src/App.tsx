@@ -25,6 +25,7 @@ import GlycemicLoadCalculator from "./components/calculators/GlycemicLoadCalcula
 import MealCalorieCalculator from "./components/calculators/MealCalorieCalculator";
 import IdealBodyWeightCalculator from "./components/calculators/IdealBodyWeightCalculator";
 import WaistToHipCalculator from "./components/calculators/WaistToHipCalculator";
+import TotalFitCalculator from "./components/calculators/TotalFitCalculator";
 
 const queryClient = new QueryClient();
 
@@ -58,6 +59,7 @@ const AppRoutes = () => (
       <Route path="/meal-calorie-calculator" element={<ProtectedRoute><MealCalorieCalculator /></ProtectedRoute>} />
       <Route path="/ideal-body-weight-calculator" element={<ProtectedRoute><IdealBodyWeightCalculator /></ProtectedRoute>} />
       <Route path="/waist-to-hip-calculator" element={<ProtectedRoute><WaistToHipCalculator /></ProtectedRoute>} />
+      <Route path="/total-fit-calculator" element={<ProtectedRoute><TotalFitCalculator /></ProtectedRoute>} />
       
       {/* Catch all undefined routes */}
       <Route path="*" element={<Navigate to="/" replace />} />

@@ -54,7 +54,8 @@ const Sidebar = () => {
       icon: <Dumbbell className="w-4 h-4" />,
       items: [
         'One Rep Max Calculator',
-        'Heart Rate Zone Calculator'
+        'Heart Rate Zone Calculator',
+        'TotalFit Calculator'
       ]
     }
   ];
