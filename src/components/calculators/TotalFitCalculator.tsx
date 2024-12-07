@@ -1,14 +1,10 @@
 import React, { useState } from 'react';
 import { Card } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-import { Label } from "@/components/ui/label";
 import { Calculator } from "lucide-react";
 import { toast } from "sonner";
 import { UnitToggle } from './total-fit/UnitToggle';
 import { ResultsDisplay } from './total-fit/ResultsDisplay';
+import { CalculatorForm } from './total-fit/CalculatorForm';
 
 const TotalFitCalculator = () => {
   const [useMetric, setUseMetric] = useState(true);
@@ -148,143 +144,33 @@ const TotalFitCalculator = () => {
   };
 
   return (
-    <div className="space-y-8 animate-fade-in p-4">
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-        <Card className="p-6">
-          <div className="flex items-center justify-between mb-6">
-            <div className="flex items-center gap-2">
-              <Calculator className="w-6 h-6" />
-              <h2 className="text-2xl font-bold">TotalFit Calculator</h2>
-            </div>
-            <UnitToggle useMetric={useMetric} onToggle={setUseMetric} />
+    <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 animate-fade-in p-4">
+      <Card className="p-6">
+        <div className="flex items-center justify-between mb-6">
+          <div className="flex items-center gap-2">
+            <Calculator className="w-6 h-6" />
+            <h2 className="text-2xl font-bold">TotalFit Calculator</h2>
           </div>
+          <UnitToggle useMetric={useMetric} onToggle={setUseMetric} />
+        </div>
 
-          <div className="space-y-6">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div>
-                <Label>Age</Label>
-                <Input
-                  type="number"
-                  placeholder="Enter your age"
-                  value={formData.age}
-                  onChange={(e) => handleInputChange('age', e.target.value)}
-                />
-              </div>
+        <CalculatorForm 
+          formData={formData}
+          useMetric={useMetric}
+          onInputChange={handleInputChange}
+          onCalculate={calculateResults}
+        />
+      </Card>
 
-              <div>
-                <Label>Gender</Label>
-                <Select onValueChange={(value) => handleInputChange('gender', value)}>
-                  <SelectTrigger>
-                    <SelectValue placeholder="Select gender" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="male">Male</SelectItem>
-                    <SelectItem value="female">Female</SelectItem>
-                  </SelectContent>
-                </Select>
-              </div>
-
-              <div>
-                <Label>Weight ({useMetric ? 'kg' : 'lbs'})</Label>
-                <Input
-                  type="number"
-                  placeholder={`Enter weight in ${useMetric ? 'kg' : 'lbs'}`}
-                  value={formData.weight}
-                  onChange={(e) => handleInputChange('weight', e.target.value)}
-                />
-              </div>
-
-              <div>
-                <Label>Height ({useMetric ? 'cm' : 'inches'})</Label>
-                <Input
-                  type="number"
-                  placeholder={`Enter height in ${useMetric ? 'cm' : 'inches'}`}
-                  value={formData.height}
-                  onChange={(e) => handleInputChange('height', e.target.value)}
-                />
-              </div>
-
-              <div>
-                <Label>Activity Level</Label>
-                <Select onValueChange={(value) => handleInputChange('activityLevel', value)}>
-                  <SelectTrigger>
-                    <SelectValue placeholder="Select activity level" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="sedentary">Sedentary</SelectItem>
-                    <SelectItem value="lightlyActive">Lightly Active</SelectItem>
-                    <SelectItem value="moderatelyActive">Moderately Active</SelectItem>
-                    <SelectItem value="veryActive">Very Active</SelectItem>
-                    <SelectItem value="extremelyActive">Extremely Active</SelectItem>
-                  </SelectContent>
-                </Select>
-              </div>
-
-              <div>
-                <Label>Fitness Goal</Label>
-                <RadioGroup 
-                  onValueChange={(value) => handleInputChange('fitnessGoal', value)}
-                  className="flex gap-4 mt-2"
-                >
-                  <div className="flex items-center space-x-2">
-                    <RadioGroupItem value="muscleGain" id="muscleGain" />
-                    <Label htmlFor="muscleGain">Muscle Gain</Label>
-                  </div>
-                  <div className="flex items-center space-x-2">
-                    <RadioGroupItem value="weightLoss" id="weightLoss" />
-                    <Label htmlFor="weightLoss">Weight Loss</Label>
-                  </div>
-                  <div className="flex items-center space-x-2">
-                    <RadioGroupItem value="maintenance" id="maintenance" />
-                    <Label htmlFor="maintenance">Maintenance</Label>
-                  </div>
-                </RadioGroup>
-              </div>
-            </div>
-
-            {(formData.fitnessGoal === 'muscleGain' || formData.fitnessGoal === 'weightLoss') && (
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div>
-                  <Label>Timeframe (weeks)</Label>
-                  <Input
-                    type="number"
-                    placeholder="Enter timeframe"
-                    value={formData.timeframe}
-                    onChange={(e) => handleInputChange('timeframe', e.target.value)}
-                  />
-                </div>
-                <div>
-                  <Label>Target Weight ({useMetric ? 'kg' : 'lbs'})</Label>
-                  <Input
-                    type="number"
-                    placeholder="Enter target weight"
-                    value={formData.weightGoal}
-                    onChange={(e) => handleInputChange('weightGoal', e.target.value)}
-                  />
-                </div>
-              </div>
-            )}
-
-            <Button 
-              onClick={calculateResults}
-              className="w-full bg-primary hover:bg-primary/90"
-            >
-              Calculate Fitness Metrics
-            </Button>
+      <Card className="p-6">
+        {results ? (
+          <ResultsDisplay results={results} />
+        ) : (
+          <div className="h-full flex items-center justify-center text-muted-foreground">
+            <p>Enter your details and calculate to see your fitness metrics</p>
           </div>
-        </Card>
-
-        {/* Results Card - Always visible but shows placeholder when no results */}
-        <Card className="p-6">
-          {results ? (
-            <ResultsDisplay results={results} />
-          ) : (
-            <div className="h-full flex items-center justify-center text-muted-foreground">
-              <p>Enter your details and calculate to see your fitness metrics</p>
-            </div>
-          )}
-        </Card>
-      </div>
+        )}
+      </Card>
     </div>
   );
 };

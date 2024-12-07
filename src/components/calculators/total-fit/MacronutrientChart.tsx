@@ -33,7 +33,11 @@ export const MacronutrientChart = ({ macros }: MacronutrientChartProps) => {
             ))}
           </Pie>
           <Tooltip 
-            formatter={(value: number | string) => `${typeof value === 'number' ? Math.round(value) : value} calories`}
+            formatter={(value: any) => {
+              return typeof value === 'number' 
+                ? `${Math.round(value)} calories` 
+                : value;
+            }}
           />
           <Legend />
         </PieChart>
