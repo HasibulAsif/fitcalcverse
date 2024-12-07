@@ -9,7 +9,57 @@ export type Json =
 export type Database = {
   public: {
     Tables: {
-      [_ in never]: never
+      meal_plan_profiles: {
+        Row: {
+          activity_level: Database["public"]["Enums"]["activity_level"]
+          age: number
+          country: string
+          created_at: string | null
+          dietary_preference: Database["public"]["Enums"]["dietary_preference"]
+          fitness_goal: Database["public"]["Enums"]["fitness_goal"]
+          food_allergies: string[] | null
+          gender: string
+          height: number
+          id: string
+          meal_frequency: number
+          updated_at: string | null
+          user_id: string | null
+          weight: number
+        }
+        Insert: {
+          activity_level: Database["public"]["Enums"]["activity_level"]
+          age: number
+          country?: string
+          created_at?: string | null
+          dietary_preference: Database["public"]["Enums"]["dietary_preference"]
+          fitness_goal: Database["public"]["Enums"]["fitness_goal"]
+          food_allergies?: string[] | null
+          gender: string
+          height: number
+          id?: string
+          meal_frequency: number
+          updated_at?: string | null
+          user_id?: string | null
+          weight: number
+        }
+        Update: {
+          activity_level?: Database["public"]["Enums"]["activity_level"]
+          age?: number
+          country?: string
+          created_at?: string | null
+          dietary_preference?: Database["public"]["Enums"]["dietary_preference"]
+          fitness_goal?: Database["public"]["Enums"]["fitness_goal"]
+          food_allergies?: string[] | null
+          gender?: string
+          height?: number
+          id?: string
+          meal_frequency?: number
+          updated_at?: string | null
+          user_id?: string | null
+          weight?: number
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
@@ -18,7 +68,18 @@ export type Database = {
       [_ in never]: never
     }
     Enums: {
-      [_ in never]: never
+      activity_level:
+        | "sedentary"
+        | "lightly_active"
+        | "moderately_active"
+        | "very_active"
+        | "extremely_active"
+      dietary_preference:
+        | "vegetarian"
+        | "vegan"
+        | "non-vegetarian"
+        | "pescatarian"
+      fitness_goal: "weight_loss" | "muscle_gain" | "maintenance"
     }
     CompositeTypes: {
       [_ in never]: never

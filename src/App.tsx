@@ -11,6 +11,7 @@ import Register from "./pages/Register";
 import Index from "./pages/Index";
 import Settings from "./pages/Settings";
 import WorkoutSuggestion from "./pages/WorkoutSuggestion";
+import MealPlanGenerator from "./pages/MealPlanGenerator";
 import BMICalculator from "./components/calculators/BMICalculator";
 import BodyFatCalculator from "./components/calculators/BodyFatCalculator";
 import CalorieCalculator from "./components/calculators/CalorieCalculator";
@@ -45,6 +46,7 @@ const AppRoutes = () => (
       <Route path="/dashboard" element={<ProtectedRoute><Index /></ProtectedRoute>} />
       <Route path="/settings" element={<ProtectedRoute><Settings /></ProtectedRoute>} />
       <Route path="/workout-suggestion" element={<ProtectedRoute><WorkoutSuggestion /></ProtectedRoute>} />
+      <Route path="/meal-plan-generator" element={<ProtectedRoute><MealPlanGenerator /></ProtectedRoute>} />
       <Route path="/bmi-calculator" element={<ProtectedRoute><BMICalculator /></ProtectedRoute>} />
       <Route path="/body-fat-calculator" element={<ProtectedRoute><BodyFatCalculator /></ProtectedRoute>} />
       <Route path="/calorie-calculator" element={<ProtectedRoute><CalorieCalculator /></ProtectedRoute>} />

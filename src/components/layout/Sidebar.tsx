@@ -26,14 +26,14 @@ const Sidebar = () => {
       icon: <Flame className="w-4 h-4" />,
       items: [
         { name: 'TotalFit Calculator', path: '/total-fit-calculator' },
-        // Meal Plan Generator will be added here later
+        { name: 'Meal Plan Generator', path: '/meal-plan-generator' }
       ]
     },
     {
       title: 'Meal Plan',
       icon: <UtensilsCrossed className="w-4 h-4" />,
       items: [
-        // Meal Plan Generator pages will be added here later
+        { name: 'Meal Plan Generator', path: '/meal-plan-generator' }
       ]
     },
     {
