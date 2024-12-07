@@ -17,34 +17,36 @@ import { toast } from 'sonner';
 import { supabase } from '@/integrations/supabase/client';
 
 const formSchema = z.object({
-  age: z.string().min(1, 'Age is required').transform(Number),
-  weight: z.string().min(1, 'Weight is required').transform(Number),
-  height: z.string().min(1, 'Height is required').transform(Number),
+  age: z.coerce.number().min(1, 'Age is required'),
+  weight: z.coerce.number().min(1, 'Weight is required'),
+  height: z.coerce.number().min(1, 'Height is required'),
   gender: z.enum(['male', 'female']),
   activityLevel: z.enum(['sedentary', 'lightly_active', 'moderately_active', 'very_active', 'extremely_active']),
   fitnessGoal: z.enum(['weight_loss', 'muscle_gain', 'maintenance']),
   dietaryPreference: z.enum(['vegetarian', 'vegan', 'non-vegetarian', 'pescatarian']),
   foodAllergies: z.string().optional(),
-  mealFrequency: z.string().min(1, 'Meal frequency is required').transform(Number),
+  mealFrequency: z.coerce.number().min(1, 'Meal frequency is required'),
 });
 
+type FormValues = z.infer<typeof formSchema>;
+
 const MealPlanForm = () => {
-  const form = useForm<z.infer<typeof formSchema>>({
+  const form = useForm<FormValues>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      age: '',
-      weight: '',
-      height: '',
+      age: 0,
+      weight: 0,
+      height: 0,
       gender: 'male',
       activityLevel: 'moderately_active',
       fitnessGoal: 'maintenance',
       dietaryPreference: 'non-vegetarian',
       foodAllergies: '',
-      mealFrequency: '3',
+      mealFrequency: 3,
     },
   });
 
-  const onSubmit = async (values: z.infer<typeof formSchema>) => {
+  const onSubmit = async (values: FormValues) => {
     try {
       const { error } = await supabase.from('meal_plan_profiles').insert({
         user_id: (await supabase.auth.getUser()).data.user?.id,
@@ -77,7 +79,7 @@ const MealPlanForm = () => {
             <FormItem>
               <FormLabel>Age</FormLabel>
               <FormControl>
-                <Input type="number" placeholder="Enter your age" {...field} />
+                <Input type="number" placeholder="Enter your age" {...field} onChange={e => field.onChange(e.target.valueAsNumber)} />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -91,7 +93,7 @@ const MealPlanForm = () => {
             <FormItem>
               <FormLabel>Weight (kg)</FormLabel>
               <FormControl>
-                <Input type="number" placeholder="Enter your weight" {...field} />
+                <Input type="number" placeholder="Enter your weight" {...field} onChange={e => field.onChange(e.target.valueAsNumber)} />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -105,7 +107,7 @@ const MealPlanForm = () => {
             <FormItem>
               <FormLabel>Height (cm)</FormLabel>
               <FormControl>
-                <Input type="number" placeholder="Enter your height" {...field} />
+                <Input type="number" placeholder="Enter your height" {...field} onChange={e => field.onChange(e.target.valueAsNumber)} />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -226,7 +228,7 @@ const MealPlanForm = () => {
           render={({ field }) => (
             <FormItem>
               <FormLabel>Meals per Day</FormLabel>
-              <Select onValueChange={field.onChange} defaultValue={field.value}>
+              <Select onValueChange={(value) => field.onChange(Number(value))} value={String(field.value)}>
                 <FormControl>
                   <SelectTrigger>
                     <SelectValue placeholder="Select number of meals" />
