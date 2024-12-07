@@ -32,7 +32,9 @@ export const MacronutrientChart = ({ macros }: MacronutrientChartProps) => {
               <Cell key={`cell-${index}`} fill={entry.color} />
             ))}
           </Pie>
-          <Tooltip formatter={(value) => `${Math.round(value)} calories`} />
+          <Tooltip 
+            formatter={(value: number | string) => `${typeof value === 'number' ? Math.round(value) : value} calories`}
+          />
           <Legend />
         </PieChart>
       </ResponsiveContainer>

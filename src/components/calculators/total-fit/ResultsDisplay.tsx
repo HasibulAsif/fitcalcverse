@@ -55,7 +55,7 @@ export const ResultsDisplay = ({ results }: ResultsDisplayProps) => {
           </div>
           <div className="p-4 bg-secondary rounded-lg">
             <h3 className="font-semibold mb-2 flex items-center gap-2">
-              <TooltipInfo term="TDEE" description="Total Daily Energy Expenditure" />
+              <TooltipInfo term="TDEE" />
             </h3>
             <p>{Math.round(results.tdee)} calories/day</p>
           </div>

@@ -1,9 +1,9 @@
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { HelpCircle } from "lucide-react";
 
-interface TooltipInfoProps {
+export interface TooltipInfoProps {
   term: string;
-  description: string;
+  description?: string;  // Made optional
 }
 
 const tooltipDescriptions: Record<string, string> = {
@@ -11,6 +11,7 @@ const tooltipDescriptions: Record<string, string> = {
   TDEE: "Total Daily Energy Expenditure - The total number of calories you burn in a day, including activity.",
   "Body Fat": "The percentage of your total body mass that is fat.",
   Macronutrients: "The three main nutrients your body needs in large quantities: proteins, carbohydrates, and fats.",
+  BMI: "Body Mass Index - A measure of body fat based on height and weight.",
 };
 
 export const TooltipInfo = ({ term, description }: TooltipInfoProps) => {
