@@ -10,6 +10,8 @@ import {
   Droplets,
   Menu,
   LayoutDashboard,
+  Flame,
+  UtensilsCrossed
 } from 'lucide-react';
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
@@ -19,6 +21,21 @@ const Sidebar = () => {
   const [collapsed, setCollapsed] = React.useState(false);
 
   const menuItems = [
+    {
+      title: 'Hot',
+      icon: <Flame className="w-4 h-4" />,
+      items: [
+        { name: 'TotalFit Calculator', path: '/total-fit-calculator' },
+        // Meal Plan Generator will be added here later
+      ]
+    },
+    {
+      title: 'Meal Plan',
+      icon: <UtensilsCrossed className="w-4 h-4" />,
+      items: [
+        // Meal Plan Generator pages will be added here later
+      ]
+    },
     {
       title: 'Body Composition',
       icon: <Scale className="w-4 h-4" />,
@@ -105,7 +122,7 @@ const Sidebar = () => {
                 <div className="min-w-[1rem]">{section.icon}</div>
                 {!collapsed && <span>{section.title}</span>}
               </div>
-              {!collapsed && (
+              {!collapsed && section.items && section.items.length > 0 && (
                 <div className="space-y-1">
                   {section.items.map((item, itemIdx) => (
                     <Link
