@@ -1,30 +1,14 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Label } from "@/components/ui/label";
-import { Switch } from "@/components/ui/switch";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Calculator } from "lucide-react";
 import { toast } from "sonner";
-import { Calculator, Activity, Dumbbell } from "lucide-react";
-
-interface CalculationResults {
-  bmi: number;
-  bmiCategory: string;
-  bmr: number;
-  tdee: number;
-  macros: {
-    protein: number;
-    carbs: number;
-    fats: number;
-  };
-  waterIntake: number;
-  sleepRecommendation: string;
-  walkingGoal: string;
-  workoutSuggestions: string[];
-}
+import { UnitToggle } from './total-fit/UnitToggle';
+import { ResultsDisplay } from './total-fit/ResultsDisplay';
 
 const TotalFitCalculator = () => {
   const [useMetric, setUseMetric] = useState(true);
@@ -38,7 +22,7 @@ const TotalFitCalculator = () => {
     timeframe: '',
     weightGoal: ''
   });
-  const [results, setResults] = useState<CalculationResults | null>(null);
+  const [results, setResults] = useState<any>(null);
 
   const activityMultipliers = {
     sedentary: 1.2,
@@ -164,22 +148,14 @@ const TotalFitCalculator = () => {
   };
 
   return (
-    <div className="space-y-8 animate-fade-in">
+    <div className="space-y-8 animate-fade-in p-4">
       <Card className="p-6 w-full max-w-2xl mx-auto">
-        <div className="flex items-center gap-2 mb-6">
-          <Calculator className="w-6 h-6" />
-          <h2 className="text-2xl font-bold">TotalFit Calculator</h2>
-        </div>
-
-        <div className="flex justify-end mb-4">
-          <div className="flex items-center space-x-2">
-            <Label htmlFor="metric">Metric Units</Label>
-            <Switch
-              id="metric"
-              checked={useMetric}
-              onCheckedChange={setUseMetric}
-            />
+        <div className="flex items-center justify-between mb-6">
+          <div className="flex items-center gap-2">
+            <Calculator className="w-6 h-6" />
+            <h2 className="text-2xl font-bold">TotalFit Calculator</h2>
           </div>
+          <UnitToggle useMetric={useMetric} onToggle={setUseMetric} />
         </div>
 
         <div className="space-y-6">
@@ -299,74 +275,7 @@ const TotalFitCalculator = () => {
 
       {results && (
         <Card className="p-6 w-full max-w-2xl mx-auto">
-          <Tabs defaultValue="metrics" className="w-full">
-            <TabsList className="grid w-full grid-cols-3">
-              <TabsTrigger value="metrics">
-                <Calculator className="w-4 h-4 mr-2" />
-                Metrics
-              </TabsTrigger>
-              <TabsTrigger value="nutrition">
-                <Activity className="w-4 h-4 mr-2" />
-                Nutrition
-              </TabsTrigger>
-              <TabsTrigger value="workout">
-                <Dumbbell className="w-4 h-4 mr-2" />
-                Workout
-              </TabsTrigger>
-            </TabsList>
-            
-            <TabsContent value="metrics" className="space-y-4">
-              <div className="grid grid-cols-2 gap-4">
-                <div className="p-4 bg-secondary rounded-lg">
-                  <h3 className="font-semibold mb-2">BMI</h3>
-                  <p>{results.bmi.toFixed(1)} ({results.bmiCategory})</p>
-                </div>
-                <div className="p-4 bg-secondary rounded-lg">
-                  <h3 className="font-semibold mb-2">BMR</h3>
-                  <p>{Math.round(results.bmr)} calories/day</p>
-                </div>
-                <div className="p-4 bg-secondary rounded-lg">
-                  <h3 className="font-semibold mb-2">Daily Calories</h3>
-                  <p>{Math.round(results.tdee)} calories/day</p>
-                </div>
-                <div className="p-4 bg-secondary rounded-lg">
-                  <h3 className="font-semibold mb-2">Water Intake</h3>
-                  <p>{results.waterIntake.toFixed(1)} liters/day</p>
-                </div>
-              </div>
-            </TabsContent>
-            
-            <TabsContent value="nutrition" className="space-y-4">
-              <div className="grid grid-cols-1 gap-4">
-                <div className="p-4 bg-secondary rounded-lg">
-                  <h3 className="font-semibold mb-2">Macronutrient Breakdown</h3>
-                  <ul className="space-y-2">
-                    <li>Protein: {Math.round(results.macros.protein)}g</li>
-                    <li>Carbs: {Math.round(results.macros.carbs)}g</li>
-                    <li>Fats: {Math.round(results.macros.fats)}g</li>
-                  </ul>
-                </div>
-              </div>
-            </TabsContent>
-            
-            <TabsContent value="workout" className="space-y-4">
-              <div className="space-y-4">
-                <div className="p-4 bg-secondary rounded-lg">
-                  <h3 className="font-semibold mb-2">Workout Recommendations</h3>
-                  <ul className="space-y-2">
-                    {results.workoutSuggestions.map((suggestion, index) => (
-                      <li key={index}>{suggestion}</li>
-                    ))}
-                  </ul>
-                </div>
-                <div className="p-4 bg-secondary rounded-lg">
-                  <h3 className="font-semibold mb-2">Daily Activity Goals</h3>
-                  <p>Walking Goal: {results.walkingGoal}</p>
-                  <p>Sleep: {results.sleepRecommendation}</p>
-                </div>
-              </div>
-            </TabsContent>
-          </Tabs>
+          <ResultsDisplay results={results} />
         </Card>
       )}
     </div>
