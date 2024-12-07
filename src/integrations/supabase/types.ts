@@ -9,6 +9,102 @@ export type Json =
 export type Database = {
   public: {
     Tables: {
+      foods: {
+        Row: {
+          calories: number
+          carbs_grams: number
+          category: Database["public"]["Enums"]["food_category"]
+          created_at: string | null
+          description: string | null
+          fat_grams: number
+          id: string
+          image_url: string | null
+          name: string
+          preparation_instructions: string | null
+          protein_grams: number
+          serving_size: string
+          updated_at: string | null
+        }
+        Insert: {
+          calories: number
+          carbs_grams: number
+          category: Database["public"]["Enums"]["food_category"]
+          created_at?: string | null
+          description?: string | null
+          fat_grams: number
+          id?: string
+          image_url?: string | null
+          name: string
+          preparation_instructions?: string | null
+          protein_grams: number
+          serving_size: string
+          updated_at?: string | null
+        }
+        Update: {
+          calories?: number
+          carbs_grams?: number
+          category?: Database["public"]["Enums"]["food_category"]
+          created_at?: string | null
+          description?: string | null
+          fat_grams?: number
+          id?: string
+          image_url?: string | null
+          name?: string
+          preparation_instructions?: string | null
+          protein_grams?: number
+          serving_size?: string
+          updated_at?: string | null
+        }
+        Relationships: []
+      }
+      meal_plan_items: {
+        Row: {
+          created_at: string | null
+          food_id: string | null
+          id: string
+          meal_plan_id: string | null
+          meal_type: string
+          order_in_meal: number
+          serving_quantity: number
+          updated_at: string | null
+        }
+        Insert: {
+          created_at?: string | null
+          food_id?: string | null
+          id?: string
+          meal_plan_id?: string | null
+          meal_type: string
+          order_in_meal: number
+          serving_quantity?: number
+          updated_at?: string | null
+        }
+        Update: {
+          created_at?: string | null
+          food_id?: string | null
+          id?: string
+          meal_plan_id?: string | null
+          meal_type?: string
+          order_in_meal?: number
+          serving_quantity?: number
+          updated_at?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "meal_plan_items_food_id_fkey"
+            columns: ["food_id"]
+            isOneToOne: false
+            referencedRelation: "foods"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "meal_plan_items_meal_plan_id_fkey"
+            columns: ["meal_plan_id"]
+            isOneToOne: false
+            referencedRelation: "meal_plans"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       meal_plan_profiles: {
         Row: {
           activity_level: Database["public"]["Enums"]["activity_level"]
@@ -60,6 +156,33 @@ export type Database = {
         }
         Relationships: []
       }
+      meal_plans: {
+        Row: {
+          created_at: string | null
+          description: string | null
+          id: string
+          name: string
+          updated_at: string | null
+          user_id: string | null
+        }
+        Insert: {
+          created_at?: string | null
+          description?: string | null
+          id?: string
+          name: string
+          updated_at?: string | null
+          user_id?: string | null
+        }
+        Update: {
+          created_at?: string | null
+          description?: string | null
+          id?: string
+          name?: string
+          updated_at?: string | null
+          user_id?: string | null
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
@@ -80,6 +203,7 @@ export type Database = {
         | "non-vegetarian"
         | "pescatarian"
       fitness_goal: "weight_loss" | "muscle_gain" | "maintenance"
+      food_category: "protein" | "carb" | "fat" | "vegetable"
     }
     CompositeTypes: {
       [_ in never]: never
