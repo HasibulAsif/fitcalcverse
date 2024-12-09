@@ -6,7 +6,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { useAuth } from '@/contexts/AuthContext';
 import { supabase } from '@/integrations/supabase/client';
 import { toast } from 'sonner';
-import { PlusCircle } from 'lucide-react';
+import { PlusCircle, Loader2 } from 'lucide-react';
 
 interface MealLoggerProps {
   onMealLogged: () => void;
@@ -52,8 +52,9 @@ const MealLogger: React.FC<MealLoggerProps> = ({ onMealLogged }) => {
           meal_plan_id: mealPlanData.id,
           meal_type: selectedMeal,
           serving_quantity: parseFloat(portions),
-          order_in_meal: 1, // Default to 1 for now
-        });
+          order_in_meal: 1,
+        })
+        .select();
 
       if (mealItemError) throw mealItemError;
 
@@ -62,6 +63,7 @@ const MealLogger: React.FC<MealLoggerProps> = ({ onMealLogged }) => {
       setSelectedMeal('');
       setPortions('1');
     } catch (error: any) {
+      console.error('Error logging meal:', error);
       toast.error(error.message);
     } finally {
       setLoading(false);
@@ -71,7 +73,9 @@ const MealLogger: React.FC<MealLoggerProps> = ({ onMealLogged }) => {
   return (
     <Card className="p-6 glass-morphism">
       <div className="space-y-6">
-        <h3 className="text-xl font-semibold">Log Your Meal</h3>
+        <div className="flex items-center justify-between">
+          <h3 className="text-xl font-semibold">Log Your Meal</h3>
+        </div>
         
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           <div className="space-y-2">
@@ -107,7 +111,11 @@ const MealLogger: React.FC<MealLoggerProps> = ({ onMealLogged }) => {
               disabled={loading || !selectedMeal || !portions}
               className="w-full"
             >
-              <PlusCircle className="w-4 h-4 mr-2" />
+              {loading ? (
+                <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+              ) : (
+                <PlusCircle className="w-4 h-4 mr-2" />
+              )}
               Log Meal
             </Button>
           </div>
