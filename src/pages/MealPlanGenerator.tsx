@@ -31,7 +31,9 @@ const MealPlanGenerator = () => {
 
       if (error) throw error;
       toast.success('User preferences saved successfully!');
-      generateMealPlans(data[0]);
+      if (data?.[0]) {
+        generateMealPlans(data[0]);
+      }
     } catch (error: any) {
       toast.error(error.message);
     } finally {
@@ -54,7 +56,9 @@ const MealPlanGenerator = () => {
 
       if (error) throw error;
       toast.success('Dietary preferences saved successfully!');
-      generateMealPlans(data[0]);
+      if (data?.[0]) {
+        generateMealPlans(data[0]);
+      }
     } catch (error: any) {
       toast.error(error.message);
     } finally {
@@ -100,13 +104,18 @@ const MealPlanGenerator = () => {
     }
   };
 
-  const handleMealLogged = () => {
+  const handleMealLogged = async () => {
     // Refresh the meal plans after logging a meal
-    const { data: profile } = supabase
+    const { data: profile, error } = await supabase
       .from('meal_plan_profiles')
       .select('*')
       .eq('user_id', user?.id)
       .single();
+
+    if (error) {
+      toast.error('Error refreshing meal plans');
+      return;
+    }
 
     if (profile) {
       generateMealPlans(profile);

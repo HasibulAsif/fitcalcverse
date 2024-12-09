@@ -23,15 +23,29 @@ const MealLogger: React.FC<MealLoggerProps> = ({ onMealLogged }) => {
         return;
       }
 
-      const { error } = await supabase
+      // First create or get the user's current meal plan
+      const { data: mealPlanData, error: mealPlanError } = await supabase
+        .from('meal_plans')
+        .insert({
+          user_id: userData.user.id,
+          name: `Daily Plan ${new Date().toLocaleDateString()}`,
+        })
+        .select()
+        .single();
+
+      if (mealPlanError) throw mealPlanError;
+
+      // Then create the meal plan item
+      const { error: mealItemError } = await supabase
         .from('meal_plan_items')
         .insert({
+          meal_plan_id: mealPlanData.id,
           meal_type: selectedMeal,
           serving_quantity: parseFloat(portions),
-          user_id: userData.user.id,
+          order_in_meal: 1, // Default to 1 for now
         });
 
-      if (error) throw error;
+      if (mealItemError) throw mealItemError;
 
       toast.success('Meal logged successfully!');
       onMealLogged();
