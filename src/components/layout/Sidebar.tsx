@@ -11,11 +11,13 @@ import {
   Menu,
   LayoutDashboard,
   Flame,
-  UtensilsCrossed
+  UtensilsCrossed,
+  Clock
 } from 'lucide-react';
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
+import { Badge } from "@/components/ui/badge";
 
 const Sidebar = () => {
   const [collapsed, setCollapsed] = React.useState(false);
@@ -26,14 +28,24 @@ const Sidebar = () => {
       icon: <Flame className="w-4 h-4" />,
       items: [
         { name: 'TotalFit Calculator', path: '/total-fit-calculator' },
-        { name: 'Meal Plan Generator', path: '/meal-plan-generator' }
+        { 
+          name: 'Meal Plan Generator', 
+          path: '/meal-plan-generator',
+          badge: 'Coming Soon',
+          icon: <Clock className="w-4 h-4 text-primary animate-pulse" />
+        }
       ]
     },
     {
       title: 'Meal Plan',
       icon: <UtensilsCrossed className="w-4 h-4" />,
       items: [
-        { name: 'Meal Plan Generator', path: '/meal-plan-generator' }
+        { 
+          name: 'Meal Plan Generator', 
+          path: '/meal-plan-generator',
+          badge: 'Coming Soon',
+          icon: <Clock className="w-4 h-4 text-primary animate-pulse" />
+        }
       ]
     },
     {
@@ -100,7 +112,6 @@ const Sidebar = () => {
 
       <ScrollArea className="flex-1">
         <nav className="mt-6 space-y-6 px-2">
-          {/* Dashboard Link */}
           <Link
             to="/dashboard"
             className={cn(
@@ -112,7 +123,6 @@ const Sidebar = () => {
             {!collapsed && <span>Dashboard</span>}
           </Link>
 
-          {/* Menu sections */}
           {menuItems.map((section, idx) => (
             <div key={idx} className={cn("space-y-1", collapsed && "flex flex-col items-center")}>
               <div className={cn(
@@ -128,9 +138,17 @@ const Sidebar = () => {
                     <Link
                       key={itemIdx}
                       to={item.path}
-                      className="block px-4 py-2 text-sm hover:bg-gray-700 rounded-md transition-colors"
+                      className="flex items-center justify-between px-4 py-2 text-sm hover:bg-gray-700 rounded-md transition-colors group"
                     >
-                      {item.name}
+                      <div className="flex items-center gap-2">
+                        {item.icon || <div className="w-4 h-4" />}
+                        <span>{item.name}</span>
+                      </div>
+                      {item.badge && (
+                        <Badge variant="outline" className="bg-primary/10 text-primary animate-pulse">
+                          {item.badge}
+                        </Badge>
+                      )}
                     </Link>
                   ))}
                 </div>
@@ -138,7 +156,7 @@ const Sidebar = () => {
             </div>
           ))}
         </nav>
-        <div className="h-24" /> {/* Bottom spacing */}
+        <div className="h-24" />
       </ScrollArea>
     </div>
   );

@@ -11,10 +11,32 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { LogOut, Settings } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { supabase } from "@/integrations/supabase/client";
+import { Badge } from "@/components/ui/badge";
 
 const Header = ({ isLanding = false }: { isLanding?: boolean }) => {
   const { user, signOut } = useAuth();
   const navigate = useNavigate();
+  const [credits, setCredits] = useState<number | null>(null);
+
+  useEffect(() => {
+    if (user) {
+      const fetchCredits = async () => {
+        const { data, error } = await supabase
+          .from('user_credits')
+          .select('credits_remaining')
+          .eq('user_id', user.id)
+          .single();
+        
+        if (data) {
+          setCredits(data.credits_remaining);
+        }
+      };
+
+      fetchCredits();
+    }
+  }, [user]);
 
   if (isLanding) {
     return (
@@ -49,13 +71,19 @@ const Header = ({ isLanding = false }: { isLanding?: boolean }) => {
             </Avatar>
             <div className="flex flex-col items-start">
               <span className="text-sm font-medium">{user?.name || 'User'}</span>
-              <span className="text-xs text-gray-400">{user?.email || 'email@example.com'}</span>
+              <span className="text-xs text-gray-400">
+                {credits !== null ? `${credits} credits remaining` : 'Loading credits...'}
+              </span>
             </div>
           </Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent className="w-56 glass-morphism border-white/20 bg-black/50 backdrop-blur-xl">
           <DropdownMenuLabel>My Account</DropdownMenuLabel>
           <DropdownMenuSeparator className="bg-white/10" />
+          <DropdownMenuItem className="flex justify-between items-center hover:bg-white/10">
+            <span>Credits Remaining</span>
+            <Badge variant="secondary">{credits}</Badge>
+          </DropdownMenuItem>
           <DropdownMenuItem onClick={() => navigate('/settings')} className="hover:bg-white/10">
             <Settings className="mr-2 h-4 w-4" />
             <span>Settings</span>
