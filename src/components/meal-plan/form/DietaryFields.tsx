@@ -11,7 +11,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 
 export const DietaryFields = ({ form }: { form: any }) => {
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+    <div className="grid grid-cols-3 gap-4">
       <FormField
         control={form.control}
         name="dietaryPreference"
@@ -21,7 +21,7 @@ export const DietaryFields = ({ form }: { form: any }) => {
             <Select onValueChange={field.onChange} defaultValue={field.value}>
               <FormControl>
                 <SelectTrigger>
-                  <SelectValue placeholder="Select dietary preference" />
+                  <SelectValue placeholder="Select preference" />
                 </SelectTrigger>
               </FormControl>
               <SelectContent>
@@ -41,9 +41,9 @@ export const DietaryFields = ({ form }: { form: any }) => {
         name="foodAllergies"
         render={({ field }) => (
           <FormItem>
-            <FormLabel>Food Allergies (comma-separated)</FormLabel>
+            <FormLabel>Food Allergies</FormLabel>
             <FormControl>
-              <Input placeholder="e.g., peanuts, shellfish, dairy" {...field} />
+              <Input placeholder="e.g., peanuts, dairy" {...field} />
             </FormControl>
             <FormMessage />
           </FormItem>
@@ -59,7 +59,7 @@ export const DietaryFields = ({ form }: { form: any }) => {
             <Select onValueChange={(value) => field.onChange(Number(value))} value={String(field.value)}>
               <FormControl>
                 <SelectTrigger>
-                  <SelectValue placeholder="Select number of meals" />
+                  <SelectValue placeholder="Select meals" />
                 </SelectTrigger>
               </FormControl>
               <SelectContent>

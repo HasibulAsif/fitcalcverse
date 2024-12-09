@@ -7,11 +7,10 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 
 export const BasicInfoFields = ({ form }: { form: any }) => {
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+    <div className="grid grid-cols-3 gap-4">
       <FormField
         control={form.control}
         name="age"
@@ -21,7 +20,7 @@ export const BasicInfoFields = ({ form }: { form: any }) => {
             <FormControl>
               <Input 
                 type="number" 
-                placeholder="Enter your age" 
+                placeholder="Enter age" 
                 {...field} 
                 onChange={e => field.onChange(e.target.valueAsNumber)} 
                 className="w-full"
@@ -41,7 +40,7 @@ export const BasicInfoFields = ({ form }: { form: any }) => {
             <FormControl>
               <Input 
                 type="number" 
-                placeholder="Enter your weight" 
+                placeholder="Weight" 
                 {...field} 
                 onChange={e => field.onChange(e.target.valueAsNumber)}
                 className="w-full"
@@ -61,7 +60,7 @@ export const BasicInfoFields = ({ form }: { form: any }) => {
             <FormControl>
               <Input 
                 type="number" 
-                placeholder="Enter your height" 
+                placeholder="Height" 
                 {...field} 
                 onChange={e => field.onChange(e.target.valueAsNumber)}
                 className="w-full"

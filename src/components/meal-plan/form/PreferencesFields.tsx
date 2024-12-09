@@ -10,7 +10,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 
 export const PreferencesFields = ({ form }: { form: any }) => {
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+    <div className="grid grid-cols-3 gap-4">
       <FormField
         control={form.control}
         name="gender"
@@ -42,7 +42,7 @@ export const PreferencesFields = ({ form }: { form: any }) => {
             <Select onValueChange={field.onChange} defaultValue={field.value}>
               <FormControl>
                 <SelectTrigger>
-                  <SelectValue placeholder="Select activity level" />
+                  <SelectValue placeholder="Select activity" />
                 </SelectTrigger>
               </FormControl>
               <SelectContent>
@@ -67,7 +67,7 @@ export const PreferencesFields = ({ form }: { form: any }) => {
             <Select onValueChange={field.onChange} defaultValue={field.value}>
               <FormControl>
                 <SelectTrigger>
-                  <SelectValue placeholder="Select fitness goal" />
+                  <SelectValue placeholder="Select goal" />
                 </SelectTrigger>
               </FormControl>
               <SelectContent>
