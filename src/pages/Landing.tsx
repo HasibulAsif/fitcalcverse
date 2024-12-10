@@ -2,7 +2,6 @@ import { HeroSection } from "@/components/landing/HeroSection";
 import { FeaturesSection } from "@/components/landing/FeaturesSection";
 import { PricingSection } from "@/components/landing/PricingSection";
 import { CTASection } from "@/components/landing/CTASection";
-import { ThreeDModel } from "@/components/landing/ThreeDModel";
 import { Helmet } from "react-helmet";
 
 const Landing = () => {
@@ -19,9 +18,6 @@ const Landing = () => {
       </Helmet>
       <div className="min-h-screen bg-black relative overflow-hidden w-full">
         <HeroSection />
-        <div className="relative z-10 py-12">
-          <ThreeDModel />
-        </div>
         <FeaturesSection />
         <PricingSection />
         <CTASection />
