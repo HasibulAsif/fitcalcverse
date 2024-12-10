@@ -63,9 +63,6 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
       const { error } = await supabase.auth.signInWithPassword({
         email,
         password,
-        options: {
-          persistSession: true // Enable session persistence
-        }
       });
       if (error) throw error;
       toast({
@@ -87,9 +84,6 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
       const { error } = await supabase.auth.signUp({
         email,
         password,
-        options: {
-          persistSession: true // Enable session persistence
-        }
       });
       if (error) throw error;
       toast({
