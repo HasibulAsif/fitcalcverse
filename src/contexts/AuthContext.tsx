@@ -25,7 +25,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const { toast } = useToast();
 
   useEffect(() => {
-    // Check active sessions and set the user
+    // Enable session persistence
     supabase.auth.getSession().then(({ data: { session } }) => {
       if (session) {
         setUser({
@@ -38,10 +38,9 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
       }
     });
 
-    // Listen for auth changes
     const {
       data: { subscription },
-    } = supabase.auth.onAuthStateChange((_event, session) => {
+    } = supabase.auth.onAuthStateChange(async (_event, session) => {
       if (session) {
         setUser({
           id: session.user.id,
@@ -64,6 +63,9 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
       const { error } = await supabase.auth.signInWithPassword({
         email,
         password,
+        options: {
+          persistSession: true // Enable session persistence
+        }
       });
       if (error) throw error;
       toast({
@@ -85,6 +87,9 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
       const { error } = await supabase.auth.signUp({
         email,
         password,
+        options: {
+          persistSession: true // Enable session persistence
+        }
       });
       if (error) throw error;
       toast({
