@@ -19,7 +19,7 @@ const Header = ({ isLanding, children }: HeaderProps) => {
           {children}
           <Link to="/" className="flex items-center gap-2">
             <img 
-              src="/lovable-uploads/165f3aff-06b0-4b7f-84cb-c3257ac7b5ae.png" 
+              src="/lovable-uploads/9163a645-2704-4215-a1db-1e59cb20e4e2.png" 
               alt="Healthy Thako Logo" 
               className="h-8 w-auto"
             />
