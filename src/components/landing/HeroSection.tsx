@@ -4,7 +4,7 @@ import { ArrowRight, Dumbbell } from "lucide-react";
 
 export const HeroSection = () => {
   return (
-    <div className="relative min-h-screen w-full -mt-16"> {/* Added -mt-16 to pull up the hero section */}
+    <div className="relative min-h-screen w-full -mt-[4.5rem]"> {/* Adjusted margin top */}
       {/* Mesh Gradient Background */}
       <div className="absolute inset-0 bg-gradient-to-br from-black via-gray-900 to-black">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,_#FF4D8D33_0%,_transparent_50%)]"></div>
@@ -13,7 +13,7 @@ export const HeroSection = () => {
       </div>
 
       {/* Content */}
-      <div className="relative z-10 flex flex-col items-center justify-center min-h-screen text-center px-4 sm:px-6 lg:px-8 w-full pt-16"> {/* Added pt-16 to account for header height */}
+      <div className="relative z-10 flex flex-col items-center justify-center min-h-screen text-center px-4 sm:px-6 lg:px-8 w-full pt-24"> {/* Adjusted padding top */}
         {/* Animated Logo/Icon */}
         <div className="mb-8 animate-bounce">
           <Dumbbell className="w-16 h-16 text-primary" />
