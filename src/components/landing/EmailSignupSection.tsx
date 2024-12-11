@@ -16,13 +16,17 @@ export const EmailSignupSection = () => {
     try {
       const { error } = await supabase
         .from('email_subscriptions')
-        .insert({ email });
+        .insert({ 
+          email: email.toLowerCase().trim(),
+          status: 'active'
+        });
 
       if (error) throw error;
 
       toast.success("Thank you for subscribing!");
       setEmail("");
     } catch (error: any) {
+      console.error('Subscription error:', error);
       toast.error(error.message || "Failed to subscribe. Please try again.");
     } finally {
       setIsLoading(false);
@@ -52,7 +56,7 @@ export const EmailSignupSection = () => {
             className="flex-1"
           />
           <Button type="submit" disabled={isLoading}>
-            Subscribe
+            {isLoading ? "Subscribing..." : "Subscribe"}
           </Button>
         </form>
       </div>
