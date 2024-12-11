@@ -9,6 +9,30 @@ export type Json =
 export type Database = {
   public: {
     Tables: {
+      email_subscriptions: {
+        Row: {
+          created_at: string | null
+          email: string
+          id: string
+          status: Database["public"]["Enums"]["subscription_status"] | null
+          updated_at: string | null
+        }
+        Insert: {
+          created_at?: string | null
+          email: string
+          id?: string
+          status?: Database["public"]["Enums"]["subscription_status"] | null
+          updated_at?: string | null
+        }
+        Update: {
+          created_at?: string | null
+          email?: string
+          id?: string
+          status?: Database["public"]["Enums"]["subscription_status"] | null
+          updated_at?: string | null
+        }
+        Relationships: []
+      }
       foods: {
         Row: {
           calories: number
@@ -228,6 +252,7 @@ export type Database = {
         | "pescatarian"
       fitness_goal: "weight_loss" | "muscle_gain" | "maintenance"
       food_category: "protein" | "carb" | "fat" | "vegetable"
+      subscription_status: "active" | "unsubscribed"
     }
     CompositeTypes: {
       [_ in never]: never

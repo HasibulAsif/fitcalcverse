@@ -16,7 +16,7 @@ export const EmailSignupSection = () => {
     try {
       const { error } = await supabase
         .from('email_subscriptions')
-        .insert([{ email }]);
+        .insert({ email });
 
       if (error) throw error;
 
