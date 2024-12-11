@@ -1,13 +1,15 @@
-import React from 'react';
 import { useAuth } from "@/contexts/AuthContext";
-import { DashboardFeatures } from "@/components/dashboard/DashboardFeatures";
 import { DashboardStats } from "@/components/dashboard/DashboardStats";
+import { DashboardFeatures } from "@/components/dashboard/DashboardFeatures";
+import { QuickActions } from "@/components/dashboard/QuickActions";
+import { RecentActivity } from "@/components/dashboard/RecentActivity";
+import { ProgressTracking } from "@/components/dashboard/ProgressTracking";
 
 const Index = () => {
   const { user } = useAuth();
 
   return (
-    <div className="space-y-8 animate-fade-in px-4 sm:px-6 lg:px-8">
+    <div className="space-y-8 animate-fade-in">
       {/* Welcome Section */}
       <section className="relative overflow-hidden rounded-3xl bg-gradient-to-r from-primary via-accent to-primary bg-[length:200%_100%] animate-gradient">
         <div className="absolute inset-0 bg-black/10" />
@@ -27,6 +29,17 @@ const Index = () => {
       <section>
         <h2 className="text-2xl font-bold mb-6">Quick Overview</h2>
         <DashboardStats />
+      </section>
+
+      {/* Quick Actions & Recent Activity */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <QuickActions />
+        <RecentActivity />
+      </div>
+
+      {/* Progress Tracking */}
+      <section>
+        <ProgressTracking />
       </section>
 
       {/* Features Grid */}
