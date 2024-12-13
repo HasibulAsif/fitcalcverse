@@ -5,6 +5,7 @@ import Header from './Header';
 import Footer from './Footer';
 import AIAssistant from '../chat/AIAssistant';
 import HireTrainerButton from '../common/HireTrainerButton';
+import { CookieConsentBanner } from '../cookies/CookieConsentBanner';
 
 const Layout = () => {
   const location = useLocation();
@@ -24,6 +25,7 @@ const Layout = () => {
       </div>
       <HireTrainerButton />
       {!isLandingPage && <AIAssistant />}
+      <CookieConsentBanner />
     </div>
   );
 };

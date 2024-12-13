@@ -10,6 +10,7 @@ import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Index from "./pages/Index";
 import Settings from "./pages/Settings";
+import CookieSettings from "./pages/CookieSettings";
 import WorkoutSuggestion from "./pages/WorkoutSuggestion";
 import MealPlanGenerator from "./pages/MealPlanGenerator";
 import BMICalculator from "./components/calculators/BMICalculator";
@@ -41,6 +42,7 @@ const AppRoutes = () => (
       <Route path="/" element={<Landing />} />
       <Route path="/login" element={<Login />} />
       <Route path="/register" element={<Register />} />
+      <Route path="/cookie-settings" element={<CookieSettings />} />
       
       {/* Protected Routes */}
       <Route path="/dashboard" element={<ProtectedRoute><Index /></ProtectedRoute>} />
