@@ -11,23 +11,19 @@ export const CookieConsentBanner = () => {
 
   useEffect(() => {
     const checkConsent = async () => {
-      // For authenticated users, check database
       if (user) {
+        // For authenticated users, check database
         const { data } = await supabase
           .from('cookie_consents')
           .select('*')
           .eq('user_id', user.id)
           .single();
 
-        if (!data) {
-          setShowBanner(true);
-        }
+        setShowBanner(!data);
       } else {
         // For non-authenticated users, check localStorage
         const hasConsented = localStorage.getItem('cookieConsent');
-        if (!hasConsented) {
-          setShowBanner(true);
-        }
+        setShowBanner(!hasConsented);
       }
     };
 

@@ -30,40 +30,35 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   useEffect(() => {
     // Get initial session
     supabase.auth.getSession().then(({ data: { session } }) => {
-      if (session) {
-        setSession(session);
-        setUser({
-          id: session.user.id,
-          email: session.user.email,
-          name: session.user.user_metadata?.name || 'User',
-          image: session.user.user_metadata?.avatar_url,
-        });
-        setIsAuthenticated(true);
-      }
+      handleSession(session);
     });
 
     // Listen for auth changes
     const {
       data: { subscription },
-    } = supabase.auth.onAuthStateChange(async (_event, session) => {
-      if (session) {
-        setSession(session);
-        setUser({
-          id: session.user.id,
-          email: session.user.email,
-          name: session.user.user_metadata?.name || 'User',
-          image: session.user.user_metadata?.avatar_url,
-        });
-        setIsAuthenticated(true);
-      } else {
-        setSession(null);
-        setUser(null);
-        setIsAuthenticated(false);
-      }
+    } = supabase.auth.onAuthStateChange((_event, session) => {
+      handleSession(session);
     });
 
     return () => subscription.unsubscribe();
   }, []);
+
+  const handleSession = (session: Session | null) => {
+    if (session) {
+      setSession(session);
+      setUser({
+        id: session.user.id,
+        email: session.user.email,
+        name: session.user.user_metadata?.name || 'User',
+        image: session.user.user_metadata?.avatar_url,
+      });
+      setIsAuthenticated(true);
+    } else {
+      setSession(null);
+      setUser(null);
+      setIsAuthenticated(false);
+    }
+  };
 
   const signIn = async (email: string, password: string) => {
     try {
