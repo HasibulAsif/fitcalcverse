@@ -1,6 +1,7 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
 import { useToast } from '@/components/ui/use-toast';
 import { supabase } from '@/integrations/supabase/client';
+import { Session } from '@supabase/supabase-js';
 
 interface User {
   id: string;
@@ -11,6 +12,7 @@ interface User {
 
 interface AuthContextType {
   user: User | null;
+  session: Session | null;
   isAuthenticated: boolean;
   signIn: (email: string, password: string) => Promise<void>;
   signUp: (email: string, password: string) => Promise<void>;
@@ -21,13 +23,15 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const [user, setUser] = useState<User | null>(null);
+  const [session, setSession] = useState<Session | null>(null);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const { toast } = useToast();
 
   useEffect(() => {
-    // Enable session persistence
+    // Get initial session
     supabase.auth.getSession().then(({ data: { session } }) => {
       if (session) {
+        setSession(session);
         setUser({
           id: session.user.id,
           email: session.user.email,
@@ -38,10 +42,12 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
       }
     });
 
+    // Listen for auth changes
     const {
       data: { subscription },
     } = supabase.auth.onAuthStateChange(async (_event, session) => {
       if (session) {
+        setSession(session);
         setUser({
           id: session.user.id,
           email: session.user.email,
@@ -50,6 +56,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
         });
         setIsAuthenticated(true);
       } else {
+        setSession(null);
         setUser(null);
         setIsAuthenticated(false);
       }
@@ -119,7 +126,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   };
 
   return (
-    <AuthContext.Provider value={{ user, isAuthenticated, signIn, signUp, signOut }}>
+    <AuthContext.Provider value={{ user, session, isAuthenticated, signIn, signUp, signOut }}>
       {children}
     </AuthContext.Provider>
   );

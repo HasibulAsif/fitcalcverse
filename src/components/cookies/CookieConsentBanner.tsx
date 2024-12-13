@@ -11,6 +11,7 @@ export const CookieConsentBanner = () => {
 
   useEffect(() => {
     const checkConsent = async () => {
+      // For authenticated users, check database
       if (user) {
         const { data } = await supabase
           .from('cookie_consents')
@@ -37,7 +38,7 @@ export const CookieConsentBanner = () => {
     if (user) {
       const { error } = await supabase
         .from('cookie_consents')
-        .insert({
+        .upsert({
           user_id: user.id,
           essential: true,
           functional: true,
@@ -68,7 +69,7 @@ export const CookieConsentBanner = () => {
     if (user) {
       const { error } = await supabase
         .from('cookie_consents')
-        .insert({
+        .upsert({
           user_id: user.id,
           essential: true,
           functional: false,
