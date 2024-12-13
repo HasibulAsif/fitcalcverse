@@ -9,6 +9,9 @@ import Settings from "@/pages/Settings";
 import CookieSettings from "@/pages/CookieSettings";
 import WorkoutSuggestion from "@/pages/WorkoutSuggestion";
 import MealPlanGenerator from "@/pages/MealPlanGenerator";
+import About from "@/pages/About";
+import Contact from "@/pages/Contact";
+import NotFound from "@/pages/NotFound";
 import BMICalculator from "@/components/calculators/BMICalculator";
 import BodyFatCalculator from "@/components/calculators/BodyFatCalculator";
 import CalorieCalculator from "@/components/calculators/CalorieCalculator";
@@ -36,6 +39,8 @@ const AppRoutes = () => (
       <Route path="/" element={<Landing />} />
       <Route path="/login" element={<Login />} />
       <Route path="/register" element={<Register />} />
+      <Route path="/about" element={<About />} />
+      <Route path="/contact" element={<Contact />} />
       <Route path="/cookie-settings" element={<CookieSettings />} />
       
       {/* Protected Routes */}
@@ -60,7 +65,7 @@ const AppRoutes = () => (
       <Route path="/total-fit-calculator" element={<ProtectedRoute><TotalFitCalculator /></ProtectedRoute>} />
       
       {/* Catch all undefined routes */}
-      <Route path="*" element={<Navigate to="/" replace />} />
+      <Route path="*" element={<NotFound />} />
     </Route>
   </Routes>
 );
