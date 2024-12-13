@@ -27,7 +27,7 @@ import TotalFitCalculator from "@/components/calculators/TotalFitCalculator";
 
 const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
   const { isAuthenticated } = useAuth();
-  return !isAuthenticated ? <Navigate to="/login" replace /> : <>{children}</>;
+  return isAuthenticated ? <>{children}</> : <Navigate to="/login" replace />;
 };
 
 const AppRoutes = () => (

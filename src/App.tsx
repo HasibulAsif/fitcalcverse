@@ -9,17 +9,17 @@ import AppRoutes from "./routes/AppRoutes";
 const queryClient = new QueryClient();
 
 const App = () => (
-  <BrowserRouter>
-    <QueryClientProvider client={queryClient}>
-      <AuthProvider>
+  <QueryClientProvider client={queryClient}>
+    <AuthProvider>
+      <BrowserRouter>
         <TooltipProvider>
           <AppRoutes />
           <Toaster />
           <Sonner />
         </TooltipProvider>
-      </AuthProvider>
-    </QueryClientProvider>
-  </BrowserRouter>
+      </BrowserRouter>
+    </AuthProvider>
+  </QueryClientProvider>
 );
 
 export default App;
