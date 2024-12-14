@@ -9,6 +9,111 @@ export type Json =
 export type Database = {
   public: {
     Tables: {
+      bmi_records: {
+        Row: {
+          bmi: number
+          category: string
+          created_at: string | null
+          height: number
+          id: string
+          updated_at: string | null
+          user_id: string
+          weight: number
+        }
+        Insert: {
+          bmi: number
+          category: string
+          created_at?: string | null
+          height: number
+          id?: string
+          updated_at?: string | null
+          user_id: string
+          weight: number
+        }
+        Update: {
+          bmi?: number
+          category?: string
+          created_at?: string | null
+          height?: number
+          id?: string
+          updated_at?: string | null
+          user_id?: string
+          weight?: number
+        }
+        Relationships: []
+      }
+      body_fat_records: {
+        Row: {
+          body_fat_percentage: number
+          created_at: string | null
+          gender: string
+          height: number
+          hip: number | null
+          id: string
+          neck: number
+          updated_at: string | null
+          user_id: string
+          waist: number
+        }
+        Insert: {
+          body_fat_percentage: number
+          created_at?: string | null
+          gender: string
+          height: number
+          hip?: number | null
+          id?: string
+          neck: number
+          updated_at?: string | null
+          user_id: string
+          waist: number
+        }
+        Update: {
+          body_fat_percentage?: number
+          created_at?: string | null
+          gender?: string
+          height?: number
+          hip?: number | null
+          id?: string
+          neck?: number
+          updated_at?: string | null
+          user_id?: string
+          waist?: number
+        }
+        Relationships: []
+      }
+      calories_burned_records: {
+        Row: {
+          activity: string
+          calories_burned: number
+          created_at: string | null
+          duration: number
+          id: string
+          updated_at: string | null
+          user_id: string
+          weight: number
+        }
+        Insert: {
+          activity: string
+          calories_burned: number
+          created_at?: string | null
+          duration: number
+          id?: string
+          updated_at?: string | null
+          user_id: string
+          weight: number
+        }
+        Update: {
+          activity?: string
+          calories_burned?: number
+          created_at?: string | null
+          duration?: number
+          id?: string
+          updated_at?: string | null
+          user_id?: string
+          weight?: number
+        }
+        Relationships: []
+      }
       contact_messages: {
         Row: {
           created_at: string | null
@@ -147,6 +252,66 @@ export type Database = {
           protein_grams?: number
           serving_size?: string
           updated_at?: string | null
+        }
+        Relationships: []
+      }
+      ideal_weight_records: {
+        Row: {
+          created_at: string | null
+          gender: string
+          height: number
+          id: string
+          ideal_weight: number
+          updated_at: string | null
+          user_id: string
+        }
+        Insert: {
+          created_at?: string | null
+          gender: string
+          height: number
+          id?: string
+          ideal_weight: number
+          updated_at?: string | null
+          user_id: string
+        }
+        Update: {
+          created_at?: string | null
+          gender?: string
+          height?: number
+          id?: string
+          ideal_weight?: number
+          updated_at?: string | null
+          user_id?: string
+        }
+        Relationships: []
+      }
+      lean_mass_records: {
+        Row: {
+          body_fat_percentage: number
+          created_at: string | null
+          id: string
+          lean_mass: number
+          updated_at: string | null
+          user_id: string
+          weight: number
+        }
+        Insert: {
+          body_fat_percentage: number
+          created_at?: string | null
+          id?: string
+          lean_mass: number
+          updated_at?: string | null
+          user_id: string
+          weight: number
+        }
+        Update: {
+          body_fat_percentage?: number
+          created_at?: string | null
+          id?: string
+          lean_mass?: number
+          updated_at?: string | null
+          user_id?: string
+          weight?: number
         }
         Relationships: []
       }
@@ -375,6 +540,39 @@ export type Database = {
           id?: string
           updated_at?: string | null
           user_id?: string | null
+        }
+        Relationships: []
+      }
+      water_intake_records: {
+        Row: {
+          activity_level: string
+          climate: string
+          created_at: string | null
+          id: string
+          recommended_intake: number
+          updated_at: string | null
+          user_id: string
+          weight: number
+        }
+        Insert: {
+          activity_level: string
+          climate: string
+          created_at?: string | null
+          id?: string
+          recommended_intake: number
+          updated_at?: string | null
+          user_id: string
+          weight: number
+        }
+        Update: {
+          activity_level?: string
+          climate?: string
+          created_at?: string | null
+          id?: string
+          recommended_intake?: number
+          updated_at?: string | null
+          user_id?: string
+          weight?: number
         }
         Relationships: []
       }
