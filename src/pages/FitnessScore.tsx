@@ -1,6 +1,6 @@
 import { Card } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
-import { Trophy, Heart, Running, Dumbbell } from "lucide-react";
+import { Trophy, Heart, Timer, Dumbbell } from "lucide-react";
 
 const FitnessScore = () => {
   const scores = [
@@ -25,7 +25,7 @@ const FitnessScore = () => {
     {
       title: 'Endurance',
       score: 75,
-      icon: <Running className="w-6 h-6 text-green-500" />,
+      icon: <Timer className="w-6 h-6 text-green-500" />,
       color: 'from-green-500/10 to-green-500/20'
     }
   ];
