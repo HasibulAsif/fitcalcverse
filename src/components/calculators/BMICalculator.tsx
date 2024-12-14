@@ -1,27 +1,79 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
 import GuidelinesTable from './GuidelinesTable';
+import { supabase } from "@/integrations/supabase/client";
+import { useAuth } from "@/contexts/AuthContext";
+import { ScrollArea } from "@/components/ui/scroll-area";
 
 const BMICalculator = () => {
   const [height, setHeight] = useState('');
   const [weight, setWeight] = useState('');
   const [bmi, setBmi] = useState<number | null>(null);
+  const [bmiHistory, setBmiHistory] = useState<any[]>([]);
+  const { user } = useAuth();
 
-  const calculateBMI = () => {
+  useEffect(() => {
+    if (user) {
+      fetchBMIHistory();
+    }
+  }, [user]);
+
+  const fetchBMIHistory = async () => {
+    try {
+      const { data, error } = await supabase
+        .from('bmi_records')
+        .select('*')
+        .order('created_at', { ascending: false })
+        .limit(5);
+
+      if (error) throw error;
+      setBmiHistory(data || []);
+    } catch (error) {
+      console.error('Error fetching BMI history:', error);
+      toast.error("Failed to load BMI history");
+    }
+  };
+
+  const calculateBMI = async () => {
     if (!height || !weight) {
       toast.error("Please enter both height and weight");
+      return;
+    }
+
+    if (!user) {
+      toast.error("Please log in to save your BMI records");
       return;
     }
 
     const heightInMeters = parseFloat(height) / 100;
     const weightInKg = parseFloat(weight);
     const calculatedBMI = weightInKg / (heightInMeters * heightInMeters);
+    const roundedBMI = parseFloat(calculatedBMI.toFixed(1));
     
-    setBmi(parseFloat(calculatedBMI.toFixed(1)));
-    toast.success("BMI calculated successfully!");
+    setBmi(roundedBMI);
+
+    try {
+      const { error } = await supabase
+        .from('bmi_records')
+        .insert({
+          user_id: user.id,
+          height: parseFloat(height),
+          weight: weightInKg,
+          bmi: roundedBMI,
+          category: getBMICategory(roundedBMI)
+        });
+
+      if (error) throw error;
+      
+      toast.success("BMI calculated and saved successfully!");
+      fetchBMIHistory();
+    } catch (error) {
+      console.error('Error saving BMI record:', error);
+      toast.error("Failed to save BMI record");
+    }
   };
 
   const getBMICategory = (bmi: number) => {
@@ -98,6 +150,35 @@ const BMICalculator = () => {
             <div className="mt-4 p-4 bg-secondary rounded-lg">
               <p className="text-center font-semibold">Your BMI: {bmi}</p>
               <p className="text-center text-sm mt-1">Category: {getBMICategory(bmi)}</p>
+            </div>
+          )}
+
+          {user && bmiHistory.length > 0 && (
+            <div className="mt-6">
+              <h3 className="font-semibold mb-2">Recent BMI History</h3>
+              <ScrollArea className="h-[200px] rounded-md border p-4">
+                <div className="space-y-4">
+                  {bmiHistory.map((record) => (
+                    <div 
+                      key={record.id} 
+                      className="p-3 bg-secondary/50 rounded-lg"
+                    >
+                      <div className="flex justify-between items-center">
+                        <div>
+                          <p className="font-medium">BMI: {record.bmi}</p>
+                          <p className="text-sm text-muted-foreground">
+                            Height: {record.height}cm, Weight: {record.weight}kg
+                          </p>
+                        </div>
+                        <p className="text-sm text-muted-foreground">
+                          {new Date(record.created_at).toLocaleDateString()}
+                        </p>
+                      </div>
+                      <p className="text-sm mt-1 text-primary">{record.category}</p>
+                    </div>
+                  ))}
+                </div>
+              </ScrollArea>
             </div>
           )}
         </div>
