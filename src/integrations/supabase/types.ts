@@ -207,6 +207,45 @@ export type Database = {
         }
         Relationships: []
       }
+      fitness_scores: {
+        Row: {
+          assessment_date: string
+          cardio_score: number
+          created_at: string | null
+          endurance_score: number
+          flexibility_score: number
+          id: string
+          strength_score: number
+          total_score: number
+          updated_at: string | null
+          user_id: string
+        }
+        Insert: {
+          assessment_date?: string
+          cardio_score: number
+          created_at?: string | null
+          endurance_score: number
+          flexibility_score: number
+          id?: string
+          strength_score: number
+          total_score: number
+          updated_at?: string | null
+          user_id: string
+        }
+        Update: {
+          assessment_date?: string
+          cardio_score?: number
+          created_at?: string | null
+          endurance_score?: number
+          flexibility_score?: number
+          id?: string
+          strength_score?: number
+          total_score?: number
+          updated_at?: string | null
+          user_id?: string
+        }
+        Relationships: []
+      }
       foods: {
         Row: {
           calories: number
@@ -438,6 +477,84 @@ export type Database = {
           name?: string
           updated_at?: string | null
           user_id?: string | null
+        }
+        Relationships: []
+      }
+      nutrition_logs: {
+        Row: {
+          calories: number
+          carbs_grams: number
+          created_at: string | null
+          fat_grams: number
+          food_name: string
+          id: string
+          meal_date: string
+          meal_type: string
+          protein_grams: number
+          updated_at: string | null
+          user_id: string
+        }
+        Insert: {
+          calories: number
+          carbs_grams: number
+          created_at?: string | null
+          fat_grams: number
+          food_name: string
+          id?: string
+          meal_date?: string
+          meal_type: string
+          protein_grams: number
+          updated_at?: string | null
+          user_id: string
+        }
+        Update: {
+          calories?: number
+          carbs_grams?: number
+          created_at?: string | null
+          fat_grams?: number
+          food_name?: string
+          id?: string
+          meal_date?: string
+          meal_type?: string
+          protein_grams?: number
+          updated_at?: string | null
+          user_id?: string
+        }
+        Relationships: []
+      }
+      performance_metrics: {
+        Row: {
+          created_at: string | null
+          id: string
+          metric_type: string
+          metric_unit: string
+          metric_value: number
+          notes: string | null
+          recorded_date: string
+          updated_at: string | null
+          user_id: string
+        }
+        Insert: {
+          created_at?: string | null
+          id?: string
+          metric_type: string
+          metric_unit: string
+          metric_value: number
+          notes?: string | null
+          recorded_date?: string
+          updated_at?: string | null
+          user_id: string
+        }
+        Update: {
+          created_at?: string | null
+          id?: string
+          metric_type?: string
+          metric_unit?: string
+          metric_value?: number
+          notes?: string | null
+          recorded_date?: string
+          updated_at?: string | null
+          user_id?: string
         }
         Relationships: []
       }

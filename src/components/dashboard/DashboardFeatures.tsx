@@ -5,14 +5,9 @@ import {
   Activity,
   Dumbbell,
   Target,
-  Flame,
-  Heart,
-  Calendar,
   Trophy,
-  TrendingUp,
-  Users,
-  Clock,
-  BarChart,
+  ChartBar,
+  Leaf,
   Zap
 } from "lucide-react";
 
@@ -21,45 +16,45 @@ export const DashboardFeatures = () => {
 
   const features = [
     {
-      title: 'Workout Plan',
-      description: 'Get AI-powered workout recommendations',
-      icon: <Dumbbell className="w-6 h-6 text-primary" />,
-      path: '/workout-suggestion',
-      color: 'from-primary/10 to-accent/10'
-    },
-    {
       title: 'Fitness Score',
       description: 'Track your overall fitness progress',
-      icon: <Target className="w-6 h-6 text-blue-500" />,
-      path: '/total-fit-calculator',
-      color: 'from-blue-500/10 to-blue-600/10'
+      icon: <Trophy className="w-6 h-6 text-primary" />,
+      path: '/fitness-score',
+      color: 'from-primary/10 to-accent/10'
     },
     {
       title: 'Nutrition Tracking',
       description: 'Monitor your daily nutrition intake',
-      icon: <Activity className="w-6 h-6 text-green-500" />,
-      path: '/meal-plan-generator',
+      icon: <Leaf className="w-6 h-6 text-green-500" />,
+      path: '/nutrition-tracking',
       color: 'from-green-500/10 to-green-600/10'
-    },
-    {
-      title: 'Community Challenges',
-      description: 'Join fitness challenges with others',
-      icon: <Users className="w-6 h-6 text-purple-500" />,
-      path: '/challenges',
-      color: 'from-purple-500/10 to-purple-600/10'
-    },
-    {
-      title: 'Workout History',
-      description: 'View your training history and stats',
-      icon: <Clock className="w-6 h-6 text-orange-500" />,
-      path: '/history',
-      color: 'from-orange-500/10 to-orange-600/10'
     },
     {
       title: 'Performance Analytics',
       description: 'Detailed insights into your progress',
-      icon: <BarChart className="w-6 h-6 text-yellow-500" />,
-      path: '/analytics',
+      icon: <ChartBar className="w-6 h-6 text-blue-500" />,
+      path: '/performance-analytics',
+      color: 'from-blue-500/10 to-blue-600/10'
+    },
+    {
+      title: 'Workout Plan',
+      description: 'Get AI-powered workout recommendations',
+      icon: <Dumbbell className="w-6 h-6 text-purple-500" />,
+      path: '/workout-suggestion',
+      color: 'from-purple-500/10 to-purple-600/10'
+    },
+    {
+      title: 'Meal Planning',
+      description: 'Personalized meal recommendations',
+      icon: <Activity className="w-6 h-6 text-orange-500" />,
+      path: '/meal-plan-generator',
+      color: 'from-orange-500/10 to-orange-600/10'
+    },
+    {
+      title: 'Total Fit Calculator',
+      description: 'Calculate your fitness metrics',
+      icon: <Target className="w-6 h-6 text-yellow-500" />,
+      path: '/total-fit-calculator',
       color: 'from-yellow-500/10 to-yellow-600/10'
     }
   ];
