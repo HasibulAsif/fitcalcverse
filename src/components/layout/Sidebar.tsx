@@ -3,11 +3,9 @@ import { Link } from 'react-router-dom';
 import { 
   Scale,
   Activity,
-  Heart,
   Dumbbell,
   Calculator,
   BarChart3,
-  Droplets,
   Menu,
   LayoutDashboard,
   Flame,
@@ -27,7 +25,7 @@ const Sidebar = () => {
       title: 'Hot',
       icon: <Flame className="w-4 h-4" />,
       items: [
-        { name: 'TotalFit Calculator', path: '/total-fit-calculator' },
+        { name: 'TotalFit Calculator', path: '/total-fit-calculator', icon: <Calculator className="w-4 h-4" /> },
         { 
           name: 'Meal Plan Generator', 
           path: '/meal-plan-generator',

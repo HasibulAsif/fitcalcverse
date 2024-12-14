@@ -18,6 +18,7 @@ import Profile from "@/pages/Profile";
 import Terms from "@/pages/Terms";
 import Privacy from "@/pages/Privacy";
 import NotFound from "@/pages/NotFound";
+import TotalFitCalculator from "@/components/calculators/TotalFitCalculator";
 
 const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
   const { isAuthenticated } = useAuth();
@@ -45,6 +46,7 @@ const AppRoutes = () => (
       <Route path="/fitness-score" element={<ProtectedRoute><FitnessScore /></ProtectedRoute>} />
       <Route path="/nutrition-tracking" element={<ProtectedRoute><NutritionTracking /></ProtectedRoute>} />
       <Route path="/performance-analytics" element={<ProtectedRoute><PerformanceAnalytics /></ProtectedRoute>} />
+      <Route path="/total-fit-calculator" element={<ProtectedRoute><TotalFitCalculator /></ProtectedRoute>} />
       
       {/* Catch all undefined routes */}
       <Route path="*" element={<NotFound />} />
