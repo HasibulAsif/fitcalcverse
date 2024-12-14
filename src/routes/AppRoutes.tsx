@@ -11,6 +11,9 @@ import WorkoutSuggestion from "@/pages/WorkoutSuggestion";
 import MealPlanGenerator from "@/pages/MealPlanGenerator";
 import About from "@/pages/About";
 import Contact from "@/pages/Contact";
+import Profile from "@/pages/Profile";
+import Terms from "@/pages/Terms";
+import Privacy from "@/pages/Privacy";
 import NotFound from "@/pages/NotFound";
 import BMICalculator from "@/components/calculators/BMICalculator";
 import BodyFatCalculator from "@/components/calculators/BodyFatCalculator";
@@ -41,10 +44,13 @@ const AppRoutes = () => (
       <Route path="/register" element={<Register />} />
       <Route path="/about" element={<About />} />
       <Route path="/contact" element={<Contact />} />
+      <Route path="/terms" element={<Terms />} />
+      <Route path="/privacy" element={<Privacy />} />
       <Route path="/cookie-settings" element={<CookieSettings />} />
       
       {/* Protected Routes */}
       <Route path="/dashboard" element={<ProtectedRoute><Index /></ProtectedRoute>} />
+      <Route path="/profile" element={<ProtectedRoute><Profile /></ProtectedRoute>} />
       <Route path="/settings" element={<ProtectedRoute><Settings /></ProtectedRoute>} />
       <Route path="/workout-suggestion" element={<ProtectedRoute><WorkoutSuggestion /></ProtectedRoute>} />
       <Route path="/meal-plan-generator" element={<ProtectedRoute><MealPlanGenerator /></ProtectedRoute>} />

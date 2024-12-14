@@ -72,7 +72,36 @@ export default {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
       },
+      typography: {
+        DEFAULT: {
+          css: {
+            maxWidth: 'none',
+            color: 'rgb(212, 212, 212)',
+            h1: {
+              color: 'rgb(255, 255, 255)',
+            },
+            h2: {
+              color: 'rgb(255, 255, 255)',
+            },
+            h3: {
+              color: 'rgb(255, 255, 255)',
+            },
+            h4: {
+              color: 'rgb(255, 255, 255)',
+            },
+            strong: {
+              color: 'rgb(255, 255, 255)',
+            },
+            a: {
+              color: '#FF4D8D',
+              '&:hover': {
+                color: '#FF1A75',
+              },
+            },
+          },
+        },
+      },
     },
   },
-  plugins: [require("tailwindcss-animate")],
+  plugins: [require("tailwindcss-animate"), require("@tailwindcss/typography")],
 } satisfies Config;
