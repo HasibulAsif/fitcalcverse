@@ -36,6 +36,7 @@ import OneRepMaxCalculator from "@/components/calculators/OneRepMaxCalculator";
 import WaistToHipCalculator from "@/components/calculators/WaistToHipCalculator";
 import WaterIntakeCalculator from "@/components/calculators/WaterIntakeCalculator";
 import WeightGoalCalculator from "@/components/calculators/WeightGoalCalculator";
+import NutriPlanPro from "@/components/nutri-plan-pro/NutriPlanPro";
 
 const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
   const { isAuthenticated } = useAuth();
@@ -64,6 +65,7 @@ const AppRoutes = () => (
       <Route path="/fitness-score" element={<ProtectedRoute><FitnessScore /></ProtectedRoute>} />
       <Route path="/nutrition-tracking" element={<ProtectedRoute><NutritionTracking /></ProtectedRoute>} />
       <Route path="/performance-analytics" element={<ProtectedRoute><PerformanceAnalytics /></ProtectedRoute>} />
+      <Route path="/nutri-plan-pro" element={<ProtectedRoute><NutriPlanPro /></ProtectedRoute>} />
 
       {/* Calculator Routes */}
       <Route path="/total-fit-calculator" element={<ProtectedRoute><TotalFitCalculator /></ProtectedRoute>} />

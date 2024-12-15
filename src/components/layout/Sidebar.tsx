@@ -66,6 +66,12 @@ const Sidebar = () => {
               path="/meal-plan-generator"
               collapsed={collapsed}
             />
+            <MenuItem
+              icon={<Leaf className="w-4 h-4" />}
+              title="NutriPlanPro"
+              path="/nutri-plan-pro"
+              collapsed={collapsed}
+            />
           </MenuGroup>
 
           <MenuGroup
