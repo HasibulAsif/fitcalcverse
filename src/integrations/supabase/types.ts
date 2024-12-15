@@ -183,6 +183,53 @@ export type Database = {
         }
         Relationships: []
       }
+      daily_meal_plans: {
+        Row: {
+          created_at: string | null
+          date: string
+          id: string
+          notes: string | null
+          nutrition_plan_id: string
+          total_calories: number
+          total_carbs: number
+          total_fat: number
+          total_protein: number
+          updated_at: string | null
+        }
+        Insert: {
+          created_at?: string | null
+          date: string
+          id?: string
+          notes?: string | null
+          nutrition_plan_id: string
+          total_calories: number
+          total_carbs: number
+          total_fat: number
+          total_protein: number
+          updated_at?: string | null
+        }
+        Update: {
+          created_at?: string | null
+          date?: string
+          id?: string
+          notes?: string | null
+          nutrition_plan_id?: string
+          total_calories?: number
+          total_carbs?: number
+          total_fat?: number
+          total_protein?: number
+          updated_at?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "daily_meal_plans_nutrition_plan_id_fkey"
+            columns: ["nutrition_plan_id"]
+            isOneToOne: false
+            referencedRelation: "nutrition_plans"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       email_subscriptions: {
         Row: {
           created_at: string | null
@@ -480,6 +527,53 @@ export type Database = {
         }
         Relationships: []
       }
+      meals: {
+        Row: {
+          calories: number
+          carbs: number
+          created_at: string | null
+          daily_plan_id: string
+          fat: number
+          id: string
+          meal_time: string
+          meal_type: string
+          protein: number
+          updated_at: string | null
+        }
+        Insert: {
+          calories: number
+          carbs: number
+          created_at?: string | null
+          daily_plan_id: string
+          fat: number
+          id?: string
+          meal_time: string
+          meal_type: string
+          protein: number
+          updated_at?: string | null
+        }
+        Update: {
+          calories?: number
+          carbs?: number
+          created_at?: string | null
+          daily_plan_id?: string
+          fat?: number
+          id?: string
+          meal_time?: string
+          meal_type?: string
+          protein?: number
+          updated_at?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "meals_daily_plan_id_fkey"
+            columns: ["daily_plan_id"]
+            isOneToOne: false
+            referencedRelation: "daily_meal_plans"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       nutrition_logs: {
         Row: {
           calories: number
@@ -519,6 +613,45 @@ export type Database = {
           protein_grams?: number
           updated_at?: string | null
           user_id?: string
+        }
+        Relationships: []
+      }
+      nutrition_plans: {
+        Row: {
+          created_at: string | null
+          end_date: string | null
+          id: string
+          nutrition_goal: Database["public"]["Enums"]["nutrition_goal_type"]
+          start_date: string
+          status: string
+          target_weight: number
+          updated_at: string | null
+          user_id: string
+          weekly_goal: number
+        }
+        Insert: {
+          created_at?: string | null
+          end_date?: string | null
+          id?: string
+          nutrition_goal: Database["public"]["Enums"]["nutrition_goal_type"]
+          start_date?: string
+          status?: string
+          target_weight: number
+          updated_at?: string | null
+          user_id: string
+          weekly_goal: number
+        }
+        Update: {
+          created_at?: string | null
+          end_date?: string | null
+          id?: string
+          nutrition_goal?: Database["public"]["Enums"]["nutrition_goal_type"]
+          start_date?: string
+          status?: string
+          target_weight?: number
+          updated_at?: string | null
+          user_id?: string
+          weekly_goal?: number
         }
         Relationships: []
       }
@@ -714,6 +847,11 @@ export type Database = {
         | "pescatarian"
       fitness_goal: "weight_loss" | "muscle_gain" | "maintenance"
       food_category: "protein" | "carb" | "fat" | "vegetable"
+      nutrition_goal_type:
+        | "weight_loss"
+        | "muscle_gain"
+        | "maintenance"
+        | "general_health"
       subscription_status: "active" | "unsubscribed"
     }
     CompositeTypes: {
