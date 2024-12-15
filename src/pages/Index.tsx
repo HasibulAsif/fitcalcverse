@@ -1,9 +1,6 @@
 import { useAuth } from "@/contexts/AuthContext";
 import { DashboardStats } from "@/components/dashboard/DashboardStats";
 import { DashboardFeatures } from "@/components/dashboard/DashboardFeatures";
-import { QuickActions } from "@/components/dashboard/QuickActions";
-import { RecentActivity } from "@/components/dashboard/RecentActivity";
-import { ProgressTracking } from "@/components/dashboard/ProgressTracking";
 
 const Index = () => {
   const { user } = useAuth();
@@ -23,23 +20,6 @@ const Index = () => {
             </p>
           </div>
         </div>
-      </section>
-
-      {/* Stats Overview */}
-      <section>
-        <h2 className="text-2xl font-bold mb-6">Quick Overview</h2>
-        <DashboardStats />
-      </section>
-
-      {/* Quick Actions & Recent Activity */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <QuickActions />
-        <RecentActivity />
-      </div>
-
-      {/* Progress Tracking */}
-      <section>
-        <ProgressTracking />
       </section>
 
       {/* Features Grid */}

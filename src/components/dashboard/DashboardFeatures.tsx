@@ -2,12 +2,12 @@ import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
 import {
-  Activity,
-  Dumbbell,
+  Calculator,
   Target,
-  Trophy,
-  ChartBar,
   Leaf,
+  ChartBar,
+  Dumbbell,
+  Activity,
   Zap
 } from "lucide-react";
 
@@ -16,10 +16,10 @@ export const DashboardFeatures = () => {
 
   const features = [
     {
-      title: 'Fitness Score',
-      description: 'Track your overall fitness progress',
-      icon: <Trophy className="w-6 h-6 text-primary" />,
-      path: '/fitness-score',
+      title: 'Calculators',
+      description: 'Access all fitness calculators in one place',
+      icon: <Calculator className="w-6 h-6 text-primary" />,
+      path: '/calculator-dashboard',
       color: 'from-primary/10 to-accent/10'
     },
     {
@@ -49,13 +49,6 @@ export const DashboardFeatures = () => {
       icon: <Activity className="w-6 h-6 text-orange-500" />,
       path: '/meal-plan-generator',
       color: 'from-orange-500/10 to-orange-600/10'
-    },
-    {
-      title: 'Total Fit Calculator',
-      description: 'Calculate your fitness metrics',
-      icon: <Target className="w-6 h-6 text-yellow-500" />,
-      path: '/total-fit-calculator',
-      color: 'from-yellow-500/10 to-yellow-600/10'
     }
   ];
 

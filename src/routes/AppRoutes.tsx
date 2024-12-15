@@ -5,6 +5,7 @@ import Landing from "@/pages/Landing";
 import Login from "@/pages/Login";
 import Register from "@/pages/Register";
 import Index from "@/pages/Index";
+import CalculatorDashboard from "@/pages/CalculatorDashboard";
 import Settings from "@/pages/Settings";
 import CookieSettings from "@/pages/CookieSettings";
 import WorkoutSuggestion from "@/pages/WorkoutSuggestion";
@@ -55,6 +56,7 @@ const AppRoutes = () => (
       
       {/* Protected Routes */}
       <Route path="/dashboard" element={<ProtectedRoute><Index /></ProtectedRoute>} />
+      <Route path="/calculator-dashboard" element={<ProtectedRoute><CalculatorDashboard /></ProtectedRoute>} />
       <Route path="/profile" element={<ProtectedRoute><Profile /></ProtectedRoute>} />
       <Route path="/settings" element={<ProtectedRoute><Settings /></ProtectedRoute>} />
       <Route path="/workout-suggestion" element={<ProtectedRoute><WorkoutSuggestion /></ProtectedRoute>} />
