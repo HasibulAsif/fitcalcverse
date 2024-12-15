@@ -18,7 +18,23 @@ import Profile from "@/pages/Profile";
 import Terms from "@/pages/Terms";
 import Privacy from "@/pages/Privacy";
 import NotFound from "@/pages/NotFound";
+
+// Calculator Components
 import TotalFitCalculator from "@/components/calculators/TotalFitCalculator";
+import BMICalculator from "@/components/calculators/BMICalculator";
+import BodyFatCalculator from "@/components/calculators/BodyFatCalculator";
+import CalorieCalculator from "@/components/calculators/CalorieCalculator";
+import CaloriesBurnedCalculator from "@/components/calculators/CaloriesBurnedCalculator";
+import GlycemicLoadCalculator from "@/components/calculators/GlycemicLoadCalculator";
+import HeartRateZoneCalculator from "@/components/calculators/HeartRateZoneCalculator";
+import IdealBodyWeightCalculator from "@/components/calculators/IdealBodyWeightCalculator";
+import LeanBodyMassCalculator from "@/components/calculators/LeanBodyMassCalculator";
+import MacronutrientCalculator from "@/components/calculators/MacronutrientCalculator";
+import MealCalorieCalculator from "@/components/calculators/MealCalorieCalculator";
+import OneRepMaxCalculator from "@/components/calculators/OneRepMaxCalculator";
+import WaistToHipCalculator from "@/components/calculators/WaistToHipCalculator";
+import WaterIntakeCalculator from "@/components/calculators/WaterIntakeCalculator";
+import WeightGoalCalculator from "@/components/calculators/WeightGoalCalculator";
 
 const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
   const { isAuthenticated } = useAuth();
@@ -46,7 +62,23 @@ const AppRoutes = () => (
       <Route path="/fitness-score" element={<ProtectedRoute><FitnessScore /></ProtectedRoute>} />
       <Route path="/nutrition-tracking" element={<ProtectedRoute><NutritionTracking /></ProtectedRoute>} />
       <Route path="/performance-analytics" element={<ProtectedRoute><PerformanceAnalytics /></ProtectedRoute>} />
+
+      {/* Calculator Routes */}
       <Route path="/total-fit-calculator" element={<ProtectedRoute><TotalFitCalculator /></ProtectedRoute>} />
+      <Route path="/bmi-calculator" element={<ProtectedRoute><BMICalculator /></ProtectedRoute>} />
+      <Route path="/body-fat-calculator" element={<ProtectedRoute><BodyFatCalculator /></ProtectedRoute>} />
+      <Route path="/calorie-calculator" element={<ProtectedRoute><CalorieCalculator /></ProtectedRoute>} />
+      <Route path="/calories-burned-calculator" element={<ProtectedRoute><CaloriesBurnedCalculator /></ProtectedRoute>} />
+      <Route path="/glycemic-load-calculator" element={<ProtectedRoute><GlycemicLoadCalculator /></ProtectedRoute>} />
+      <Route path="/heart-rate-zone-calculator" element={<ProtectedRoute><HeartRateZoneCalculator /></ProtectedRoute>} />
+      <Route path="/ideal-body-weight-calculator" element={<ProtectedRoute><IdealBodyWeightCalculator /></ProtectedRoute>} />
+      <Route path="/lean-body-mass-calculator" element={<ProtectedRoute><LeanBodyMassCalculator /></ProtectedRoute>} />
+      <Route path="/macronutrient-calculator" element={<ProtectedRoute><MacronutrientCalculator /></ProtectedRoute>} />
+      <Route path="/meal-calorie-calculator" element={<ProtectedRoute><MealCalorieCalculator /></ProtectedRoute>} />
+      <Route path="/one-rep-max-calculator" element={<ProtectedRoute><OneRepMaxCalculator /></ProtectedRoute>} />
+      <Route path="/waist-to-hip-calculator" element={<ProtectedRoute><WaistToHipCalculator /></ProtectedRoute>} />
+      <Route path="/water-intake-calculator" element={<ProtectedRoute><WaterIntakeCalculator /></ProtectedRoute>} />
+      <Route path="/weight-goal-calculator" element={<ProtectedRoute><WeightGoalCalculator /></ProtectedRoute>} />
       
       {/* Catch all undefined routes */}
       <Route path="*" element={<NotFound />} />
