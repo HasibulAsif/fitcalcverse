@@ -54,7 +54,16 @@ const MealPlanForm = () => {
         .from('meal_plan_profiles')
         .insert({
           user_id: (await supabase.auth.getUser()).data.user?.id,
-          ...values,
+          age: values.age,
+          weight: values.weight,
+          height: values.height,
+          gender: values.gender,
+          activity_level: values.activityLevel,
+          fitness_goal: values.fitnessGoal,
+          dietary_preference: values.dietaryPreference,
+          food_allergies: values.foodAllergies ? values.foodAllergies.split(',').map(a => a.trim()) : [],
+          meal_frequency: values.mealFrequency,
+          country: 'USA' // Default value as per schema
         })
         .select()
         .single();
