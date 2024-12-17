@@ -38,8 +38,8 @@ export const DashboardStats = () => {
         .eq('user_id', user.id)
         .maybeSingle(); // Use maybeSingle() instead of single()
 
-      // If no credits exist, create a new record
-      if (!existingCredits) {
+      // If no credits exist or there's a PGRST116 error, create a new record
+      if (!existingCredits || (error && error.code === 'PGRST116')) {
         const { data: newCredits, error: insertError } = await supabase
           .from('user_credits')
           .insert([
