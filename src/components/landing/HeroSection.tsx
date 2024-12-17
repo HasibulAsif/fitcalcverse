@@ -4,7 +4,7 @@ import { ArrowRight, Dumbbell } from "lucide-react";
 
 export const HeroSection = () => {
   return (
-    <div className="relative min-h-screen w-full -mt-[4.5rem]"> {/* Adjusted margin top */}
+    <div className="relative min-h-screen w-full -mt-16"> {/* Adjusted margin top */}
       {/* Mesh Gradient Background */}
       <div className="absolute inset-0 bg-gradient-to-br from-black via-gray-900 to-black">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,_#FF4D8D33_0%,_transparent_50%)]"></div>
@@ -13,7 +13,7 @@ export const HeroSection = () => {
       </div>
 
       {/* Content */}
-      <div className="relative z-10 flex flex-col items-center justify-center min-h-screen text-center px-4 sm:px-6 lg:px-8 w-full pt-24"> {/* Adjusted padding top */}
+      <div className="relative z-10 flex flex-col items-center justify-center min-h-screen text-center px-4 sm:px-6 lg:px-8 w-full pt-16"> {/* Adjusted padding top */}
         {/* Animated Logo/Icon */}
         <div className="mb-8 animate-bounce">
           <Dumbbell className="w-16 h-16 text-primary" />
@@ -31,13 +31,13 @@ export const HeroSection = () => {
         </h1>
 
         {/* Subtitle with Fade Animation */}
-        <p className="text-xl md:text-2xl text-gray-300 mb-12 max-w-3xl mx-auto animate-fade-in opacity-90 leading-relaxed">
+        <p className="text-xl md:text-2xl text-gray-300 mb-12 max-w-3xl mx-auto animate-fade-in delay-100 opacity-90 leading-relaxed">
           Unlock your fitness potential with our precision calculators. 
           Track, measure, and achieve your goals with scientific accuracy.
         </p>
 
         {/* CTA Buttons with Hover Effects */}
-        <div className="flex flex-wrap justify-center gap-6 animate-fade-in">
+        <div className="flex flex-wrap justify-center gap-6 animate-fade-in delay-200">
           <Link to="/register">
             <Button 
               size="lg" 
