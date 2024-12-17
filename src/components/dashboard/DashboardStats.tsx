@@ -10,8 +10,11 @@ import {
 } from "lucide-react";
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
+import { useAuth } from "@/contexts/AuthContext";
 
 export const DashboardStats = () => {
+  const { user } = useAuth();
+
   const { data: profile } = useQuery({
     queryKey: ['mealPlanProfile'],
     queryFn: async () => {
@@ -26,12 +29,30 @@ export const DashboardStats = () => {
   const { data: credits } = useQuery({
     queryKey: ['userCredits'],
     queryFn: async () => {
-      const { data } = await supabase
+      // First try to get existing credits
+      const { data: existingCredits, error } = await supabase
         .from('user_credits')
         .select('credits_remaining')
+        .eq('user_id', user?.id)
         .single();
-      return data;
-    }
+
+      if (error) {
+        // If no credits exist, create a new record
+        const { data: newCredits, error: insertError } = await supabase
+          .from('user_credits')
+          .insert([
+            { user_id: user?.id, credits_remaining: 10 }
+          ])
+          .select('credits_remaining')
+          .single();
+
+        if (insertError) throw insertError;
+        return newCredits;
+      }
+
+      return existingCredits;
+    },
+    enabled: !!user?.id
   });
 
   const stats = [
