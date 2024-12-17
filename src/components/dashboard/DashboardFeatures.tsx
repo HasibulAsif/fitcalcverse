@@ -9,7 +9,8 @@ import {
   Dumbbell,
   Activity,
   Zap,
-  Apple
+  Apple,
+  Search
 } from "lucide-react";
 
 export const DashboardFeatures = () => {
@@ -17,38 +18,38 @@ export const DashboardFeatures = () => {
 
   const features = [
     {
-      title: 'Calculators',
-      description: 'Access all fitness calculators in one place',
-      icon: <Calculator className="w-6 h-6 text-primary" />,
-      path: '/calculator-dashboard',
+      title: 'CalorieBhai',
+      description: 'Get instant nutrition information for any food',
+      icon: <Search className="w-6 h-6 text-primary" />,
+      path: '/calorie-bhai',
       color: 'from-primary/10 to-accent/10'
     },
     {
-      title: 'CalorieBhai',
-      description: 'Get instant nutrition information for any food',
+      title: 'NutriPlanPro',
+      description: 'Advanced nutrition planning and tracking',
       icon: <Apple className="w-6 h-6 text-green-500" />,
-      path: '/calorie-bhai',
+      path: '/nutri-plan-pro',
       color: 'from-green-500/10 to-green-600/10'
+    },
+    {
+      title: 'TotalFit Calculator',
+      description: 'Comprehensive fitness calculations',
+      icon: <Calculator className="w-6 h-6 text-blue-500" />,
+      path: '/total-fit-calculator',
+      color: 'from-blue-500/10 to-blue-600/10'
     },
     {
       title: 'Performance Analytics',
       description: 'Detailed insights into your progress',
-      icon: <ChartBar className="w-6 h-6 text-blue-500" />,
+      icon: <ChartBar className="w-6 h-6 text-purple-500" />,
       path: '/performance-analytics',
-      color: 'from-blue-500/10 to-blue-600/10'
+      color: 'from-purple-500/10 to-purple-600/10'
     },
     {
       title: 'Workout Plan',
       description: 'Get AI-powered workout recommendations',
-      icon: <Dumbbell className="w-6 h-6 text-purple-500" />,
+      icon: <Dumbbell className="w-6 h-6 text-orange-500" />,
       path: '/workout-suggestion',
-      color: 'from-purple-500/10 to-purple-600/10'
-    },
-    {
-      title: 'Meal Planning',
-      description: 'Personalized meal recommendations',
-      icon: <Activity className="w-6 h-6 text-orange-500" />,
-      path: '/meal-plan-generator',
       color: 'from-orange-500/10 to-orange-600/10'
     }
   ];

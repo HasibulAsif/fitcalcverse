@@ -5,7 +5,8 @@ import {
   Menu,
   Flame,
   Calculator,
-  Leaf
+  Leaf,
+  Search
 } from 'lucide-react';
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
@@ -55,15 +56,15 @@ const Sidebar = () => {
             collapsed={collapsed}
           >
             <MenuItem
-              icon={<Calculator className="w-4 h-4" />}
-              title="TotalFit Calculator"
-              path="/total-fit-calculator"
+              icon={<Search className="w-4 h-4" />}
+              title="CalorieBhai"
+              path="/calorie-bhai"
               collapsed={collapsed}
             />
             <MenuItem
-              icon={<Leaf className="w-4 h-4" />}
-              title="Meal Plan Generator"
-              path="/meal-plan-generator"
+              icon={<Calculator className="w-4 h-4" />}
+              title="TotalFit Calculator"
+              path="/total-fit-calculator"
               collapsed={collapsed}
             />
             <MenuItem
