@@ -37,6 +37,7 @@ import WaistToHipCalculator from "@/components/calculators/WaistToHipCalculator"
 import WaterIntakeCalculator from "@/components/calculators/WaterIntakeCalculator";
 import WeightGoalCalculator from "@/components/calculators/WeightGoalCalculator";
 import NutriPlanPro from "@/components/nutri-plan-pro/NutriPlanPro";
+import CalorieBhai from "@/pages/CalorieBhai";
 
 const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
   const { isAuthenticated } = useAuth();
@@ -56,6 +57,8 @@ const AppRoutes = () => (
       <Route path="/cookie-settings" element={<CookieSettings />} />
       
       {/* Protected Routes */}
+      <Route path="/calorie-bhai" element={<ProtectedRoute><CalorieBhai /></ProtectedRoute>} />
+      
       <Route path="/dashboard" element={<ProtectedRoute><Index /></ProtectedRoute>} />
       <Route path="/calculator-dashboard" element={<ProtectedRoute><CalculatorDashboard /></ProtectedRoute>} />
       <Route path="/profile" element={<ProtectedRoute><Profile /></ProtectedRoute>} />

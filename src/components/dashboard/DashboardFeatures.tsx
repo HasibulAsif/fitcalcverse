@@ -8,7 +8,8 @@ import {
   ChartBar,
   Dumbbell,
   Activity,
-  Zap
+  Zap,
+  Apple
 } from "lucide-react";
 
 export const DashboardFeatures = () => {
@@ -23,10 +24,10 @@ export const DashboardFeatures = () => {
       color: 'from-primary/10 to-accent/10'
     },
     {
-      title: 'Nutrition Tracking',
-      description: 'Monitor your daily nutrition intake',
-      icon: <Leaf className="w-6 h-6 text-green-500" />,
-      path: '/nutrition-tracking',
+      title: 'CalorieBhai',
+      description: 'Get instant nutrition information for any food',
+      icon: <Apple className="w-6 h-6 text-green-500" />,
+      path: '/calorie-bhai',
       color: 'from-green-500/10 to-green-600/10'
     },
     {
