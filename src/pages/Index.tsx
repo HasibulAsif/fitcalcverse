@@ -13,7 +13,7 @@ const Index = () => {
         <div className="relative p-8">
           <div className="max-w-3xl">
             <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-4">
-              Welcome back, {user?.email?.split('@')[0]}!
+              Welcome back, {user?.email?.split('@')[0] || 'User'}!
             </h1>
             <p className="text-white/90 text-lg">
               Track your fitness journey and achieve your goals with our comprehensive tools
