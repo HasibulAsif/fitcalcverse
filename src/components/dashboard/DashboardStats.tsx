@@ -29,19 +29,21 @@ export const DashboardStats = () => {
   const { data: credits } = useQuery({
     queryKey: ['userCredits'],
     queryFn: async () => {
+      if (!user?.id) throw new Error('No user ID');
+
       // First try to get existing credits
       const { data: existingCredits, error } = await supabase
         .from('user_credits')
         .select('credits_remaining')
-        .eq('user_id', user?.id)
-        .single();
+        .eq('user_id', user.id)
+        .maybeSingle(); // Use maybeSingle() instead of single()
 
-      if (error) {
-        // If no credits exist, create a new record
+      // If no credits exist, create a new record
+      if (!existingCredits) {
         const { data: newCredits, error: insertError } = await supabase
           .from('user_credits')
           .insert([
-            { user_id: user?.id, credits_remaining: 10 }
+            { user_id: user.id, credits_remaining: 10 }
           ])
           .select('credits_remaining')
           .single();
@@ -50,6 +52,7 @@ export const DashboardStats = () => {
         return newCredits;
       }
 
+      if (error && error.code !== 'PGRST116') throw error;
       return existingCredits;
     },
     enabled: !!user?.id
