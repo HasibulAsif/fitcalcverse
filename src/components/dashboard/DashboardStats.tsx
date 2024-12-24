@@ -21,7 +21,7 @@ export const DashboardStats = () => {
       const { data: profile } = await supabase
         .from('meal_plan_profiles')
         .select('*')
-        .single();
+        .maybeSingle();
       return profile;
     }
   });
@@ -32,14 +32,14 @@ export const DashboardStats = () => {
       if (!user?.id) throw new Error('No user ID');
 
       // First try to get existing credits
-      const { data: existingCredits, error } = await supabase
+      let { data: existingCredits, error } = await supabase
         .from('user_credits')
         .select('credits_remaining')
         .eq('user_id', user.id)
         .maybeSingle();
 
-      // If no credits exist or there's a PGRST116 error, create a new record
-      if (!existingCredits || (error && error.code === 'PGRST116')) {
+      // If no credits exist, create a new record
+      if (!existingCredits) {
         const { data: newCredits, error: insertError } = await supabase
           .from('user_credits')
           .insert([
@@ -48,11 +48,18 @@ export const DashboardStats = () => {
           .select('credits_remaining')
           .single();
 
-        if (insertError) throw insertError;
+        if (insertError) {
+          console.error('Error creating credits:', insertError);
+          return { credits_remaining: 0 };
+        }
         return newCredits;
       }
 
-      if (error && error.code !== 'PGRST116') throw error;
+      if (error) {
+        console.error('Error fetching credits:', error);
+        return { credits_remaining: 0 };
+      }
+
       return existingCredits;
     },
     enabled: !!user?.id
