@@ -29,38 +29,48 @@ export const DashboardStats = () => {
   const { data: credits } = useQuery({
     queryKey: ['userCredits'],
     queryFn: async () => {
-      if (!user?.id) throw new Error('No user ID');
-
-      // First try to get existing credits
-      let { data: existingCredits, error } = await supabase
-        .from('user_credits')
-        .select('credits_remaining')
-        .eq('user_id', user.id)
-        .maybeSingle();
-
-      // If no credits exist, create a new record
-      if (!existingCredits) {
-        const { data: newCredits, error: insertError } = await supabase
-          .from('user_credits')
-          .insert([
-            { user_id: user.id, credits_remaining: 10 }
-          ])
-          .select('credits_remaining')
-          .single();
-
-        if (insertError) {
-          console.error('Error creating credits:', insertError);
-          return { credits_remaining: 0 };
-        }
-        return newCredits;
-      }
-
-      if (error) {
-        console.error('Error fetching credits:', error);
+      if (!user?.id) {
+        console.log('No user ID available');
         return { credits_remaining: 0 };
       }
 
-      return existingCredits;
+      try {
+        // First try to get existing credits
+        const { data: existingCredits, error } = await supabase
+          .from('user_credits')
+          .select('credits_remaining')
+          .eq('user_id', user.id)
+          .maybeSingle();
+
+        if (error) {
+          console.error('Error fetching credits:', error);
+          return { credits_remaining: 0 };
+        }
+
+        // If no credits exist, create a new record
+        if (!existingCredits) {
+          console.log('No existing credits found, creating new record');
+          const { data: newCredits, error: insertError } = await supabase
+            .from('user_credits')
+            .insert([
+              { user_id: user.id, credits_remaining: 10 }
+            ])
+            .select('credits_remaining')
+            .maybeSingle();
+
+          if (insertError) {
+            console.error('Error creating credits:', insertError);
+            return { credits_remaining: 0 };
+          }
+
+          return newCredits || { credits_remaining: 0 };
+        }
+
+        return existingCredits;
+      } catch (error) {
+        console.error('Unexpected error in credits query:', error);
+        return { credits_remaining: 0 };
+      }
     },
     enabled: !!user?.id
   });
