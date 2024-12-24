@@ -36,7 +36,7 @@ export const DashboardStats = () => {
         .from('user_credits')
         .select('credits_remaining')
         .eq('user_id', user.id)
-        .maybeSingle(); // Use maybeSingle() instead of single()
+        .maybeSingle();
 
       // If no credits exist or there's a PGRST116 error, create a new record
       if (!existingCredits || (error && error.code === 'PGRST116')) {
