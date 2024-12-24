@@ -56,7 +56,7 @@ export const DashboardStats = () => {
               { user_id: user.id, credits_remaining: 10 }
             ])
             .select('credits_remaining')
-            .maybeSingle();
+            .single();
 
           if (insertError) {
             console.error('Error creating credits:', insertError);
