@@ -36,37 +36,35 @@ export const DashboardStats = () => {
 
       try {
         // First try to get existing credits
-        const { data: existingCredits, error } = await supabase
+        let { data: existingCredits, error } = await supabase
           .from('user_credits')
           .select('credits_remaining')
-          .eq('user_id', user.id)
-          .maybeSingle();
+          .eq('user_id', user.id);
 
         if (error) {
           console.error('Error fetching credits:', error);
           return { credits_remaining: 0 };
         }
 
-        // If no credits exist, create a new record
-        if (!existingCredits) {
+        // If no credits exist or array is empty, create a new record
+        if (!existingCredits || existingCredits.length === 0) {
           console.log('No existing credits found, creating new record');
           const { data: newCredits, error: insertError } = await supabase
             .from('user_credits')
             .insert([
               { user_id: user.id, credits_remaining: 10 }
             ])
-            .select('credits_remaining')
-            .maybeSingle();
+            .select('credits_remaining');
 
           if (insertError) {
             console.error('Error creating credits:', insertError);
             return { credits_remaining: 0 };
           }
 
-          return newCredits || { credits_remaining: 0 };
+          return newCredits?.[0] || { credits_remaining: 0 };
         }
 
-        return existingCredits;
+        return existingCredits[0];
       } catch (error) {
         console.error('Unexpected error in credits query:', error);
         return { credits_remaining: 0 };
