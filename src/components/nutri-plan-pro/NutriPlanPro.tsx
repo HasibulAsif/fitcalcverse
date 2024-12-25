@@ -7,6 +7,7 @@ import { HealthGoalsForm } from './forms/HealthGoalsForm';
 import { NutritionPlanDisplay } from './display/NutritionPlanDisplay';
 import { WeeklyPlanView } from './display/WeeklyPlanView';
 import { AnalyticsView } from './display/AnalyticsView';
+import { NutriPlanGuide } from './NutriPlanGuide';
 import { useAuth } from '@/contexts/AuthContext';
 import { toast } from "sonner";
 
@@ -27,7 +28,7 @@ const NutriPlanPro = () => {
 
   return (
     <div className="container mx-auto py-8 px-4 animate-fade-in">
-      <div className="max-w-6xl mx-auto">
+      <div className="max-w-6xl mx-auto space-y-8">
         <h1 className="text-4xl font-bold mb-8 text-center bg-gradient-to-r from-primary via-purple-500 to-pink-500 bg-clip-text text-transparent">
           NutriPlanPro - Advanced Nutrition Planning
         </h1>
@@ -90,6 +91,8 @@ const NutriPlanPro = () => {
             )}
           </TabsContent>
         </Tabs>
+
+        <NutriPlanGuide />
       </div>
     </div>
   );

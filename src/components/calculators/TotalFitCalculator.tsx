@@ -5,7 +5,7 @@ import { toast } from "sonner";
 import { UnitToggle } from './total-fit/UnitToggle';
 import { ResultsDisplay } from './total-fit/ResultsDisplay';
 import { CalculatorForm } from './total-fit/CalculatorForm';
-import CalculatorGuide from './CalculatorGuide';
+import { TotalFitGuide } from './total-fit/TotalFitGuide';
 
 const TotalFitCalculator = () => {
   const [useMetric, setUseMetric] = useState(true);
@@ -144,57 +144,6 @@ const TotalFitCalculator = () => {
     }
   };
 
-  const guideContent = {
-    title: "TotalFit Calculator",
-    description: "A comprehensive fitness calculator that provides personalized insights into your health metrics, including BMR, TDEE, macronutrient ratios, and more.",
-    features: [
-      "Calculate Basal Metabolic Rate (BMR)",
-      "Determine Total Daily Energy Expenditure (TDEE)",
-      "Get personalized macronutrient recommendations",
-      "Calculate optimal water intake",
-      "Receive workout suggestions based on your goals"
-    ],
-    howTo: [
-      {
-        title: "Enter Your Basic Information",
-        content: [
-          "Input your age, gender, weight, and height accurately",
-          "Select your activity level from the dropdown menu",
-          "Choose your fitness goal (muscle gain, weight loss, or maintenance)",
-          "Set your target timeframe and weight goal if applicable"
-        ]
-      },
-      {
-        title: "Understanding Activity Levels",
-        content: [
-          "Sedentary: Little to no exercise",
-          "Lightly Active: Light exercise 1-3 times/week",
-          "Moderately Active: Moderate exercise 3-5 times/week",
-          "Very Active: Heavy exercise 6-7 times/week",
-          "Extremely Active: Very heavy exercise, physical job, training 2x/day"
-        ]
-      }
-    ],
-    interpretation: [
-      {
-        title: "BMR (Basal Metabolic Rate)",
-        content: "Your BMR represents the calories your body burns at rest. This is the minimum energy needed to maintain basic life functions like breathing and circulation."
-      },
-      {
-        title: "TDEE (Total Daily Energy Expenditure)",
-        content: "TDEE shows your total daily calorie burn including activity. Use this number as a baseline for weight management goals."
-      },
-      {
-        title: "Macronutrient Ratios",
-        content: [
-          "Protein: Essential for muscle maintenance and growth",
-          "Carbohydrates: Primary energy source for your body",
-          "Fats: Important for hormone production and nutrient absorption"
-        ]
-      }
-    ]
-  };
-
   return (
     <div className="space-y-8 animate-fade-in">
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
@@ -226,7 +175,7 @@ const TotalFitCalculator = () => {
         </Card>
       </div>
 
-      <CalculatorGuide {...guideContent} />
+      <TotalFitGuide />
     </div>
   );
 };

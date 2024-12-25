@@ -10,6 +10,7 @@ import { useQuery } from '@tanstack/react-query';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
+import CalculatorGuide from '@/components/calculators/CalculatorGuide';
 
 const CalorieBhai = () => {
   const [query, setQuery] = useState('');
@@ -60,6 +61,63 @@ const CalorieBhai = () => {
         description: "Processing image text...",
       });
     }
+  };
+
+  const guideContent = {
+    title: "CalorieBhai",
+    description: "Get instant nutrition information for any food item with our advanced food analysis tool.",
+    features: [
+      "Quick search for instant nutrition facts",
+      "Natural language processing for meal descriptions",
+      "Image recognition for food items",
+      "Detailed macro and micronutrient breakdown",
+      "Search history tracking",
+      "Export and share nutrition reports"
+    ],
+    howTo: [
+      {
+        title: "Quick Search",
+        content: [
+          "Enter a specific food item with quantity (e.g., '100g chicken breast')",
+          "Click search or press Enter to get instant results",
+          "View comprehensive nutrition breakdown"
+        ]
+      },
+      {
+        title: "Text Analysis",
+        content: [
+          "Describe your meal in natural language",
+          "Include approximate portions if known",
+          "Get nutrition estimates for complete meals"
+        ]
+      },
+      {
+        title: "Image Upload",
+        content: [
+          "Take a clear photo of your food",
+          "Upload through the image upload section",
+          "Wait for AI analysis of your meal"
+        ]
+      }
+    ],
+    interpretation: [
+      {
+        title: "Understanding Calories",
+        content: "Calories represent the energy content in food. The daily recommended intake varies based on age, gender, and activity level."
+      },
+      {
+        title: "Macronutrients",
+        content: [
+          "Proteins: Essential for muscle building and repair",
+          "Carbohydrates: Primary energy source",
+          "Fats: Important for hormone production and nutrient absorption"
+        ]
+      },
+      {
+        title: "Using the Results",
+        content: "Compare results with your daily targets, track your intake over time, and adjust portions based on your goals."
+      }
+    ]
   };
 
   return (
@@ -177,6 +235,7 @@ const CalorieBhai = () => {
       </Card>
 
       <SearchHistory />
+      <CalculatorGuide {...guideContent} />
     </div>
   );
 };
