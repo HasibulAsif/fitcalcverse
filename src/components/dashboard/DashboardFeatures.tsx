@@ -9,7 +9,7 @@ import {
   Dumbbell,
   ArrowRight,
   Info,
-  Help
+  HelpCircle
 } from "lucide-react";
 
 export const DashboardFeatures = () => {
@@ -110,7 +110,7 @@ export const DashboardFeatures = () => {
                     key={idx}
                     className="flex items-start gap-2 text-sm transition-all duration-300 hover:translate-x-1"
                   >
-                    <Help className="w-4 h-4 mt-0.5 text-muted-foreground" />
+                    <HelpCircle className="w-4 h-4 mt-0.5 text-muted-foreground" />
                     <div>
                       <span className="font-medium">{item.title}:</span>
                       <span className="text-muted-foreground ml-1">{item.content}</span>
