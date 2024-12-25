@@ -10,7 +10,15 @@ import {
   Activity,
   Zap,
   Apple,
-  Search
+  Search,
+  Brain,
+  Scale,
+  HeartPulse,
+  Droplets,
+  Gauge,
+  ArrowRight,
+  HelpCircle,
+  Info
 } from "lucide-react";
 
 export const DashboardFeatures = () => {
@@ -51,6 +59,34 @@ export const DashboardFeatures = () => {
       icon: <Dumbbell className="w-6 h-6 text-orange-500" />,
       path: '/workout-suggestion',
       color: 'from-orange-500/10 to-orange-600/10'
+    },
+    {
+      title: 'BMI Calculator',
+      description: 'Calculate and track your Body Mass Index',
+      icon: <Scale className="w-6 h-6 text-pink-500" />,
+      path: '/bmi-calculator',
+      color: 'from-pink-500/10 to-pink-600/10'
+    },
+    {
+      title: 'Body Fat Calculator',
+      description: 'Estimate your body fat percentage',
+      icon: <Gauge className="w-6 h-6 text-yellow-500" />,
+      path: '/body-fat-calculator',
+      color: 'from-yellow-500/10 to-yellow-600/10'
+    },
+    {
+      title: 'Heart Rate Zones',
+      description: 'Calculate your optimal heart rate zones',
+      icon: <HeartPulse className="w-6 h-6 text-red-500" />,
+      path: '/heart-rate-zone-calculator',
+      color: 'from-red-500/10 to-red-600/10'
+    },
+    {
+      title: 'Water Intake',
+      description: 'Calculate your daily water needs',
+      icon: <Droplets className="w-6 h-6 text-cyan-500" />,
+      path: '/water-intake-calculator',
+      color: 'from-cyan-500/10 to-cyan-600/10'
     }
   ];
 
@@ -59,7 +95,7 @@ export const DashboardFeatures = () => {
       {features.map((feature, index) => (
         <Card 
           key={index}
-          className="relative overflow-hidden backdrop-blur-xl bg-white/10 border-white/20 hover:bg-white/20 transition-all duration-300 cursor-pointer group"
+          className="relative overflow-hidden backdrop-blur-xl bg-white/10 border-white/20 hover:bg-white/20 transition-all duration-300 cursor-pointer group animate-fade-in"
           onClick={() => navigate(feature.path)}
         >
           <div className={`absolute inset-0 bg-gradient-to-br ${feature.color} opacity-50`} />
@@ -69,7 +105,7 @@ export const DashboardFeatures = () => {
             <p className="text-gray-200 text-sm mb-4">{feature.description}</p>
             <div className="flex items-center text-primary group-hover:translate-x-2 transition-transform">
               <span className="text-sm">Explore</span>
-              <Zap className="w-4 h-4 ml-1" />
+              <ArrowRight className="w-4 h-4 ml-1" />
             </div>
           </div>
         </Card>
