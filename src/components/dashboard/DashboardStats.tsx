@@ -11,11 +11,10 @@ import {
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/contexts/AuthContext";
-import { useToast } from "@/components/ui/use-toast";
+import { toast } from "sonner";
 
 export const DashboardStats = () => {
   const { user } = useAuth();
-  const { toast } = useToast();
 
   const { data: profile } = useQuery({
     queryKey: ['mealPlanProfile'],
@@ -46,11 +45,7 @@ export const DashboardStats = () => {
 
         if (error) {
           console.error('Error fetching credits:', error);
-          toast({
-            variant: "destructive",
-            title: "Error",
-            description: "Failed to fetch credits. Please try again later."
-          });
+          toast.error("Failed to fetch credits. Please try again later.");
           return { credits_remaining: 0 };
         }
 
@@ -65,11 +60,7 @@ export const DashboardStats = () => {
 
           if (insertError) {
             console.error('Error creating credits:', insertError);
-            toast({
-              variant: "destructive",
-              title: "Error",
-              description: "Failed to create credits. Please try again later."
-            });
+            toast.error("Failed to create credits. Please try again later.");
             return { credits_remaining: 0 };
           }
 
@@ -79,11 +70,7 @@ export const DashboardStats = () => {
         return existingCredits;
       } catch (error) {
         console.error('Unexpected error in credits query:', error);
-        toast({
-          variant: "destructive",
-          title: "Error",
-          description: "An unexpected error occurred. Please try again later."
-        });
+        toast.error("An unexpected error occurred. Please try again later.");
         return { credits_remaining: 0 };
       }
     },
