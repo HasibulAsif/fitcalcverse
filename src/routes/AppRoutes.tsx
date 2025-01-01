@@ -45,6 +45,10 @@ import NotificationSettings from "@/pages/settings/NotificationSettings";
 import PrivacySettings from "@/pages/settings/PrivacySettings";
 import LanguageSettings from "@/pages/settings/LanguageSettings";
 
+// Import Help & Support pages
+import Tutorial from "@/pages/help/Tutorial";
+import KnowledgeBase from "@/pages/help/KnowledgeBase";
+
 const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
   const { isAuthenticated } = useAuth();
   return isAuthenticated ? <>{children}</> : <Navigate to="/login" replace />;
@@ -61,6 +65,10 @@ const AppRoutes = () => (
       <Route path="/terms" element={<Terms />} />
       <Route path="/privacy" element={<Privacy />} />
       <Route path="/cookie-settings" element={<CookieSettings />} />
+      
+      {/* Help & Support Routes */}
+      <Route path="/tutorial" element={<Tutorial />} />
+      <Route path="/knowledge-base" element={<KnowledgeBase />} />
       
       {/* Protected Routes */}
       <Route path="/calorie-bhai" element={<ProtectedRoute><CalorieBhai /></ProtectedRoute>} />

@@ -10,6 +10,7 @@ const Register = () => {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
+    phone: "",
     password: "",
     confirmPassword: "",
   });
@@ -31,7 +32,7 @@ const Register = () => {
     }
 
     try {
-      await signUp(formData.email, formData.password);
+      await signUp(formData.email, formData.password, formData.name, formData.phone);
       navigate("/login");
     } catch (error) {
       // Error is already handled in the signUp function
@@ -72,6 +73,18 @@ const Register = () => {
                 name="email"
                 placeholder="Enter your email"
                 value={formData.email}
+                onChange={handleChange}
+                className="bg-gray-700/50 border-gray-600 text-white"
+                required
+              />
+            </div>
+            <div className="space-y-2">
+              <label className="text-sm text-gray-300">Phone Number</label>
+              <Input
+                type="tel"
+                name="phone"
+                placeholder="Enter your phone number"
+                value={formData.phone}
                 onChange={handleChange}
                 className="bg-gray-700/50 border-gray-600 text-white"
                 required

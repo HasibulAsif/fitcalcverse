@@ -7,6 +7,7 @@ interface User {
   id: string;
   email?: string;
   name?: string;
+  phone?: string;
   image?: string;
 }
 
@@ -15,7 +16,7 @@ interface AuthContextType {
   session: Session | null;
   isAuthenticated: boolean;
   signIn: (email: string, password: string) => Promise<void>;
-  signUp: (email: string, password: string) => Promise<void>;
+  signUp: (email: string, password: string, name: string, phone: string) => Promise<void>;
   signOut: () => Promise<void>;
 }
 
@@ -28,12 +29,10 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const { toast } = useToast();
 
   useEffect(() => {
-    // Get initial session
     supabase.auth.getSession().then(({ data: { session } }) => {
       handleSession(session);
     });
 
-    // Listen for auth changes
     const {
       data: { subscription },
     } = supabase.auth.onAuthStateChange((_event, session) => {
@@ -49,7 +48,8 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
       setUser({
         id: session.user.id,
         email: session.user.email,
-        name: session.user.user_metadata?.name || 'User',
+        name: session.user.user_metadata?.name,
+        phone: session.user.user_metadata?.phone,
         image: session.user.user_metadata?.avatar_url,
       });
       setIsAuthenticated(true);
@@ -81,11 +81,17 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     }
   };
 
-  const signUp = async (email: string, password: string) => {
+  const signUp = async (email: string, password: string, name: string, phone: string) => {
     try {
       const { error } = await supabase.auth.signUp({
         email,
         password,
+        options: {
+          data: {
+            name,
+            phone,
+          },
+        },
       });
       if (error) throw error;
       toast({
