@@ -39,6 +39,12 @@ import WeightGoalCalculator from "@/components/calculators/WeightGoalCalculator"
 import NutriPlanPro from "@/components/nutri-plan-pro/NutriPlanPro";
 import CalorieBhai from "@/pages/CalorieBhai";
 
+// Import new settings pages
+import AccountSettings from "@/pages/settings/AccountSettings";
+import NotificationSettings from "@/pages/settings/NotificationSettings";
+import PrivacySettings from "@/pages/settings/PrivacySettings";
+import LanguageSettings from "@/pages/settings/LanguageSettings";
+
 const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
   const { isAuthenticated } = useAuth();
   return isAuthenticated ? <>{children}</> : <Navigate to="/login" replace />;
@@ -63,6 +69,10 @@ const AppRoutes = () => (
       <Route path="/calculator-dashboard" element={<ProtectedRoute><CalculatorDashboard /></ProtectedRoute>} />
       <Route path="/profile" element={<ProtectedRoute><Profile /></ProtectedRoute>} />
       <Route path="/settings" element={<ProtectedRoute><Settings /></ProtectedRoute>} />
+      <Route path="/settings/account" element={<ProtectedRoute><AccountSettings /></ProtectedRoute>} />
+      <Route path="/settings/notifications" element={<ProtectedRoute><NotificationSettings /></ProtectedRoute>} />
+      <Route path="/settings/privacy" element={<ProtectedRoute><PrivacySettings /></ProtectedRoute>} />
+      <Route path="/settings/language" element={<ProtectedRoute><LanguageSettings /></ProtectedRoute>} />
       <Route path="/workout-suggestion" element={<ProtectedRoute><WorkoutSuggestion /></ProtectedRoute>} />
       <Route path="/meal-plan-generator" element={<ProtectedRoute><MealPlanGenerator /></ProtectedRoute>} />
       <Route path="/fitness-score" element={<ProtectedRoute><FitnessScore /></ProtectedRoute>} />
