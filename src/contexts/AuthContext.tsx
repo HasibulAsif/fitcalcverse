@@ -15,6 +15,7 @@ interface AuthContextType {
   user: User | null;
   session: Session | null;
   isAuthenticated: boolean;
+  isLoading: boolean;
   signIn: (email: string, password: string) => Promise<void>;
   signUp: (email: string, password: string, name: string, phone: string) => Promise<void>;
   signOut: () => Promise<void>;
@@ -26,23 +27,28 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const [user, setUser] = useState<User | null>(null);
   const [session, setSession] = useState<Session | null>(null);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const { toast } = useToast();
 
   useEffect(() => {
+    // Initialize session
     supabase.auth.getSession().then(({ data: { session } }) => {
       handleSession(session);
+      setIsLoading(false);
     });
 
+    // Set up real-time subscription to auth changes
     const {
       data: { subscription },
-    } = supabase.auth.onAuthStateChange((_event, session) => {
+    } = supabase.auth.onAuthStateChange(async (_event, session) => {
       handleSession(session);
+      setIsLoading(false);
     });
 
     return () => subscription.unsubscribe();
   }, []);
 
-  const handleSession = (session: Session | null) => {
+  const handleSession = async (session: Session | null) => {
     if (session) {
       setSession(session);
       setUser({
@@ -53,6 +59,23 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
         image: session.user.user_metadata?.avatar_url,
       });
       setIsAuthenticated(true);
+
+      // Initialize user credits if needed
+      try {
+        const { data: existingCredits } = await supabase
+          .from('user_credits')
+          .select('*')
+          .eq('user_id', session.user.id)
+          .single();
+
+        if (!existingCredits) {
+          await supabase
+            .from('user_credits')
+            .insert([{ user_id: session.user.id, credits_remaining: 10 }]);
+        }
+      } catch (error) {
+        console.error('Error checking/creating user credits:', error);
+      }
     } else {
       setSession(null);
       setUser(null);
@@ -61,6 +84,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   };
 
   const signIn = async (email: string, password: string) => {
+    setIsLoading(true);
     try {
       const { error } = await supabase.auth.signInWithPassword({
         email,
@@ -78,10 +102,13 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
         description: error.message,
       });
       throw error;
+    } finally {
+      setIsLoading(false);
     }
   };
 
   const signUp = async (email: string, password: string, name: string, phone: string) => {
+    setIsLoading(true);
     try {
       const { error } = await supabase.auth.signUp({
         email,
@@ -105,10 +132,13 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
         description: error.message,
       });
       throw error;
+    } finally {
+      setIsLoading(false);
     }
   };
 
   const signOut = async () => {
+    setIsLoading(true);
     try {
       const { error } = await supabase.auth.signOut();
       if (error) throw error;
@@ -123,11 +153,21 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
         description: error.message,
       });
       throw error;
+    } finally {
+      setIsLoading(false);
     }
   };
 
   return (
-    <AuthContext.Provider value={{ user, session, isAuthenticated, signIn, signUp, signOut }}>
+    <AuthContext.Provider value={{ 
+      user, 
+      session, 
+      isAuthenticated, 
+      isLoading, 
+      signIn, 
+      signUp, 
+      signOut 
+    }}>
       {children}
     </AuthContext.Provider>
   );
