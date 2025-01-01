@@ -6,9 +6,11 @@ import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 import { Share2, Trophy } from "lucide-react";
+import { useToast } from "@/components/ui/use-toast";
 
 export const ProgressTracking = () => {
   const { user } = useAuth();
+  const { toast } = useToast();
 
   const { data: progressData } = useQuery({
     queryKey: ['progress', user?.id],
@@ -34,6 +36,11 @@ export const ProgressTracking = () => {
       });
     } catch (error) {
       console.error('Error sharing:', error);
+      toast({
+        variant: "destructive",
+        title: "Error",
+        description: "Unable to share progress. Your browser might not support sharing.",
+      });
     }
   };
 
@@ -108,7 +115,6 @@ export const ProgressTracking = () => {
           Goal Achievement
         </h3>
         <div className="space-y-4">
-          {/* Add goal tracking UI here */}
           <div className="p-4 bg-green-100 rounded-lg">
             <div className="font-medium text-green-800">Weight Goal Progress</div>
             <div className="text-sm text-green-600">On track to reach target weight</div>
