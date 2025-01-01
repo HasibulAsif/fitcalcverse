@@ -730,6 +730,42 @@ export type Database = {
         }
         Relationships: []
       }
+      progress_tracking: {
+        Row: {
+          body_fat_percentage: number | null
+          created_at: string | null
+          id: string
+          muscle_mass: number | null
+          notes: string | null
+          tracking_date: string
+          updated_at: string | null
+          user_id: string | null
+          weight: number | null
+        }
+        Insert: {
+          body_fat_percentage?: number | null
+          created_at?: string | null
+          id?: string
+          muscle_mass?: number | null
+          notes?: string | null
+          tracking_date?: string
+          updated_at?: string | null
+          user_id?: string | null
+          weight?: number | null
+        }
+        Update: {
+          body_fat_percentage?: number | null
+          created_at?: string | null
+          id?: string
+          muscle_mass?: number | null
+          notes?: string | null
+          tracking_date?: string
+          updated_at?: string | null
+          user_id?: string | null
+          weight?: number | null
+        }
+        Relationships: []
+      }
       subscriptions: {
         Row: {
           created_at: string | null
