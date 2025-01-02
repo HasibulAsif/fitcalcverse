@@ -13,13 +13,14 @@ export const CookieConsentBanner = () => {
     const checkConsent = async () => {
       if (user) {
         // For authenticated users, check database
-        const { data } = await supabase
+        const { data, error } = await supabase
           .from('cookie_consents')
           .select('*')
           .eq('user_id', user.id)
-          .single();
+          .order('created_at', { ascending: false })
+          .limit(1);
 
-        setShowBanner(!data);
+        setShowBanner(!data?.[0]);
       } else {
         // For non-authenticated users, check localStorage
         const hasConsented = localStorage.getItem('cookieConsent');
@@ -32,9 +33,16 @@ export const CookieConsentBanner = () => {
 
   const handleAcceptAll = async () => {
     if (user) {
+      // Delete any existing consents for this user
+      await supabase
+        .from('cookie_consents')
+        .delete()
+        .eq('user_id', user.id);
+
+      // Insert new consent
       const { error } = await supabase
         .from('cookie_consents')
-        .upsert({
+        .insert({
           user_id: user.id,
           essential: true,
           functional: true,
@@ -63,9 +71,16 @@ export const CookieConsentBanner = () => {
 
   const handleAcceptEssential = async () => {
     if (user) {
+      // Delete any existing consents for this user
+      await supabase
+        .from('cookie_consents')
+        .delete()
+        .eq('user_id', user.id);
+
+      // Insert new consent
       const { error } = await supabase
         .from('cookie_consents')
-        .upsert({
+        .insert({
           user_id: user.id,
           essential: true,
           functional: false,
