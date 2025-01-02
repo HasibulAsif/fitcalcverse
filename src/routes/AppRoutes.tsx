@@ -19,6 +19,7 @@ import Profile from "@/pages/Profile";
 import Terms from "@/pages/Terms";
 import Privacy from "@/pages/Privacy";
 import NotFound from "@/pages/NotFound";
+import WorkoutRoutinePlanner from "@/pages/WorkoutRoutinePlanner";
 
 // Calculator Components
 import TotalFitCalculator from "@/components/calculators/TotalFitCalculator";
@@ -72,6 +73,7 @@ const AppRoutes = () => (
       
       {/* Protected Routes */}
       <Route path="/calorie-bhai" element={<ProtectedRoute><CalorieBhai /></ProtectedRoute>} />
+      <Route path="/workout-routine-planner" element={<ProtectedRoute><WorkoutRoutinePlanner /></ProtectedRoute>} />
       
       <Route path="/dashboard" element={<ProtectedRoute><Index /></ProtectedRoute>} />
       <Route path="/calculator-dashboard" element={<ProtectedRoute><CalculatorDashboard /></ProtectedRoute>} />

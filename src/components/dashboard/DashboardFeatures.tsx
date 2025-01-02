@@ -47,18 +47,18 @@ export const DashboardFeatures = () => {
       color: 'from-blue-500/10 to-blue-600/10'
     },
     {
+      title: 'Workout Planner',
+      description: 'Create and schedule your workout routines',
+      icon: <Dumbbell className="w-6 h-6 text-orange-500" />,
+      path: '/workout-routine-planner',
+      color: 'from-orange-500/10 to-orange-600/10'
+    },
+    {
       title: 'Performance Analytics',
       description: 'Detailed insights into your progress',
       icon: <ChartBar className="w-6 h-6 text-purple-500" />,
       path: '/performance-analytics',
       color: 'from-purple-500/10 to-purple-600/10'
-    },
-    {
-      title: 'Workout Plan',
-      description: 'Get AI-powered workout recommendations',
-      icon: <Dumbbell className="w-6 h-6 text-orange-500" />,
-      path: '/workout-suggestion',
-      color: 'from-orange-500/10 to-orange-600/10'
     },
     {
       title: 'BMI Calculator',

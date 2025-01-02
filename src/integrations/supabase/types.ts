@@ -862,6 +862,89 @@ export type Database = {
         }
         Relationships: []
       }
+      workout_routines: {
+        Row: {
+          created_at: string | null
+          description: string | null
+          google_calendar_sync: boolean | null
+          id: string
+          is_active: boolean | null
+          name: string
+          updated_at: string | null
+          user_id: string
+        }
+        Insert: {
+          created_at?: string | null
+          description?: string | null
+          google_calendar_sync?: boolean | null
+          id?: string
+          is_active?: boolean | null
+          name: string
+          updated_at?: string | null
+          user_id: string
+        }
+        Update: {
+          created_at?: string | null
+          description?: string | null
+          google_calendar_sync?: boolean | null
+          id?: string
+          is_active?: boolean | null
+          name?: string
+          updated_at?: string | null
+          user_id?: string
+        }
+        Relationships: []
+      }
+      workout_schedule: {
+        Row: {
+          created_at: string | null
+          day_of_week: number
+          duration_minutes: number
+          exercise_name: string
+          exercise_type: Database["public"]["Enums"]["workout_type"]
+          google_event_id: string | null
+          id: string
+          notes: string | null
+          routine_id: string
+          start_time: string
+          updated_at: string | null
+        }
+        Insert: {
+          created_at?: string | null
+          day_of_week: number
+          duration_minutes: number
+          exercise_name: string
+          exercise_type: Database["public"]["Enums"]["workout_type"]
+          google_event_id?: string | null
+          id?: string
+          notes?: string | null
+          routine_id: string
+          start_time: string
+          updated_at?: string | null
+        }
+        Update: {
+          created_at?: string | null
+          day_of_week?: number
+          duration_minutes?: number
+          exercise_name?: string
+          exercise_type?: Database["public"]["Enums"]["workout_type"]
+          google_event_id?: string | null
+          id?: string
+          notes?: string | null
+          routine_id?: string
+          start_time?: string
+          updated_at?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "workout_schedule_routine_id_fkey"
+            columns: ["routine_id"]
+            isOneToOne: false
+            referencedRelation: "workout_routines"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
     }
     Views: {
       [_ in never]: never
@@ -889,6 +972,13 @@ export type Database = {
         | "maintenance"
         | "general_health"
       subscription_status: "active" | "unsubscribed"
+      workout_type:
+        | "cardio"
+        | "strength"
+        | "yoga"
+        | "flexibility"
+        | "hiit"
+        | "other"
     }
     CompositeTypes: {
       [_ in never]: never

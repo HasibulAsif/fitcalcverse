@@ -6,7 +6,8 @@ import {
   Flame,
   Calculator,
   Leaf,
-  Search
+  Search,
+  Dumbbell
 } from 'lucide-react';
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
@@ -71,6 +72,12 @@ const Sidebar = () => {
               icon={<Leaf className="w-4 h-4" />}
               title="NutriPlanPro"
               path="/nutri-plan-pro"
+              collapsed={collapsed}
+            />
+            <MenuItem
+              icon={<Dumbbell className="w-4 h-4" />}
+              title="Workout Planner"
+              path="/workout-routine-planner"
               collapsed={collapsed}
             />
           </MenuGroup>
