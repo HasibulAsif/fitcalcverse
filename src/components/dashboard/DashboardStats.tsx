@@ -42,7 +42,8 @@ export const DashboardStats = () => {
           .select('*')
           .eq('user_id', user.id)
           .order('created_at', { ascending: false })
-          .limit(1);
+          .limit(1)
+          .maybeSingle();
 
         if (error) {
           console.error('Error fetching credits:', error);
@@ -51,12 +52,13 @@ export const DashboardStats = () => {
         }
 
         // If no credits exist, create new record
-        if (!data?.length) {
+        if (!data) {
           console.log('Creating new credits record for user:', user.id);
           const { data: newCredits, error: insertError } = await supabase
             .from('user_credits')
             .insert([{ user_id: user.id, credits_remaining: 10 }])
-            .select();
+            .select()
+            .single();
 
           if (insertError) {
             console.error('Error creating credits:', insertError);
@@ -64,10 +66,10 @@ export const DashboardStats = () => {
             return { credits_remaining: 0 };
           }
 
-          return newCredits?.[0] || { credits_remaining: 0 };
+          return newCredits || { credits_remaining: 0 };
         }
 
-        return data[0];
+        return data;
       } catch (error) {
         console.error('Unexpected error in credits query:', error);
         toast.error("An unexpected error occurred. Please try again later.");
