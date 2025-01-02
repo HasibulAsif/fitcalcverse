@@ -7,11 +7,15 @@ import { supabase } from "@/integrations/supabase/client";
 import { ExerciseForm } from "./ExerciseForm";
 import { DayColumn } from "./DayColumn";
 import { Exercise, DaySchedule, NewExercise, WorkoutType } from "./types";
+import { TimeSlotPicker } from "./TimeSlotPicker";
+import { GoogleCalendarSync } from "./GoogleCalendarSync";
+import { Loader2 } from "lucide-react";
 
 const DAYS = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 
 export const WeeklySchedule = () => {
   const { user } = useAuth();
+  const [isLoading, setIsLoading] = useState(false);
   const [schedule, setSchedule] = useState<{ [key: string]: DaySchedule }>(() => {
     const initial: { [key: string]: DaySchedule } = {};
     DAYS.forEach((day, index) => {
@@ -55,7 +59,8 @@ export const WeeklySchedule = () => {
       name: newExercise.name,
       type: newExercise.type,
       duration: newExercise.duration,
-      notes: newExercise.notes
+      notes: newExercise.notes,
+      startTime: newExercise.startTime
     };
 
     setSchedule({
@@ -69,6 +74,7 @@ export const WeeklySchedule = () => {
 
   const saveRoutine = async () => {
     try {
+      setIsLoading(true);
       const { data: routine, error: routineError } = await supabase
         .from('workout_routines')
         .insert([
@@ -89,7 +95,7 @@ export const WeeklySchedule = () => {
           day_of_week: dayIndex,
           exercise_name: exercise.name,
           exercise_type: exercise.type as WorkoutType,
-          start_time: '09:00:00',
+          start_time: exercise.startTime || '09:00:00',
           duration_minutes: exercise.duration,
           notes: exercise.notes
         }))
@@ -104,15 +110,20 @@ export const WeeklySchedule = () => {
       }
 
       toast.success("Workout routine saved successfully!");
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error saving routine:', error);
       toast.error("Failed to save workout routine");
+    } finally {
+      setIsLoading(false);
     }
   };
 
   return (
     <div className="space-y-6">
-      <ExerciseForm onAddExercise={addExercise} />
+      <div className="flex justify-between items-center">
+        <ExerciseForm onAddExercise={addExercise} />
+        <GoogleCalendarSync />
+      </div>
 
       <DragDropContext onDragEnd={handleDragEnd}>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-7 gap-4">
@@ -128,7 +139,14 @@ export const WeeklySchedule = () => {
       </DragDropContext>
 
       <div className="flex justify-end">
-        <Button onClick={saveRoutine}>
+        <Button 
+          onClick={saveRoutine} 
+          disabled={isLoading}
+          className="relative"
+        >
+          {isLoading && (
+            <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+          )}
           Save Routine
         </Button>
       </div>

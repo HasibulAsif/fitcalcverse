@@ -1,7 +1,7 @@
 import { useState } from "react";
+import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Button } from "@/components/ui/button";
 import {
   Select,
   SelectContent,
@@ -9,92 +9,123 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Card } from "@/components/ui/card";
-import { toast } from "sonner";
-import { WorkoutType, NewExercise } from "./types";
-
-const WORKOUT_TYPES: { value: WorkoutType; label: string }[] = [
-  { value: 'cardio', label: 'Cardio' },
-  { value: 'strength', label: 'Strength' },
-  { value: 'yoga', label: 'Yoga' },
-  { value: 'flexibility', label: 'Flexibility' },
-  { value: 'hiit', label: 'HIIT' },
-  { value: 'other', label: 'Other' }
-];
+import { Textarea } from "@/components/ui/textarea";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import { TimeSlotPicker } from "./TimeSlotPicker";
+import { NewExercise, WorkoutType } from "./types";
 
 interface ExerciseFormProps {
   onAddExercise: (exercise: NewExercise) => void;
 }
 
 export const ExerciseForm = ({ onAddExercise }: ExerciseFormProps) => {
-  const [newExercise, setNewExercise] = useState<NewExercise>({
-    name: '',
-    type: 'cardio',
-    duration: 30
+  const [open, setOpen] = useState(false);
+  const [exercise, setExercise] = useState<NewExercise>({
+    name: "",
+    type: "cardio",
+    duration: 30,
+    startTime: "09:00",
+    notes: "",
   });
 
-  const handleSubmit = () => {
-    if (!newExercise.name || !newExercise.type || !newExercise.duration) {
-      toast.error("Please fill in all exercise details");
-      return;
-    }
-
-    onAddExercise(newExercise);
-    setNewExercise({
-      name: '',
-      type: 'cardio',
-      duration: 30
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    onAddExercise(exercise);
+    setExercise({
+      name: "",
+      type: "cardio",
+      duration: 30,
+      startTime: "09:00",
+      notes: "",
     });
-    toast.success("Exercise added successfully!");
+    setOpen(false);
   };
 
   return (
-    <Card className="p-6">
-      <h3 className="text-lg font-semibold mb-4">Add New Exercise</h3>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-        <div>
-          <Label htmlFor="exercise-name">Exercise Name</Label>
-          <Input
-            id="exercise-name"
-            value={newExercise.name}
-            onChange={(e) => setNewExercise({ ...newExercise, name: e.target.value })}
-            placeholder="e.g., Push-ups"
+    <Dialog open={open} onOpenChange={setOpen}>
+      <DialogTrigger asChild>
+        <Button>Add Exercise</Button>
+      </DialogTrigger>
+      <DialogContent className="sm:max-w-[425px]">
+        <DialogHeader>
+          <DialogTitle>Add New Exercise</DialogTitle>
+        </DialogHeader>
+        <form onSubmit={handleSubmit} className="space-y-4">
+          <div className="space-y-2">
+            <Label htmlFor="name">Exercise Name</Label>
+            <Input
+              id="name"
+              value={exercise.name}
+              onChange={(e) =>
+                setExercise({ ...exercise, name: e.target.value })
+              }
+              required
+            />
+          </div>
+          
+          <div className="space-y-2">
+            <Label htmlFor="type">Type</Label>
+            <Select
+              value={exercise.type}
+              onValueChange={(value: WorkoutType) =>
+                setExercise({ ...exercise, type: value })
+              }
+            >
+              <SelectTrigger>
+                <SelectValue />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="cardio">Cardio</SelectItem>
+                <SelectItem value="strength">Strength</SelectItem>
+                <SelectItem value="yoga">Yoga</SelectItem>
+                <SelectItem value="flexibility">Flexibility</SelectItem>
+                <SelectItem value="hiit">HIIT</SelectItem>
+                <SelectItem value="other">Other</SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
+
+          <div className="space-y-2">
+            <Label htmlFor="duration">Duration (minutes)</Label>
+            <Input
+              id="duration"
+              type="number"
+              min="1"
+              value={exercise.duration}
+              onChange={(e) =>
+                setExercise({ ...exercise, duration: parseInt(e.target.value) })
+              }
+              required
+            />
+          </div>
+
+          <TimeSlotPicker
+            value={exercise.startTime}
+            onChange={(time) => setExercise({ ...exercise, startTime: time })}
           />
-        </div>
-        <div>
-          <Label htmlFor="exercise-type">Type</Label>
-          <Select
-            value={newExercise.type}
-            onValueChange={(value: WorkoutType) => setNewExercise({ ...newExercise, type: value })}
-          >
-            <SelectTrigger>
-              <SelectValue placeholder="Select type" />
-            </SelectTrigger>
-            <SelectContent>
-              {WORKOUT_TYPES.map((type) => (
-                <SelectItem key={type.value} value={type.value}>
-                  {type.label}
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
-        </div>
-        <div>
-          <Label htmlFor="exercise-duration">Duration (minutes)</Label>
-          <Input
-            id="exercise-duration"
-            type="number"
-            value={newExercise.duration}
-            onChange={(e) => setNewExercise({ ...newExercise, duration: parseInt(e.target.value) })}
-            min={1}
-          />
-        </div>
-        <div className="flex items-end">
-          <Button onClick={handleSubmit} className="w-full">
+
+          <div className="space-y-2">
+            <Label htmlFor="notes">Notes</Label>
+            <Textarea
+              id="notes"
+              value={exercise.notes}
+              onChange={(e) =>
+                setExercise({ ...exercise, notes: e.target.value })
+              }
+            />
+          </div>
+
+          <Button type="submit" className="w-full">
             Add Exercise
           </Button>
-        </div>
-      </div>
-    </Card>
+        </form>
+      </DialogContent>
+    </Dialog>
   );
 };

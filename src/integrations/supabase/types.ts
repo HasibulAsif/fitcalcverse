@@ -341,6 +341,47 @@ export type Database = {
         }
         Relationships: []
       }
+      google_calendar_events: {
+        Row: {
+          calendar_id: string
+          created_at: string | null
+          google_event_id: string
+          id: string
+          routine_id: string
+          synced_at: string | null
+          updated_at: string | null
+          user_id: string
+        }
+        Insert: {
+          calendar_id: string
+          created_at?: string | null
+          google_event_id: string
+          id?: string
+          routine_id: string
+          synced_at?: string | null
+          updated_at?: string | null
+          user_id: string
+        }
+        Update: {
+          calendar_id?: string
+          created_at?: string | null
+          google_event_id?: string
+          id?: string
+          routine_id?: string
+          synced_at?: string | null
+          updated_at?: string | null
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "google_calendar_events_routine_id_fkey"
+            columns: ["routine_id"]
+            isOneToOne: false
+            referencedRelation: "workout_routines"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       ideal_weight_records: {
         Row: {
           created_at: string | null
@@ -866,7 +907,9 @@ export type Database = {
         Row: {
           created_at: string | null
           description: string | null
+          google_calendar_enabled: boolean | null
           google_calendar_sync: boolean | null
+          google_refresh_token: string | null
           id: string
           is_active: boolean | null
           name: string
@@ -876,7 +919,9 @@ export type Database = {
         Insert: {
           created_at?: string | null
           description?: string | null
+          google_calendar_enabled?: boolean | null
           google_calendar_sync?: boolean | null
+          google_refresh_token?: string | null
           id?: string
           is_active?: boolean | null
           name: string
@@ -886,7 +931,9 @@ export type Database = {
         Update: {
           created_at?: string | null
           description?: string | null
+          google_calendar_enabled?: boolean | null
           google_calendar_sync?: boolean | null
+          google_refresh_token?: string | null
           id?: string
           is_active?: boolean | null
           name?: string

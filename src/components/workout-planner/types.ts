@@ -5,6 +5,7 @@ export interface Exercise {
   name: string;
   type: WorkoutType;
   duration: number;
+  startTime?: string;
   notes?: string;
 }
 
@@ -17,5 +18,6 @@ export interface NewExercise {
   name: string;
   type: WorkoutType;
   duration: number;
+  startTime?: string;
   notes?: string;
 }
