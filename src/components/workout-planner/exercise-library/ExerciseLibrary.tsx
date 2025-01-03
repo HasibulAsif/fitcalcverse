@@ -11,7 +11,7 @@ import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
-import { Exercise } from "../types";
+import { Exercise, WorkoutType } from "../types";
 import { Loader2 } from "lucide-react";
 
 interface ExerciseLibraryProps {
@@ -52,6 +52,16 @@ export const ExerciseLibrary = ({ onSelectExercise }: ExerciseLibraryProps) => {
       </div>
     );
   }
+
+  const mapCategoryToType = (category: string): WorkoutType => {
+    const categoryMap: Record<string, WorkoutType> = {
+      'Strength': 'strength',
+      'Cardio': 'cardio',
+      'Flexibility': 'flexibility',
+      'Balance': 'other',
+    };
+    return categoryMap[category] || 'other';
+  };
 
   return (
     <div className="space-y-4">
@@ -101,7 +111,7 @@ export const ExerciseLibrary = ({ onSelectExercise }: ExerciseLibraryProps) => {
             onClick={() => onSelectExercise({
               id: `exercise-${Date.now()}`,
               name: exercise.name,
-              type: exercise.category.toLowerCase(),
+              type: mapCategoryToType(exercise.category),
               duration: 30,
               notes: exercise.description,
             })}

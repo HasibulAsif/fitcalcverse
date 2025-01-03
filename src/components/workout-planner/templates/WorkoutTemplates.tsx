@@ -46,14 +46,12 @@ export const WorkoutTemplates = ({ onApplyTemplate }: WorkoutTemplatesProps) => 
     mutationFn: async (currentExercises: Exercise[]) => {
       const { data, error } = await supabase
         .from("workout_templates")
-        .insert([
-          {
-            user_id: user?.id,
-            name: newTemplate.name,
-            description: newTemplate.description,
-            exercises: currentExercises,
-          },
-        ]);
+        .insert({
+          user_id: user?.id,
+          name: newTemplate.name,
+          description: newTemplate.description,
+          exercises: currentExercises,
+        });
       if (error) throw error;
       return data;
     },
