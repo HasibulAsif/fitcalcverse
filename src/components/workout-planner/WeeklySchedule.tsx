@@ -7,7 +7,6 @@ import { supabase } from "@/integrations/supabase/client";
 import { ExerciseForm } from "./ExerciseForm";
 import { DayColumn } from "./DayColumn";
 import { Exercise, DaySchedule, NewExercise, WorkoutType } from "./types";
-import { TimeSlotPicker } from "./TimeSlotPicker";
 import { GoogleCalendarSync } from "./GoogleCalendarSync";
 import { Loader2 } from "lucide-react";
 
@@ -121,8 +120,10 @@ export const WeeklySchedule = () => {
   return (
     <div className="space-y-6">
       <div className="flex justify-between items-center">
-        <ExerciseForm onAddExercise={addExercise} />
-        <GoogleCalendarSync />
+        <div className="flex gap-4">
+          <ExerciseForm onAddExercise={addExercise} />
+          <GoogleCalendarSync />
+        </div>
       </div>
 
       <DragDropContext onDragEnd={handleDragEnd}>
