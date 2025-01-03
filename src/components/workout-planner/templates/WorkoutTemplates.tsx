@@ -44,13 +44,23 @@ export const WorkoutTemplates = ({ onApplyTemplate }: WorkoutTemplatesProps) => 
 
   const createTemplateMutation = useMutation({
     mutationFn: async (currentExercises: Exercise[]) => {
+      // Convert Exercise[] to a format that Supabase can store as JSONB
+      const exercisesJson = currentExercises.map(exercise => ({
+        id: exercise.id,
+        name: exercise.name,
+        type: exercise.type,
+        duration: exercise.duration,
+        startTime: exercise.startTime,
+        notes: exercise.notes
+      }));
+
       const { data, error } = await supabase
         .from("workout_templates")
         .insert({
           user_id: user?.id,
           name: newTemplate.name,
           description: newTemplate.description,
-          exercises: currentExercises,
+          exercises: exercisesJson,
         });
       if (error) throw error;
       return data;
@@ -124,7 +134,16 @@ export const WorkoutTemplates = ({ onApplyTemplate }: WorkoutTemplatesProps) => 
             key={template.id}
             className="p-4 cursor-pointer hover:bg-accent transition-colors"
             onClick={() => {
-              const exercises = template.exercises as Exercise[];
+              // Convert the stored JSONB back to Exercise[]
+              const exercises = (template.exercises as any[]).map(ex => ({
+                id: ex.id,
+                name: ex.name,
+                type: ex.type,
+                duration: ex.duration,
+                startTime: ex.startTime,
+                notes: ex.notes
+              })) as Exercise[];
+              
               onApplyTemplate(exercises);
               toast.success("Template applied successfully!");
             }}
