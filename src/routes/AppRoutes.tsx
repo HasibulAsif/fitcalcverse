@@ -5,6 +5,7 @@ import Landing from "@/pages/Landing";
 import Login from "@/pages/Login";
 import Register from "@/pages/Register";
 import Index from "@/pages/Index";
+import AiFitnessAssistant from "@/pages/AiFitnessAssistant";
 import CalculatorDashboard from "@/pages/CalculatorDashboard";
 import Settings from "@/pages/Settings";
 import CookieSettings from "@/pages/CookieSettings";
@@ -61,6 +62,7 @@ const AppRoutes = () => (
       <Route path="/" element={<Landing />} />
       <Route path="/login" element={<Login />} />
       <Route path="/register" element={<Register />} />
+      <Route path="/ai-fitness-assistant" element={<ProtectedRoute><AiFitnessAssistant /></ProtectedRoute>} />
       <Route path="/about" element={<About />} />
       <Route path="/contact" element={<Contact />} />
       <Route path="/terms" element={<Terms />} />

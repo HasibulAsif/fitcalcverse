@@ -17,14 +17,20 @@ import {
   Droplets,
   Gauge,
   ArrowRight,
-  HelpCircle,
-  Info
+  Bot
 } from "lucide-react";
 
 export const DashboardFeatures = () => {
   const navigate = useNavigate();
 
   const features = [
+    {
+      title: 'AI Fitness Assistant',
+      description: 'Get personalized fitness advice from our AI assistant',
+      icon: <Bot className="w-6 h-6 text-primary" />,
+      path: '/ai-fitness-assistant',
+      color: 'from-primary/10 to-accent/10'
+    },
     {
       title: 'CalorieBhai',
       description: 'Get instant nutrition information for any food',
