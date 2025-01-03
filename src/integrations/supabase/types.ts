@@ -254,6 +254,45 @@ export type Database = {
         }
         Relationships: []
       }
+      exercise_library: {
+        Row: {
+          calories_per_hour: number | null
+          category: string
+          created_at: string | null
+          description: string | null
+          difficulty: Database["public"]["Enums"]["difficulty_level"]
+          equipment: string[] | null
+          id: string
+          is_template: boolean | null
+          name: string
+          updated_at: string | null
+        }
+        Insert: {
+          calories_per_hour?: number | null
+          category: string
+          created_at?: string | null
+          description?: string | null
+          difficulty: Database["public"]["Enums"]["difficulty_level"]
+          equipment?: string[] | null
+          id?: string
+          is_template?: boolean | null
+          name: string
+          updated_at?: string | null
+        }
+        Update: {
+          calories_per_hour?: number | null
+          category?: string
+          created_at?: string | null
+          description?: string | null
+          difficulty?: Database["public"]["Enums"]["difficulty_level"]
+          equipment?: string[] | null
+          id?: string
+          is_template?: boolean | null
+          name?: string
+          updated_at?: string | null
+        }
+        Relationships: []
+      }
       fitness_scores: {
         Row: {
           assessment_date: string
@@ -807,6 +846,57 @@ export type Database = {
         }
         Relationships: []
       }
+      recurring_patterns: {
+        Row: {
+          created_at: string | null
+          days_of_week: number[] | null
+          end_date: string | null
+          id: string
+          pattern_type: string
+          repeat_interval: number
+          routine_id: string | null
+          start_date: string
+          updated_at: string | null
+        }
+        Insert: {
+          created_at?: string | null
+          days_of_week?: number[] | null
+          end_date?: string | null
+          id?: string
+          pattern_type: string
+          repeat_interval?: number
+          routine_id?: string | null
+          start_date: string
+          updated_at?: string | null
+        }
+        Update: {
+          created_at?: string | null
+          days_of_week?: number[] | null
+          end_date?: string | null
+          id?: string
+          pattern_type?: string
+          repeat_interval?: number
+          routine_id?: string | null
+          start_date?: string
+          updated_at?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "fk_routine"
+            columns: ["routine_id"]
+            isOneToOne: false
+            referencedRelation: "workout_routines"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "recurring_patterns_routine_id_fkey"
+            columns: ["routine_id"]
+            isOneToOne: false
+            referencedRelation: "workout_routines"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       subscriptions: {
         Row: {
           created_at: string | null
@@ -1022,6 +1112,39 @@ export type Database = {
           },
         ]
       }
+      workout_templates: {
+        Row: {
+          created_at: string | null
+          description: string | null
+          exercises: Json
+          id: string
+          is_public: boolean | null
+          name: string
+          updated_at: string | null
+          user_id: string | null
+        }
+        Insert: {
+          created_at?: string | null
+          description?: string | null
+          exercises?: Json
+          id?: string
+          is_public?: boolean | null
+          name: string
+          updated_at?: string | null
+          user_id?: string | null
+        }
+        Update: {
+          created_at?: string | null
+          description?: string | null
+          exercises?: Json
+          id?: string
+          is_public?: boolean | null
+          name?: string
+          updated_at?: string | null
+          user_id?: string | null
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
@@ -1041,6 +1164,7 @@ export type Database = {
         | "vegan"
         | "non-vegetarian"
         | "pescatarian"
+      difficulty_level: "beginner" | "intermediate" | "advanced" | "expert"
       fitness_goal: "weight_loss" | "muscle_gain" | "maintenance"
       food_category: "protein" | "carb" | "fat" | "vegetable"
       nutrition_goal_type:

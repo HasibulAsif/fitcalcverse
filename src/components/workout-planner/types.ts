@@ -21,3 +21,13 @@ export interface NewExercise {
   startTime?: string;
   notes?: string;
 }
+
+export interface RecurringPattern {
+  id: string;
+  routineId: string;
+  patternType: string;
+  repeatInterval: number;
+  daysOfWeek: number[];
+  startDate: string;
+  endDate?: string;
+}

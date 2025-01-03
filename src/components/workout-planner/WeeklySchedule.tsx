@@ -6,7 +6,7 @@ import { useAuth } from "@/contexts/AuthContext";
 import { supabase } from "@/integrations/supabase/client";
 import { ExerciseForm } from "./ExerciseForm";
 import { DayColumn } from "./DayColumn";
-import { Exercise, DaySchedule, NewExercise, WorkoutType } from "./types";
+import { Exercise, DaySchedule, NewExercise } from "./types";
 import { GoogleCalendarSync } from "./GoogleCalendarSync";
 import { Loader2, Mail } from "lucide-react";
 import {
@@ -82,6 +82,22 @@ export const WeeklySchedule = () => {
     });
   };
 
+  const applyTemplate = (exercises: NewExercise[]) => {
+    const newExercises = exercises.map((exercise) => ({
+      ...exercise,
+      id: `exercise-${Date.now()}-${Math.random()}`,
+    }));
+
+    setSchedule({
+      ...schedule,
+      Monday: {
+        ...schedule.Monday,
+        exercises: [...schedule.Monday.exercises, ...newExercises]
+      }
+    });
+    toast.success("Template applied successfully!");
+  };
+
   const saveRoutine = async () => {
     try {
       setIsLoading(true);
@@ -104,7 +120,7 @@ export const WeeklySchedule = () => {
           routine_id: routine.id,
           day_of_week: dayIndex,
           exercise_name: exercise.name,
-          exercise_type: exercise.type as WorkoutType,
+          exercise_type: exercise.type,
           start_time: exercise.startTime || '09:00:00',
           duration_minutes: exercise.duration,
           notes: exercise.notes
@@ -160,7 +176,10 @@ export const WeeklySchedule = () => {
     <div className="space-y-6">
       <div className="flex justify-between items-center">
         <div className="flex gap-4">
-          <ExerciseForm onAddExercise={addExercise} />
+          <ExerciseForm 
+            onAddExercise={addExercise}
+            onApplyTemplate={applyTemplate}
+          />
           <Dialog open={emailOpen} onOpenChange={setEmailOpen}>
             <DialogTrigger asChild>
               <Button variant="outline" className="gap-2">
