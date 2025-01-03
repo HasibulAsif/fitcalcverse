@@ -115,3 +115,43 @@
     @apply w-full;
   }
 }
+
+/* Chat animations */
+@keyframes message-appear {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.message-animation {
+  animation: message-appear 0.3s ease-out forwards;
+}
+
+/* Typing indicator animation */
+@keyframes typing {
+  0% { opacity: 0.3; }
+  50% { opacity: 1; }
+  100% { opacity: 0.3; }
+}
+
+.typing-indicator {
+  animation: typing 1.4s infinite;
+}
+
+/* Futuristic glow effects */
+.glow-effect {
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.1),
+              0 0 20px rgba(255, 255, 255, 0.05),
+              0 0 30px rgba(255, 255, 255, 0.025);
+}
+
+.hover-glow:hover {
+  box-shadow: 0 0 15px rgba(255, 255, 255, 0.2),
+              0 0 30px rgba(255, 255, 255, 0.1),
+              0 0 45px rgba(255, 255, 255, 0.05);
+}

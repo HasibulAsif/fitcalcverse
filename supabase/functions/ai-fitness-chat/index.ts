@@ -5,8 +5,26 @@ const corsHeaders = {
   'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
 };
 
+interface Message {
+  role: 'user' | 'assistant' | 'system';
+  content: string;
+}
+
+interface GroqResponse {
+  id: string;
+  choices: Array<{
+    message: {
+      role: string;
+      content: string;
+    };
+    finish_reason: string;
+  }>;
+  usage: {
+    total_tokens: number;
+  };
+}
+
 serve(async (req) => {
-  // Handle CORS preflight requests
   if (req.method === 'OPTIONS') {
     return new Response(null, { headers: corsHeaders });
   }
@@ -19,6 +37,15 @@ serve(async (req) => {
       throw new Error('GROQ_API key not found');
     }
 
+    // Always include the system message first
+    const allMessages = [
+      {
+        role: "system",
+        content: "You are an AI fitness assistant specialized in providing personalized workout advice, nutrition guidance, and motivation. Your responses should be clear, actionable, and focused on helping users achieve their fitness goals safely and effectively. Always maintain a supportive and encouraging tone."
+      },
+      ...messages
+    ];
+
     const response = await fetch('https://api.groq.com/openai/v1/chat/completions', {
       method: 'POST',
       headers: {
@@ -27,17 +54,18 @@ serve(async (req) => {
       },
       body: JSON.stringify({
         model: "llama-3.3-70b-versatile",
-        messages: [
-          {
-            role: "system",
-            content: "You are an AI fitness assistant. You help users with workout plans, nutrition advice, and general fitness guidance. Your responses should be informative, encouraging, and focused on helping users achieve their fitness goals safely and effectively."
-          },
-          ...messages
-        ],
+        messages: allMessages,
+        temperature: 0.7,
+        max_tokens: 1000,
       }),
     });
 
-    const data = await response.json();
+    if (!response.ok) {
+      const error = await response.json();
+      throw new Error(error.message || 'Failed to get response from Groq API');
+    }
+
+    const data: GroqResponse = await response.json();
     
     return new Response(JSON.stringify(data), {
       headers: { ...corsHeaders, 'Content-Type': 'application/json' },
